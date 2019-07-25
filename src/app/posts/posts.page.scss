@@ -3,7 +3,10 @@
   overflow: hidden;
 }
 
-
 ion-card-content {
   margin-top: 0;
+}
+
+.md ion-card {
+  max-width: 30rem;
 }
