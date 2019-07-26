@@ -10,3 +10,10 @@ ion-card-content {
 .md ion-card {
   max-width: 30rem;
 }
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: #000000;
+    color: #ffffff;
+  }
+}

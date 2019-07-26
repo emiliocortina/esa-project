@@ -1,1 +1,17 @@
+.vertical-align-content {
+  display: flex !important;
+  align-content: center !important;
+  align-items: center !important;
+}
+
+ion-grid {
+  height: 100%;
+}
+
+ion-row {
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  flex-direction: column;
+}
 
