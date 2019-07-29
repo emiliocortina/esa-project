@@ -3,12 +3,24 @@
   overflow: hidden;
 }
 
+ion-header::after {
+  background-image: none;
+}
+
 ion-card-content {
   margin-top: 0;
 }
 
 .md ion-card {
-  max-width: 30rem;
+  max-width: 25rem;
+}
+
+.md ion-list .posts {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  justify-items: center;
 }
 
 @media (prefers-color-scheme: dark) {
