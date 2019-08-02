@@ -15,6 +15,10 @@ export class Topic {
                 return 'assets/images/desert.jpg';
             case ('pollution'):
                 return 'assets/images/pollution.jpg';
+            case('rainfall'):
+                return 'assets/images/rain.jpg';
+            case('tides'):
+                return 'assets/images/tides.jpg';
             default:
                 return 'assets/images/desert.jpg';
         }

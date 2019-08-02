@@ -11,7 +11,7 @@ export class TopicsService {
     }
 
     public loadPopularTopics(topics: Topic[]) {
-        this.http.get('http://localhost:4567/api/popular')
+        this.http.get('http://192.168.0.11:4567/api/popular')
             .subscribe((res) => this.processTopics(topics, res), (err) => console.log(err));
     }
 
