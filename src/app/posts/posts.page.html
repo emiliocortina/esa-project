@@ -16,7 +16,7 @@
     </ion-item>
 
 
-    <ion-list class="categories-list" lines="none">
+    <ion-list class="categoriesList" lines="none">
 
         <ion-list-header 
                 (click)="toggleShowCategories()" 
@@ -27,7 +27,7 @@
         </ion-list-header>
 
         <div *ngIf="isShowingCategories()">
-            <ion-item *ngFor="let cat of categories">
+            <ion-item *ngFor="let cat of categories" class="categoriesListElement">
                 <ion-icon slot="start" color="medium" src="{{ cat.iconUrl }}"></ion-icon>
                 <ion-label>{{ cat.name }}</ion-label>
             </ion-item>
