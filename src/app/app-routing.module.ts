@@ -7,6 +7,7 @@ const routes: Routes = [
   
   { path: '', loadChildren: './tabs/tabs.module#TabsPageModule' },
   { path: 'post/:id', loadChildren: './post-page/post-page.module#PostPagePageModule' },
+  { path: 'search', loadChildren: './post-search/post-search.module#PostSearchPageModule' },
 
 ];
 

@@ -14,6 +14,14 @@ export class TopicsService {
     {
     }
 
+
+    public getTopic(id: string, res, err) : void
+    {
+        // TODO call the backend
+        res(new Topic("We're doomed", this.categoriesService.getCategory("tides"), "We're gonna die"));
+    }
+
+
     public loadPopularTopics(list: Topic[], page: number, callback) : void
     {
         for (let i = 0; i < 4; i ++) {
@@ -42,20 +50,15 @@ export class TopicsService {
     }
 
 
+
+    // TODO Remove dummies
     private async addAsyncDummy(list: Topic[], name: string, catId: string, teaser: string)
     {
         await this.timeout(1000);
-        this.addDummy(list, name, catId, teaser);
-        console.log("ASYNC");
+        list.push(new Topic(name, this.categoriesService.getCategory(catId), teaser));
     }
 
     private timeout(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
-    }
-
-    // TODO remove this
-    private addDummy(list: Topic[], name: string, catId: string, teaser: string) : void
-    {
-        list.push(new Topic(name, this.categoriesService.getCategory(catId), teaser));
     }
 }

@@ -57,6 +57,10 @@ export class PostsPage implements OnInit {
 
     // = = = = = = = = = = = = POSTS = = = = = = = = = = = = //
 
+    goToSearchPage() {
+        this.router.navigate(['/search']);
+    }
+
     readPost(id: string) {
         this.router.navigate(['/post', id]);
     }

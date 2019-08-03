@@ -1,10 +1,22 @@
 <ion-header translucent>
     <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="goToSearchPage()">
+                <ion-icon slot="icon-only" name="search"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title>
             <img src="/assets/icon/logo.svg">
         </ion-title>
+        <ion-buttons slot="start">
+            <ion-button>
+                <ion-icon slot="icon-only" name="menu"></ion-icon>
+            </ion-button>
+        </ion-buttons>
     </ion-toolbar>
 </ion-header>
+
+
 <ion-content fullscreen="true" >
 
     

@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { TopicsService } from '../services/topics.service';
 
 @Component({
   selector: 'app-post-page',
@@ -12,7 +13,9 @@ export class PostPagePage implements OnInit, OnChanges ,OnDestroy {
   postId: string;
   private routerSubscription: any;
 
-  constructor(private route: ActivatedRoute) { }
+  private title: string;
+
+  constructor(private route: ActivatedRoute, private topicsService: TopicsService) { }
 
   ngOnInit()
   {
@@ -33,7 +36,13 @@ export class PostPagePage implements OnInit, OnChanges ,OnDestroy {
   setPostId(id: string)
   {
     this.postId = id;
-    // TODO load post
+
+    let callback = res =>
+      {
+        this.title = res.title;
+      };
+
+    this.topicsService.getTopic(id, callback, () => {});
   }
 
 }
