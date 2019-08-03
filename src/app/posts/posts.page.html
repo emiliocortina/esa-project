@@ -42,9 +42,10 @@
         </ion-list-header>
         <div class="posts">
             <ion-card *ngFor="let topic of topics" class="welcome-card" color="red">
+                    <!-- TODO go to the post page on click (click)=""-->
                 <img src="{{topic.getCoverImage()}}" alt=""/>
                 <ion-card-header>
-                    <ion-card-subtitle>{{topic.category}}</ion-card-subtitle>
+                    <ion-card-subtitle>{{topic.category.name}}</ion-card-subtitle>
                     <ion-card-title>{{topic.title}}</ion-card-title>
                 </ion-card-header>
                 <ion-card-content>
