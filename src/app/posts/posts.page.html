@@ -5,8 +5,9 @@
         </ion-title>
     </ion-toolbar>
 </ion-header>
-<ion-content fullscreen="true">
+<ion-content fullscreen="true" >
 
+    
     <ion-item class="sortby">
         <ion-label>Sort by</ion-label>
         <ion-select interface ="popover">
@@ -14,6 +15,7 @@
             <ion-select-option value="t" selected="true">Trending</ion-select-option>
         </ion-select>
     </ion-item>
+
 
 
     <ion-list class="categoriesList" lines="none">
@@ -36,13 +38,16 @@
     </ion-list>
 
 
-    <ion-list>
-        <ion-list-header>
-            <ion-label>Featured</ion-label>
-        </ion-list-header>
-        <div class="posts">
-            <ion-card *ngFor="let topic of topics" class="welcome-card" color="red">
-                    <!-- TODO go to the post page on click (click)=""-->
+
+
+    <div class="posts">
+        
+        <ion-title>Featured</ion-title>
+
+        <ion-card *ngFor="let topic of topics" class="welcome-card" color="red">
+
+            <div (click)="readPost(topic.id)">
+                
                 <img src="{{topic.getCoverImage()}}" alt=""/>
                 <ion-card-header>
                     <ion-card-subtitle>{{topic.category.name}}</ion-card-subtitle>
@@ -51,7 +56,17 @@
                 <ion-card-content>
                     <p>{{topic.textContent}}</p>
                 </ion-card-content>
-            </ion-card>
-        </div>
-    </ion-list>
+
+            </div>
+
+        </ion-card>
+
+        <ion-infinite-scroll (ionInfinite)="loadMorePosts($event)" loadingSpinner="bubbles">
+            <ion-infinite-scroll-content></ion-infinite-scroll-content>
+        </ion-infinite-scroll>
+
+    </div>
+
+    
+
 </ion-content>
