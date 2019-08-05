@@ -23,6 +23,10 @@ ion-card-content {
   justify-items: center;
 }
 
+ion-buttons ion-button ion-icon {
+  color: #333333;
+}
+
 @media (prefers-color-scheme: dark) {
   html {
     background: #000000;
@@ -42,17 +46,3 @@ ion-card-content {
 
 
 
-
-/* Categories dropdown list */
-.categoriesActive {
-  color: var(--ion-color-primary-contrast);
-  background-color: var(--ion-color-primary);
-}
-
-.categoriesListElement {
-  color: var(--ion-color-primary);
-}
-
-.categoriesHidden {
-  color: var(--ion-color-primary-shade);
-}

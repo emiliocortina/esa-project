@@ -12,7 +12,7 @@ import { timer } from 'rxjs';
 })
 export class AppComponent {
 
-    showSplash: boolean = true;
+    showSplash = false;
 
     constructor(
         private platform: Platform,
@@ -20,15 +20,12 @@ export class AppComponent {
         private statusBar: StatusBar
     ) {
         this.initializeApp();
-        
     }
 
     initializeApp() {
         this.platform.ready().then(() => {
             this.statusBar.styleDefault();
             this.splashScreen.hide();
-
-            timer(3000).subscribe(() => this.showSplash = false);
         });
     }
 

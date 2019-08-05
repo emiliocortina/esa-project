@@ -9,37 +9,11 @@
 :root {
 
   //https://ionicframework.com/docs/theming/themes#application-colors
-  .runtime-theme {
-    --ion-background-color: #118AB2;
-    --ion-background-color-rgb: 17,138,178;
-  
-    --ion-text-color: #ffffff;
-    --ion-text-color-rgb: 255,255,255;
-  
-    --ion-color-step-50: #1d90b6;
-    --ion-color-step-100: #2996ba;
-    --ion-color-step-150: #359cbe;
-    --ion-color-step-200: #41a1c1;
-    --ion-color-step-250: #4da7c5;
-    --ion-color-step-300: #58adc9;
-    --ion-color-step-350: #64b3cd;
-    --ion-color-step-400: #70b9d1;
-    --ion-color-step-450: #7cbfd5;
-    --ion-color-step-500: #88c5d9;
-    --ion-color-step-550: #94cadc;
-    --ion-color-step-600: #a0d0e0;
-    --ion-color-step-650: #acd6e4;
-    --ion-color-step-700: #b8dce8;
-    --ion-color-step-750: #c4e2ec;
-    --ion-color-step-800: #cfe8f0;
-    --ion-color-step-850: #dbedf3;
-    --ion-color-step-900: #e7f3f7;
-    --ion-color-step-950: #f3f9fb;
-  }
+
 
   
   .dark-theme {
-    --ion-background-color: #101010;
+    --ion-background-color: #041008;
     --ion-background-color-rgb: 16,16,16;
 
     --ion-text-color: #ffffff;
@@ -97,7 +71,6 @@ ion-header img {
 */
 
 .splash {
-
   position: absolute;
   width: 100%;
   height: 100%;
@@ -111,7 +84,6 @@ ion-header img {
 .spinner {
   width: 40px;
   height: 40px;
-
   position: relative;
   margin: 100px auto;
 }

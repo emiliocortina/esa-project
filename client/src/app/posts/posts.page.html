@@ -8,39 +8,21 @@
         <ion-title>
             <img src="/assets/icon/logo.svg">
         </ion-title>
-        <ion-buttons slot="start">
-            <ion-button>
-                <ion-icon slot="icon-only" name="menu"></ion-icon>
-            </ion-button>
-        </ion-buttons>
     </ion-toolbar>
 </ion-header>
 
 
-<ion-content fullscreen="true" >
-
-    
-    <ion-item class="sortby">
-        <ion-label>Sort by</ion-label>
-        <ion-select interface ="popover">
-            <ion-select-option value="n" selected="true">New</ion-select-option>
-            <ion-select-option value="t" selected="true">Trending</ion-select-option>
-        </ion-select>
-    </ion-item>
-
-
+<ion-content fullscreen="true">
 
     <ion-list class="categoriesList" lines="none">
 
-        <ion-list-header 
-                (click)="toggleShowCategories()" 
-                class="unselectableText"
-                [ngClass]="{'categoriesActive': isShowingCategories(), 'categoriesHidden': !isShowingCategories()}">
+        <ion-list-header
+                class="unselectableText">
 
             Categories
         </ion-list-header>
 
-        <div *ngIf="isShowingCategories()">
+        <div>
             <ion-item *ngFor="let cat of categories" class="categoriesListElement">
                 <ion-icon slot="start" color="medium" src="{{ cat.iconUrl }}"></ion-icon>
                 <ion-label>{{ cat.name }}</ion-label>
@@ -50,35 +32,37 @@
     </ion-list>
 
 
+    <ion-list>
+        <ion-list-header>
+            <ion-label>Featured</ion-label>
+        </ion-list-header>
+        <div class="posts">
+
+            <ion-card *ngFor="let topic of topics" class="welcome-card" color="red">
+
+                <div (click)="readPost(topic.id)">
+
+                    <img src="{{topic.getCoverImage()}}" alt=""/>
+                    <ion-card-header>
+                        <ion-card-subtitle>{{topic.category.name}}</ion-card-subtitle>
+                        <ion-card-title>{{topic.title}}</ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p>{{topic.textContent}}</p>
+                    </ion-card-content>
+
+                </div>
+
+            </ion-card>
+
+            <ion-infinite-scroll (ionInfinite)="loadMorePosts($event)" loadingSpinner="bubbles">
+                <ion-infinite-scroll-content></ion-infinite-scroll-content>
+            </ion-infinite-scroll>
+
+        </div>
+    </ion-list>
 
 
-    <div class="posts">
-        
-        <ion-title>Featured</ion-title>
 
-        <ion-card *ngFor="let topic of topics" class="welcome-card" color="red">
-
-            <div (click)="readPost(topic.id)">
-                
-                <img src="{{topic.getCoverImage()}}" alt=""/>
-                <ion-card-header>
-                    <ion-card-subtitle>{{topic.category.name}}</ion-card-subtitle>
-                    <ion-card-title>{{topic.title}}</ion-card-title>
-                </ion-card-header>
-                <ion-card-content>
-                    <p>{{topic.textContent}}</p>
-                </ion-card-content>
-
-            </div>
-
-        </ion-card>
-
-        <ion-infinite-scroll (ionInfinite)="loadMorePosts($event)" loadingSpinner="bubbles">
-            <ion-infinite-scroll-content></ion-infinite-scroll-content>
-        </ion-infinite-scroll>
-
-    </div>
-
-    
 
 </ion-content>
