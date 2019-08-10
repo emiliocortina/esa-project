@@ -1,11 +1,70 @@
 <ion-header>
-  <ion-toolbar>
-      <ion-buttons slot="start">
-        <ion-back-button defaultHref=""></ion-back-button>
-      </ion-buttons>
-    <ion-title>{{ title }}</ion-title>
-  </ion-toolbar>
+    <ion-toolbar translucent>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref=""></ion-back-button>
+        </ion-buttons>
+        <ion-title *ngIf="topic">{{ topic.category.name }}</ion-title>
+    </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="topic" fullscreen="true">
+    <img [src]="topic.getCoverImage()" alt="">
+
+    <div class="initialPost">
+        <ion-card-header>
+            <ion-card-title>{{topic.title}}</ion-card-title>
+            <ion-card-subtitle>By {{topic.getCreatorName()}}</ion-card-subtitle>
+        </ion-card-header>
+        <ion-card-content>
+            <p>{{topic.getPreview()}}</p>
+        </ion-card-content>
+    </div>
+
+    <div class="comments">
+        <ion-card>
+            <ion-card-header>
+                <ion-card-subtitle>{{topic.getCreatorName()}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <p>{{topic.getPreview()}}</p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-subtitle>{{topic.getCreatorName()}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <p>{{topic.getPreview()}}</p>
+            </ion-card-content>
+        </ion-card>
+        <ion-card>
+            <ion-card-header>
+                <ion-card-subtitle>{{topic.getCreatorName()}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <p>{{topic.getPreview()}}</p>
+            </ion-card-content>
+        </ion-card>
+    </div>
 </ion-content>
+
+
+<ion-footer>
+    <ion-toolbar>
+        <ion-buttons slot="secondary">
+            <ion-button>
+                <ion-icon slot="icon-only" src="assets/icon/satellite.svg"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-item>
+            <ion-textarea placeholder="Enter your comment here"></ion-textarea>
+        </ion-item>
+
+        <ion-buttons slot="primary">
+            <ion-button>
+                <ion-icon slot="icon-only" name="send"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

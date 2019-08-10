@@ -15,20 +15,14 @@
 <ion-content fullscreen="true">
 
     <ion-list class="categoriesList" lines="none">
-
-        <ion-list-header
-                class="unselectableText">
-
+        <ion-list-header class="unselectableText">
             Categories
         </ion-list-header>
 
-        <div>
-            <ion-item *ngFor="let cat of categories" class="categoriesListElement">
-                <ion-icon slot="start" color="medium" src="{{ cat.iconUrl }}"></ion-icon>
-                <ion-label>{{ cat.name }}</ion-label>
-            </ion-item>
-        </div>
-
+        <ion-item *ngFor="let cat of categories" class="categoriesListElement" button="">
+            <ion-icon slot="start" color="medium" src="{{ cat.iconUrl }}"></ion-icon>
+            <ion-label>{{ cat.name }}</ion-label>
+        </ion-item>
     </ion-list>
 
 
@@ -48,7 +42,7 @@
                         <ion-card-title>{{topic.title}}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        <p>{{topic.textContent}}</p>
+                        <p>{{topic.getPreview()}}</p>
                     </ion-card-content>
 
                 </div>
@@ -64,5 +58,10 @@
 
 
 
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="primary">
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 
 </ion-content>
