@@ -6,6 +6,7 @@ export class Category {
     public iconUrl: string;
     public coverImageUrl: string;
 
+    // Categories are both used by topics and by satellite data.
     constructor(id: string, name: string, iconUrl: string, coverImageUrl: string) {
         this.id = id;
         this.name = name;

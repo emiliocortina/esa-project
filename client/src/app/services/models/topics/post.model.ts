@@ -1,4 +1,4 @@
-import {User} from './user.model';
+import {User} from '../user.model';
 
 export class Post {
 
@@ -7,9 +7,8 @@ export class Post {
     user: User;
     created: Date;
 
-    constructor(textContent: string, user: User, created: Date) {
-        // TODO constructor with id
-        this.id = 'unknown';
+    constructor(id: string, textContent: string, user: User, created: Date) {
+        this.id = id;
 
         this.textContent = textContent;
         this.user = user;

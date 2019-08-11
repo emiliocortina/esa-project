@@ -1,7 +1,7 @@
 import {Component, OnInit, OnChanges, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TopicsService} from '../../../services/topics.service';
-import {Topic} from '../../../services/models/topic.model';
+import {Topic} from '../../../services/models/topics/topic.model';
 
 @Component({
     selector: 'app-post-page',

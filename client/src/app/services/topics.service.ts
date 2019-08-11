@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Topic} from './models/topic.model';
+import {Topic} from './models/topics/topic.model';
 import {CategoriesService} from './categories.service';
 
 @Injectable({

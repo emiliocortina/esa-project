@@ -12,7 +12,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../topics/topics.module#TopicsPageModule'
+            loadChildren: './topics/topics.module#TopicsPageModule'
           }
         ]
       },
@@ -21,7 +21,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../stats/stats.module#StatsPageModule'
+            loadChildren: './stats/stats.module#StatsPageModule'
           }
         ]
       },
@@ -30,7 +30,7 @@ const routes: Routes = [
         children: [
           {
             path: '',
-            loadChildren: '../profile/profile.module#ProfilePageModule'
+            loadChildren: './profile/profile.module#ProfilePageModule'
           }
         ]
       },

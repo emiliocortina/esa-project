@@ -5,8 +5,8 @@ import {PreloadAllModules, RouterModule, Routes} from '@angular/router';
 const routes: Routes = [
 
     {path: '', loadChildren: './tabs/tabs.module#TabsPageModule'},
-    {path: 'post/:id', loadChildren: './topic-page/topic-page.module#TopicPagePageModule'},
-    {path: 'search', loadChildren: './topic-search/topic-search.module#TopicSearchPageModule'},
+    {path: 'post/:id', loadChildren: './tabs/topics/topic-page/topic-page.module#TopicPagePageModule'},
+    {path: 'search', loadChildren: './tabs/topics/topic-search/topic-search.module#TopicSearchPageModule'},
 
 ];
 

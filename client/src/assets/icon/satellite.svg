@@ -1,1 +1,17 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 552.99 741.72"><defs><style>.cls-1,.cls-2{fill:none;stroke:#333;stroke-linecap:round;stroke-width:42px;}.cls-1{stroke-linejoin:round;}</style></defs><title>Recurso 17</title><g id="Capa_2" data-name="Capa 2"><g id="Capa_1-2" data-name="Capa 1"><g id="g5863"><path id="path3347" class="cls-1" d="M433.09,703.76q11.25,8.46,23,16.51L444,679.91m-.15-.48L237.6,21c-115.77,275.82,16,568.18,218.46,699.72"/><rect id="rect4157" class="cls-2" x="62.92" y="298.5" width="86.44" height="296.8" rx="1.84" transform="translate(-128.73 52.16) rotate(-17.39)"/><path id="path4200" class="cls-2" d="M532,310.32,347,369.2"/><path id="path4207" class="cls-2" d="M531.71,310.4,309.64,249.83m222.29,60.5-52.41-3.73"/><path id="path4209" class="cls-2" d="M532,310.34l-144.51,188"/></g></g></g></svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 552.99 741.72">
+
+    <title>Recurso 17</title>
+    <g id="Capa_2" data-name="Capa 2">
+        <g id="Capa_1-2" data-name="Capa 1">
+            <g id="g5863">
+                <path id="path3347" class="cls-1"
+                      d="M433.09,703.76q11.25,8.46,23,16.51L444,679.91m-.15-.48L237.6,21c-115.77,275.82,16,568.18,218.46,699.72"/>
+                <rect id="rect4157" class="cls-2" x="62.92" y="298.5" width="86.44" height="296.8" rx="1.84"
+                      transform="translate(-128.73 52.16) rotate(-17.39)"/>
+                <path id="path4200" class="cls-2" d="M532,310.32,347,369.2"/>
+                <path id="path4207" class="cls-2" d="M531.71,310.4,309.64,249.83m222.29,60.5-52.41-3.73"/>
+                <path id="path4209" class="cls-2" d="M532,310.34l-144.51,188"/>
+            </g>
+        </g>
+    </g>
+</svg>

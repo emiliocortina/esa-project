@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref=""></ion-back-button>
         </ion-buttons>
-        <ion-title *ngIf="topic">{{ topic.category.name }}</ion-title>
+        <ion-title *ngIf="topic">{{ topic.title }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
@@ -21,28 +21,13 @@
     </div>
 
     <div class="comments">
-        <ion-card>
+        <ion-card class="commentPost" *ngFor="let post of topic.comments">
             <ion-card-header>
-                <ion-card-subtitle>{{topic.getCreatorName()}}</ion-card-subtitle>
+                <ion-card-subtitle>@{{post.user.nickName}}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-                <p>{{topic.getPreview()}}</p>
-            </ion-card-content>
-        </ion-card>
-        <ion-card>
-            <ion-card-header>
-                <ion-card-subtitle>{{topic.getCreatorName()}}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-                <p>{{topic.getPreview()}}</p>
-            </ion-card-content>
-        </ion-card>
-        <ion-card>
-            <ion-card-header>
-                <ion-card-subtitle>{{topic.getCreatorName()}}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-                <p>{{topic.getPreview()}}</p>
+                <p class="postText">{{post.textContent}}</p>
+                <p class="postDate">{{post.created.toLocaleString()}}</p>
             </ion-card-content>
         </ion-card>
     </div>
@@ -53,7 +38,7 @@
     <ion-toolbar>
         <ion-buttons slot="secondary">
             <ion-button>
-                <ion-icon slot="icon-only" src="assets/icon/satellite.svg"></ion-icon>
+                <ion-icon id="satelliteButton" slot="icon-only" src="assets/icon/satellite.svg"></ion-icon>
             </ion-button>
         </ion-buttons>
 
