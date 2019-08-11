@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-post-search',
-  templateUrl: './post-search.page.html',
-  styleUrls: ['./post-search.page.scss'],
+  templateUrl: './topic-search.page.html',
+  styleUrls: ['./topic-search.page.scss'],
 })
-export class PostSearchPage implements OnInit {
+export class TopicSearchPage implements OnInit {
 
   constructor() { }
 

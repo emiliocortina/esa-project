@@ -1,8 +1,8 @@
 import {Component, OnInit} from '@angular/core';
-import {TopicsService} from '../services/topics.service';
-import {Topic} from '../services/models/topic.model';
-import {CategoriesService} from '../services/categories.service';
-import {Category} from '../services/models/category.model';
+import {TopicsService} from '../../services/topics.service';
+import {Topic} from '../../services/models/topic.model';
+import {CategoriesService} from '../../services/categories.service';
+import {Category} from '../../services/models/category.model';
 import {Router} from '@angular/router';
 
 @Component({
