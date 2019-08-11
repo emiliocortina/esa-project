@@ -5,10 +5,10 @@ import {Topic} from '../services/models/topic.model';
 
 @Component({
     selector: 'app-post-page',
-    templateUrl: './post-page.page.html',
-    styleUrls: ['./post-page.page.scss'],
+    templateUrl: './topic-page.page.html',
+    styleUrls: ['./topic-page.page.scss'],
 })
-export class PostPagePage implements OnInit, OnChanges, OnDestroy {
+export class TopicPagePage implements OnInit, OnChanges, OnDestroy {
 
 
     postId: string;

@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PostPagePage } from './post-page.page';
+import { TopicPagePage } from './topic-page.page';
 
-describe('PostPagePage', () => {
-  let component: PostPagePage;
-  let fixture: ComponentFixture<PostPagePage>;
+describe('TopicPagePage', () => {
+  let component: TopicPagePage;
+  let fixture: ComponentFixture<TopicPagePage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ PostPagePage ],
+      declarations: [ TopicPagePage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(PostPagePage);
+    fixture = TestBed.createComponent(TopicPagePage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
