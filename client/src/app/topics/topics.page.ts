@@ -1,18 +1,18 @@
 import {Component, OnInit} from '@angular/core';
 import {TopicsService} from '../services/topics.service';
 import {Topic} from '../services/models/topic.model';
-import { CategoriesService } from '../services/categories.service';
-import { Category } from '../services/models/category.model';
-import { Router } from '@angular/router';
+import {CategoriesService} from '../services/categories.service';
+import {Category} from '../services/models/category.model';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-tab1',
-    templateUrl: 'posts.page.html',
-    styleUrls: ['posts.page.scss']
+    templateUrl: 'topics.page.html',
+    styleUrls: ['topics.page.scss']
 })
-export class PostsPage implements OnInit {
+export class TopicsPage implements OnInit {
 
-    topicsPage : number = 0;
+    topicsPage: number = 0;
     topics: Topic[];
 
     categories: Category[];
@@ -20,10 +20,10 @@ export class PostsPage implements OnInit {
 
 
     constructor(
-            private topicsService: TopicsService, 
-            private categoriesService: CategoriesService,
-            private router: Router
-            ){
+        private topicsService: TopicsService,
+        private categoriesService: CategoriesService,
+        private router: Router
+    ) {
 
         this.categories = this.categoriesService.getCategories();
     }
@@ -36,23 +36,15 @@ export class PostsPage implements OnInit {
     }
 
 
-
-
-
     // = = = = = = = = = = = = CATEGORIES = = = = = = = = = = = = //
 
-    toggleShowCategories() : void
-    {
+    toggleShowCategories(): void {
         this.categoriesToggle = !this.categoriesToggle;
     }
 
-    isShowingCategories() : boolean
-    {
+    isShowingCategories(): boolean {
         return this.categoriesToggle;
     }
-
-
-
 
 
     // = = = = = = = = = = = = POSTS = = = = = = = = = = = = //
@@ -65,8 +57,7 @@ export class PostsPage implements OnInit {
         this.router.navigate(['/post', id]);
     }
 
-    loadPosts(infiniteScroll?)
-    {
+    loadPosts(infiniteScroll?) {
         this.topicsService
             .loadPopularTopics(this.topics, this.topicsPage, res => {
                 if (infiniteScroll)
@@ -74,12 +65,10 @@ export class PostsPage implements OnInit {
             });
     }
 
-    loadMorePosts(infiniteScroll)
-    {
-        this.topicsPage ++;
+    loadMorePosts(infiniteScroll) {
+        this.topicsPage++;
         this.loadPosts(infiniteScroll);
     }
-
 
 
 }
