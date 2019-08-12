@@ -12,18 +12,18 @@
 <ion-content>
     <ion-list lines="none">
         <ion-list-header class="unselectableText">
-            Write a post
+            {{stats.name}} Measurements
         </ion-list-header>
         <ion-item *ngFor="let field of stats.fields">
             <ion-label>{{field.name}}</ion-label>
-            <ion-checkbox slot="start" color="tertiary"></ion-checkbox>
+            <ion-checkbox slot="start" color="dark" [(ngModel)]="field.isChecked"></ion-checkbox>
             <ion-badge color="{{field.color}}" slot="end">{{field.getOverview()}}</ion-badge>
         </ion-item>
     </ion-list>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="dark" (click)="dismissModal()">
-            <ion-icon name="close"></ion-icon>
+        <ion-fab-button color="tertiary" (click)="showInfo()">
+            <ion-icon name="information"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 
@@ -37,10 +37,16 @@
         </ion-card-header>
         <ion-card-content>
             <ion-textarea placeholder="Write your post" rows="5"></ion-textarea>
+            <div class="chip" *ngFor="let field of stats.fields">
+                <ion-chip outline color="{{field.color}}" (click)="field.isChecked=false" *ngIf="field.isChecked">
+                    <ion-label>{{field.name}}</ion-label>
+                    <ion-icon name="close"></ion-icon>
+                </ion-chip>
+            </div>
         </ion-card-content>
     </ion-card>
 
     <ion-row justify-content-center>
-        <ion-button color="dark" class="createPost" (click)="createPost()">Create post</ion-button>
+        <ion-button [color]="showCard? 'success' : 'dark'" class="createPost" (click)="createPost()">Create post</ion-button>
     </ion-row>
 </ion-content>

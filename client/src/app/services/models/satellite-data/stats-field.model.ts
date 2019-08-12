@@ -4,12 +4,14 @@ export class StatsField {
     value: number;
     unit: string;
     color: string;
+    isChecked: boolean;
 
     constructor(name: string, value: number, unit: string, color: string) {
         this.name = name;
         this.value = value;
         this.unit = unit;
         this.color = color;
+        this.isChecked = true;
     }
 
     getOverview(): string {

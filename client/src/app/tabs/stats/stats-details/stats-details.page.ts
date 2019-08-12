@@ -30,4 +30,7 @@ export class StatsDetailsPage implements OnInit {
             // Submit the post;
         }
     }
+
+    showInfo() {
+    }
 }
