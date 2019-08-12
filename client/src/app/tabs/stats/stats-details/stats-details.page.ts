@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {SatelliteStats} from '../../../services/models/satellite-data/satellite-stats.model';
 import {ModalController} from '@ionic/angular';
+import {StorageService} from '../../../services/authentication/storage.service';
 
 @Component({
     selector: 'app-stats-details',
@@ -13,7 +14,7 @@ export class StatsDetailsPage implements OnInit {
 
     @Input() stats: SatelliteStats;
 
-    constructor(private modalController: ModalController) {
+    constructor(private modalController: ModalController, private usersService: StorageService) {
     }
 
     ngOnInit() {
@@ -27,7 +28,9 @@ export class StatsDetailsPage implements OnInit {
         if (!this.showCard) {
             this.showCard = true;
         } else {
-            // Submit the post;
+            if (!this.usersService.isAuthenticated()) {
+                this.modalController.dismiss({err: 'You need to be logged in to submit a post.'});
+            }
         }
     }
 
