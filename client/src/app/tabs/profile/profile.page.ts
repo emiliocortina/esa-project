@@ -14,7 +14,7 @@ export class ProfilePage implements OnInit {
 
     ngOnInit(): void {
         if (!this.usersService.getUser()) {
-            this.router.navigate(['/login']);
+            this.router.navigate(['/tabs/profile/login']);
         }
     }
 
