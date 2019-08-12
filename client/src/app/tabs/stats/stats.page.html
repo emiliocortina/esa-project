@@ -8,8 +8,8 @@
                 <ion-card-subtitle>Oviedo, Asturias, Spain</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-                <ion-list lines="none" *ngIf="data">
-                    <ion-item *ngFor="let dataItem of data" button="">
+                <ion-list lines="none" *ngIf="stats">
+                    <ion-item *ngFor="let dataItem of stats" (click)="showStatsDetails(dataItem)" button>
                         <ion-icon slot="start" color="medium" src="{{ dataItem.category.iconUrl }}"></ion-icon>
                         <ion-label>{{dataItem.name}}</ion-label>
                         <ion-badge color="{{dataItem.getOverviewField().color}}">{{dataItem.getOverviewField().getOverview()}}</ion-badge>
@@ -19,4 +19,3 @@
         </ion-card>
     </ion-row>
 </ion-grid>
-

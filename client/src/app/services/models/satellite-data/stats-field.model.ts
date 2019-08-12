@@ -1,4 +1,4 @@
-export class DataField {
+export class StatsField {
 
     name: string;
     value: number;

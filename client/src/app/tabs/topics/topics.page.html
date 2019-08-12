@@ -33,7 +33,6 @@
         <div class="posts">
 
             <ion-card *ngFor="let topic of topics" class="welcome-card" color="red">
-
                 <div (click)="readPost(topic.id)">
 
                     <img src="{{topic.getCoverImage()}}" alt=""/>
@@ -59,7 +58,7 @@
 
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="primary">
+        <ion-fab-button color="tertiary">
             <ion-icon name="add"></ion-icon>
         </ion-fab-button>
     </ion-fab>
