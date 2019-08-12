@@ -5,14 +5,19 @@ import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
 import {ProfilePage} from './profile.page';
 import {LoginPage} from './login/login.page';
+import {NeedAuthGuard} from '../../auth.guard';
 
 @NgModule({
     imports: [
         IonicModule,
         CommonModule,
         FormsModule,
-        RouterModule.forChild([{path: '', component: ProfilePage},
+        RouterModule.forChild([
+            {path: '', component: ProfilePage, canActivate: [NeedAuthGuard]},
             {path: 'login', component: LoginPage}])
+    ],
+    providers: [
+        NeedAuthGuard
     ],
     declarations: [ProfilePage, LoginPage]
 })

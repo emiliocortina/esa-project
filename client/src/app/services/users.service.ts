@@ -11,4 +11,8 @@ export class UsersService {
   getUser(): User {
     return null;
   }
+
+    isLogged() {
+        return false;
+    }
 }

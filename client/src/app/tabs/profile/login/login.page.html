@@ -1,9 +1,26 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
+  <ion-grid>
+    <ion-row justify-content-center align-items-center>
+      <ion-card>
+        <img src="/assets/icon/logo.svg" alt=""/>
+        <ion-card-header>
+          <ion-card-title *ngIf="login">Login</ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+          <ion-label>Email</ion-label>
+          <ion-row justify-content-center align-items-center>
+            <ion-input placeholder="Enter your email address" inputmode="email"></ion-input>
+          </ion-row>
+          <ion-label>Password</ion-label>
+          <ion-row justify-content-center align-items-center>
+          <ion-input placeholder="Enter your password" inputmode="password"></ion-input>
+        </ion-row>
+          <ion-row justify-content-center align-items-center>
+            <ion-button color="">Submit</ion-button>
+          </ion-row>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
 
 </ion-content>
