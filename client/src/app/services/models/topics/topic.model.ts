@@ -1,6 +1,6 @@
 import {Category} from '../category.model';
 import {Post} from './post.model';
-import {User} from '../user.model';
+import {User} from '../../authentication/user';
 
 export class Topic {
 

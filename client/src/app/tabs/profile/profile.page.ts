@@ -1,6 +1,4 @@
 import {Component, OnInit} from '@angular/core';
-import {UsersService} from '../../services/users.service';
-import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-tab3',
@@ -9,7 +7,7 @@ import {Router} from '@angular/router';
 })
 export class ProfilePage implements OnInit {
 
-    constructor(private usersService: UsersService, private router: Router) {
+    constructor() {
     }
 
     ngOnInit(): void {

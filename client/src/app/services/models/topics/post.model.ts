@@ -1,4 +1,4 @@
-import {User} from '../user.model';
+import {User} from '../../authentication/user';
 import {SatelliteStats} from '../satellite-data/satellite-stats.model';
 
 export class Post {
