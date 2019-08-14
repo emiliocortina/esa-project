@@ -3,6 +3,28 @@
   overflow: hidden;
 }
 
+.ios ion-card:hover {
+  animation-name: hoverCard;
+  animation-duration: 0.7s;
+}
+
+.md ion-card:hover {
+  transform: scale(0.96);
+  transition: 0.2s;
+}
+
+@keyframes hoverCard {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.96);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
 ion-header::after {
   background-image: none;
 }
@@ -13,6 +35,7 @@ ion-card-content {
 
 .md ion-card {
   max-width: 25rem;
+  cursor: pointer;
 }
 
 .md ion-list .posts {
