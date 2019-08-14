@@ -7,12 +7,19 @@ const tokkenServ = require('../services/token.service');
 usersCtrl.signup = async (req, res) => {
 	const user = new Model(req.body);
 	user.unencodedPass=user.password;
-	const existentUser = await Model.findOne({ email:user.email });
+	let existentUser = await Model.findOne({ email:user.email });
 	
 	if (existentUser) {
 		res.status(400).json({error:"Already existing email",code:1})
 		return;
 	}
+
+	existentUser = await Model.findOne({ nickName: user.nickName });
+	if (existentUser) {
+		res.status(400).json({error:"Already existing nick name",code:1})
+		return;
+	}
+
 	console.log('Body ' + user);
 	bcrypt.hash(user.unencodedPass, salt, function(err, hash) {
 		if (err) {
@@ -58,7 +65,8 @@ usersCtrl.login = async (req, res) => {
 					user: {
 						email: email,
 						name: user.name,
-						surname: user.surname
+						nickName: user.nickName,
+						avatarId: user.avatarId
 					}
 				});
 

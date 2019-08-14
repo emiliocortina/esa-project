@@ -3,7 +3,7 @@
         <ion-title color="dark">{{stats.name}}</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="dismissModal()">
-                <ion-icon slot="icon-only" name="close"></ion-icon>
+                <ion-icon slot="icon-only" name="close" color="dark"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>
@@ -22,7 +22,7 @@
     </ion-list>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="tertiary" (click)="showInfo()">
+        <ion-fab-button color="secondary" (click)="showInfo()" href="https://google.com">
             <ion-icon name="information"></ion-icon>
         </ion-fab-button>
     </ion-fab>

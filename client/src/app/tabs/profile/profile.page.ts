@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
-import {StorageService} from "../../services/authentication/storage.service";
-import {User} from "../../services/authentication/user";
-import {Router} from "@angular/router";
+import {StorageService} from '../../services/authentication/storage.service';
+import {User} from '../../services/authentication/user';
+import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-tab3',

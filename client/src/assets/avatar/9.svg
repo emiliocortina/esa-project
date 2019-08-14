@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 23.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 512 512" style="enable-background:new 0 0 512 512;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:#FFDA29;}
+	.st1{fill:#00A474;}
+	.st2{fill:#008C61;}
+	.st3{fill:none;stroke:#000000;stroke-width:6;stroke-miterlimit:10;}
+</style>
+<g>
+	<g id="XMLID_1_">
+		<g>
+			<circle class="st0" cx="256" cy="116.1" r="10.4"/>
+			<polygon class="st1" points="402.3,292.2 331.6,406.4 256,406.4 330.1,348.6 			"/>
+			<polygon class="st2" points="342.8,232.7 330,348.5 330.1,348.6 256,406.4 			"/>
+			<polygon class="st2" points="169.2,232.7 256,406.4 181.9,348.6 182,348.5 			"/>
+			<polygon class="st1" points="256,406.4 180.4,406.4 109.7,292.2 181.9,348.6 			"/>
+		</g>
+		<g>
+			<polygon class="st3" points="256,406.4 180.4,406.4 109.7,292.2 181.9,348.6 			"/>
+			<polygon class="st3" points="256,406.4 331.6,406.4 402.3,292.2 330.1,348.6 			"/>
+			<polyline class="st3" points="182,348.5 169.2,232.7 256,406.4 			"/>
+			<polyline class="st3" points="330,348.5 342.8,232.7 256,406.4 			"/>
+			<line class="st3" x1="256" y1="126.6" x2="256" y2="406.4"/>
+			<circle class="st3" cx="256" cy="116.1" r="10.4"/>
+		</g>
+	</g>
+</g>
+</svg>

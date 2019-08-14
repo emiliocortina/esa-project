@@ -32,18 +32,25 @@ export class StatsPage implements OnInit {
         });
         modal.onDidDismiss().then((detail) => {
             if (detail !== null) {
-                if (detail.data && detail.data.err) {
-                    this.showToast(detail.data.err);
-                    this.router.navigate(['/tabs/profile/login']);
+                if (detail.data) {
+                    if (detail.data.err) {
+                        this.showToast(detail.data.err, 'dark');
+                        this.router.navigate(['/tabs/profile/login']);
+                    } else {
+                        if (detail.data.success) {
+                            this.showToast(detail.data.success, 'success');
+                        }
+                    }
                 }
+
             }
         });
         return await modal.present();
     }
 
-    async showToast(msg: string) {
+    async showToast(msg: string, color: string) {
         const toast = await this.toastController.create({
-            color: 'dark',
+            color: color,
             message: msg,
             showCloseButton: true,
             duration: 3000

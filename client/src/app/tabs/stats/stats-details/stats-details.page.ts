@@ -75,5 +75,6 @@ export class StatsDetailsPage implements OnInit {
         const topic = new Topic('0', this.postTitle, this.stats.category, this.postBody);
         // TODO
         // this.topicService.submitTopic(topic);
+        this.modalController.dismiss({success: 'Topic successfully created!'});
     }
 }

@@ -7,7 +7,7 @@
     </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="topic" fullscreen="true">
+<ion-content *ngIf="topic" fullscreen>
     <img [src]="topic.getCoverImage()" alt="">
 
     <div class="initialPost">
@@ -49,7 +49,7 @@
 
         <ion-buttons slot="primary">
             <ion-button>
-                <ion-icon slot="icon-only" name="send"></ion-icon>
+                <ion-icon slot="icon-only" name="send" color="dark"></ion-icon>
             </ion-button>
         </ion-buttons>
     </ion-toolbar>

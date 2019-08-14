@@ -1,4 +1,4 @@
-<ion-header translucent>
+<ion-header translucent no-border>
     <ion-toolbar>
         <ion-buttons slot="end">
             <ion-button (click)="logOut()" routerLink="/tabs/profile/login">
@@ -13,11 +13,21 @@
 
 <ion-content>
     <ion-row justify-content-center align-items-center>
-        <ion-avatar>
-            <img src="/assets/icon/avatar.svg">
-        </ion-avatar>
-        <ion-item color="secondary">
-            <ion-label>{{user.name}} {{user.surname}}</ion-label>
-        </ion-item>
+        <ion-card>
+            <ion-card-header>
+                <ion-row justify-content-center align-items-center>
+                    <ion-avatar>
+                        <img src="{{user.avatarId? '/assets/avatar/'+user.avatarId+'.svg' : '/assets/avatar/8.svg'}}">
+                    </ion-avatar>
+                </ion-row>
+                <ion-card-title>{{user.name}}</ion-card-title>
+                <ion-card-subtitle>@{{user.nickName}}</ion-card-subtitle>
+            </ion-card-header>
+            <ion-card-content>
+                <b>Email: </b><span>{{user.email}}</span>
+            </ion-card-content>
+        </ion-card>
     </ion-row>
+
+
 </ion-content>

@@ -28,7 +28,7 @@ export class LoginPage implements OnInit {
 
     ngOnInit() {
         this.loginForm = this.formBuilder.group({
-            email: ['hola@email.com', Validators.required],
+            email: ['hola3@email.com', Validators.required],
             password: ['prueba', Validators.required]
         });
     }
@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
         if (error.error && error.error.error) {
             errorMessage = error.error.error;
         } else {
-            errorMessage = 'Incorrect user or passwordaaa.';
+            errorMessage = 'Incorrect user or password.';
         }
         const toast = await this.toastController.create({
             color: 'danger',
