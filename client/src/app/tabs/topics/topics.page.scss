@@ -8,9 +8,12 @@
   animation-duration: 0.7s;
 }
 
-.md ion-card:hover {
-  transform: scale(0.96);
+.md ion-card {
   transition: 0.2s;
+
+  &:hover {
+    transform: scale(0.96);
+  }
 }
 
 @keyframes hoverCard {
@@ -34,7 +37,7 @@ ion-card-content {
 }
 
 .md ion-card {
-  max-width: 25rem;
+  max-width: 23rem;
   cursor: pointer;
 }
 
