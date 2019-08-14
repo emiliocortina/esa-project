@@ -14,6 +14,7 @@ export class Topic {
         this.id = id;
         this.title = title;
         this.category = category;
+        // TODO Cambiar esto q es pa los dummies
         this.initialPost = new Post('0', textContent,
             new User('emiliocortina', 'Emilio', 'emilio@email.com'), new Date());
         this.comments = [];

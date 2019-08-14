@@ -43,7 +43,9 @@ export class StatsPage implements OnInit {
 
     async showToast(msg: string) {
         const toast = await this.toastController.create({
+            color: 'dark',
             message: msg,
+            showCloseButton: true,
             duration: 3000
         });
         toast.present();

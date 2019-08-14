@@ -32,11 +32,11 @@
         <ion-card-header>
             <ion-card-subtitle>{{stats.category.name}}</ion-card-subtitle>
             <ion-card-title>
-                <ion-input placeholder="Enter title"></ion-input>
+                <ion-input placeholder="Enter title" [(ngModel)]="postTitle"></ion-input>
             </ion-card-title>
         </ion-card-header>
         <ion-card-content>
-            <ion-textarea placeholder="Write your post" rows="5"></ion-textarea>
+            <ion-textarea placeholder="Write your post" rows="5" [(ngModel)]="postBody"></ion-textarea>
             <div class="chip" *ngFor="let field of stats.fields">
                 <ion-chip outline color="{{field.color}}" (click)="field.isChecked=false" *ngIf="field.isChecked">
                     <ion-label>{{field.name}}</ion-label>
