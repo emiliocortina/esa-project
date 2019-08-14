@@ -1,16 +1,23 @@
-<ion-grid>
-    <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
-        <ion-card>
-            <img src="/assets/images/map.jpg" alt=""/>
-            <ion-card-header>
-                <ion-card-title>Stats around</ion-card-title>
-                <ion-card-subtitle>Oviedo, Asturias, Spain</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-                <p>Belgium and the Netherlands set national records, and the all-time marks for Germany and Britain
-                    could fall on Thursday. Paris will approach 108 degrees.</p>
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-buttons slot="end">
+            <ion-button (click)="logOut()" routerLink="/tabs/profile/login">
+                <ion-icon slot="icon-only" name="log-out" color="dark"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>
+            Profile
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
 
-            </ion-card-content>
-        </ion-card>
+<ion-content>
+    <ion-row justify-content-center align-items-center>
+        <ion-avatar>
+            <img src="/assets/icon/avatar.svg">
+        </ion-avatar>
+        <ion-item color="secondary">
+            <ion-label>{{user.name}} {{user.surname}}</ion-label>
+        </ion-item>
     </ion-row>
-</ion-grid>
+</ion-content>

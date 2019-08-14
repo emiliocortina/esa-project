@@ -7,16 +7,16 @@ const tokkenServ = require('../services/token.service');
 usersCtrl.signup = async (req, res) => {
 	const user = new Model(req.body);
 	user.unencodedPass=user.password;
-	//console.log(user)
 	const existentUser = await Model.findOne({ email:user.email });
 	
 	if (existentUser) {
 		res.status(400).json({error:"Already existing email",code:1})
 		return;
 	}
+	console.log('Body ' + user);
 	bcrypt.hash(user.unencodedPass, salt, function(err, hash) {
 		if (err) {
-			
+			console.log('err: '+err);
 			res.status(400).json({error:"Bad register",code:2})
 			return;
 		}
@@ -24,7 +24,7 @@ usersCtrl.signup = async (req, res) => {
 		user.unencodedPass = null;
 		user.save((err, doc) => {
 			if (err) {
-			
+				console.log('err: '+err);
 				res.status(400).json({error:"Bad register",code:3})
 				return;
 			}
@@ -64,14 +64,14 @@ usersCtrl.login = async (req, res) => {
 
 				return;
 			} else {
-				res.status(401).json({ error: 'Login error' });
+				res.status(401).json({ error: 'Incorrect user or password.' });
 
 				return;
 			}
 		});
 	} else {
 		console.log("aqui")
-		res.status(401).json({ error: 'Login error' });
+		res.status(401).json({ error: 'Incorrect user or password.' });
 		return;
 	}
 };

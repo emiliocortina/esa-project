@@ -1,44 +1,41 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { LoginObject } from './/login-object';
-import { SignUpObject } from './SignUpObject';
-import { Session } from './session';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {LoginObject} from './/login-object';
+import {SignUpObject} from './SignUpObject';
+import {Session} from './session';
 
-import { map } from 'rxjs/operators';
+import {map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class AuthenticationService {
 
 
+    constructor(private http: HttpClient) {
+    }
 
-  constructor(private http: HttpClient) { }
+    private basePath = 'http://192.168.0.11:3000/auth/';
 
-  private basePath = 'http://localhost:3000/auth/';
+    login(loginObj: LoginObject): Observable<Session> {
 
-  login(loginObj: LoginObject): Observable<Session> {
+        return this.http.post(this.basePath + 'login', loginObj).pipe(map(data => this.extractData(data)));
+    }
 
-    return this.http.post(this.basePath + 'login', loginObj).pipe(map(data => this.extractData(data)));
-  }
+    // tslint:disable-next-line:ban-types
+    logout(): Observable<Boolean> {
+        return this.http.post(this.basePath + 'logout', {}).pipe(map(data => this.extractData(data)));
+    }
 
-  // tslint:disable-next-line:ban-types
-  logout(): Observable<Boolean> {
-    return this.http.post(this.basePath + 'logout', {}).pipe(map(data => this.extractData(data)));
-  }
+    signup(signUpObject: SignUpObject): Observable<Session> {
 
-  signup(signUpObject: SignUpObject): Observable<Session> {
+        return this.http.post(this.basePath + 'signup', signUpObject).pipe(map(data => this.extractData(data)));
+    }
 
-    return this.http.post(this.basePath + 'signup', signUpObject).pipe(map(data => this.extractData(data)));
-  }
-
-  private extractData(res: any) {
-
-    const body = res.json();
-
-    return body;
-  }
+    private extractData(res: any) {
+        return res;
+    }
 
 
 }

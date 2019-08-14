@@ -3,20 +3,25 @@
     <ion-row justify-content-center align-items-center>
       <ion-card>
         <img src="/assets/icon/logo.svg" alt=""/>
-        <ion-card-header>
-          <ion-card-title *ngIf="login">Login</ion-card-title>
-        </ion-card-header>
         <ion-card-content>
-          <ion-label>Email</ion-label>
+
+          <!-- Login Form -->
+          <form id="login-form" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
+            <ion-label>Email</ion-label>
+            <ion-row justify-content-center align-items-center>
+              <ion-input formControlName="email" inputmode="email" placeholder="Enter your email address"></ion-input>
+            </ion-row>
+            <ion-label>Password</ion-label>
+            <ion-row justify-content-center align-items-center>
+              <ion-input formControlName="password" inputmode="password" placeholder="Enter your password" type="password"></ion-input>
+            </ion-row>
+            <ion-row justify-content-center align-items-center>
+              <ion-button color="success" type="submit">Login</ion-button>
+            </ion-row>
+          </form>
+
           <ion-row justify-content-center align-items-center>
-            <ion-input placeholder="Enter your email address" inputmode="email"></ion-input>
-          </ion-row>
-          <ion-label>Password</ion-label>
-          <ion-row justify-content-center align-items-center>
-          <ion-input placeholder="Enter your password" inputmode="password"></ion-input>
-        </ion-row>
-          <ion-row justify-content-center align-items-center>
-            <ion-button color="success">Login</ion-button>
+            <ion-button routerLink="/tabs/profile/signup" size="small" color="light">Sign up</ion-button>
           </ion-row>
 
         </ion-card-content>

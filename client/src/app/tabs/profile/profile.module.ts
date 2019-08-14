@@ -2,10 +2,11 @@ import {IonicModule} from '@ionic/angular';
 import {RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
-import {FormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ProfilePage} from './profile.page';
 import {LoginPage} from './login/login.page';
 import {NeedAuthGuard} from '../../auth.guard';
+import {SignupPage} from "./signup/signup.page";
 
 @NgModule({
     imports: [
@@ -14,12 +15,14 @@ import {NeedAuthGuard} from '../../auth.guard';
         FormsModule,
         RouterModule.forChild([
             {path: '', component: ProfilePage, canActivate: [NeedAuthGuard]},
-            {path: 'login', component: LoginPage}])
+            {path: 'login', component: LoginPage},
+            {path: 'signup', component: SignupPage}]),
+        ReactiveFormsModule
     ],
     providers: [
         NeedAuthGuard
     ],
-    declarations: [ProfilePage, LoginPage]
+    declarations: [ProfilePage, LoginPage, SignupPage]
 })
 export class ProfilePageModule {
 }
