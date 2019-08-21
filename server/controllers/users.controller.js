@@ -2,45 +2,45 @@ const usersCtrl = {};
 const Model = require('./../models/user');
 const bcrypt = require('bcrypt');
 const salt = 10;
-const tokkenServ = require('../services/token.service');
-
-usersCtrl.signup = async (req, res) => {
+const tokenServ = require('../services/token.service');
+const errorServ = require('./../services/error.service');
+usersCtrl.signup = async (req, res, next) => {
 	const user = new Model(req.body);
-	user.unencodedPass=user.password;
-	let existentUser = await Model.findOne({ email:user.email });
-	
+	user.unencodedPass = user.password;
+	let existentUser = await Model.findOne({ email: user.email });
+
 	if (existentUser) {
-		res.status(400).json({error:"Already existing email",code:1})
+		next(errorServ.buildError(req.url, 400, 'email_repeated', 'Already existing email'));
 		return;
 	}
 
 	existentUser = await Model.findOne({ nickName: user.nickName });
 	if (existentUser) {
-		res.status(400).json({error:"Already existing nick name",code:1})
+		next(errorServ.buildError(req.url, 400, 'nick_repeated', 'Already existing nick name'));
 		return;
 	}
 
 	console.log('Body ' + user);
 	bcrypt.hash(user.unencodedPass, salt, function(err, hash) {
 		if (err) {
-			console.log('err: '+err);
-			res.status(400).json({error:"Bad register",code:2})
+			console.log('err: ' + err);
+			next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 			return;
 		}
 		user.password = hash;
 		user.unencodedPass = null;
 		user.save((err, doc) => {
 			if (err) {
-				console.log('err: '+err);
-				res.status(400).json({error:"Bad register",code:3})
+				console.log('err: ' + err);
+
+				next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 				return;
 			}
 			res.status(201).json({
 				message: 'user created, logged in',
-				token: tokkenServ.createToken(user.email),
+				token: tokenServ.createToken(user.email),
 				code: 0,
 				user: {
-						
 					email: user.email,
 					name: user.name,
 					surname: user.surname
@@ -54,14 +54,14 @@ usersCtrl.signup = async (req, res) => {
 usersCtrl.login = async (req, res) => {
 	var email = req.body.email;
 	var password = req.body.password;
-	
+
 	const user = await Model.findOne({ email: email });
 	if (user) {
 		bcrypt.compare(password, user.password, (err, exist) => {
 			if (exist) {
 				res.json({
 					status: 'logged in',
-					token: tokkenServ.createToken(email),
+					token: tokenServ.createToken(email),
 					user: {
 						email: email,
 						name: user.name,
@@ -72,14 +72,12 @@ usersCtrl.login = async (req, res) => {
 
 				return;
 			} else {
-				res.status(401).json({ error: 'Incorrect user or password.' });
-
+				next(errorServ.buildError(req.url, 401, 'bad_register', 'Credentials error'));
 				return;
 			}
 		});
 	} else {
-		console.log("aqui")
-		res.status(401).json({ error: 'Incorrect user or password.' });
+		next(errorServ.buildError(req.url, 401, 'bad_register', 'Credentials error'));
 		return;
 	}
 };

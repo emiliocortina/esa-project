@@ -1,22 +1,27 @@
 var jwt = require('jwt-simple');
 var moment = require('moment');
 var config = require('../config/commonConfig');
+var errorServ = require('./../services/error.service');
 
 ensureAuthenticated = function(req, res, next) {
+	//console.log(req.token);
 
-	if (!req.headers.token) {
-		return res.status(403).send({ error: 'No authentication' });
+	if (!req.token) {
+		next(errorServ.buildError(req.url, 403, 'auth_error', 'No authetication'));
+		return;
 	}
 
-	var token = req.headers.token;
+	var token = req.token;
 	try {
 		var payload = jwt.decode(token, config.TOKEN_SECRET);
 	} catch (err) {
-		return res.status(401).send({ error: 'Invalid tokken' });
+		next(errorServ.buildError(req.url, 401, 'auth_error', 'Invalid token'));
+		return;
 	}
 
 	if (payload.exp <= moment().unix()) {
-		return res.status(401).send({ error: 'Token expirated' });
+		next(errorServ.buildError(req.url, 401, 'token_expirated', 'Token has expirated'));
+		return;
 	}
 
 	req.user = payload.sub;

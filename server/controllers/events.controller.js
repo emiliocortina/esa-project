@@ -5,6 +5,7 @@ const salt = 10;
 const tokenServ = require('../services/token.service');
 
 eventsCtrl.getEventById = async (req, res) => {
+	
 	var id = req.params.id;
 
 	if (typeof id == 'undefined') {
@@ -82,7 +83,7 @@ eventsCtrl.updateEvent = async (req, res) => {
 		return;
 	} else {
 		var updateEvent = new Model(req.body);
-        console.log(updateEvent)
+		console.log(updateEvent);
 		console.log(Object.values(updateEvent));
 
 		res.json({ msg: 'funciona' });
