@@ -20,10 +20,10 @@ usersCtrl.signup = async (req, res, next) => {
 		return;
 	}
 
-	console.log('Body ' + user);
+	
 	bcrypt.hash(user.unencodedPass, salt, function(err, hash) {
 		if (err) {
-			console.log('err: ' + err);
+			
 			next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 			return;
 		}
@@ -51,7 +51,7 @@ usersCtrl.signup = async (req, res, next) => {
 	});
 };
 
-usersCtrl.login = async (req, res) => {
+usersCtrl.login = async (req, res, next) => {
 	var email = req.body.email;
 	var password = req.body.password;
 

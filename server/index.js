@@ -28,11 +28,10 @@ app.use('/auth', require('./routes/users.routes.js'));
 
 //middleware
 app.use('/api/private', require('./middleware/autenticated.middleware'));
-app.use('/api/private', require('./routes/events.routes'));
+app.use('/api/private', require('./routes/topics.routes'));
 
 //Error manager
 app.use(function(err, req, res, next) {
-	logger.error(err);
 	const errorObject = errorServ.parseError(err.message);
 
 	if (typeof errorObject.status == 'undefined') {
@@ -40,6 +39,7 @@ app.use(function(err, req, res, next) {
 		//o algo ha petao mu jarto,
 		//     (ノಠ益ಠ)ノ彡┻━┻
 		//reza para que el server no se pare
+		logger.error(err);
 		res.status(400).json({ error: 'undefined error' });
 		return;
 	}
