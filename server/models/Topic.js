@@ -21,3 +21,4 @@ const EventSchema = new Schema({
 	liked: [ String ]
 });
 module.exports = mongoose.model('topic', EventSchema);
+module.exports = mongoose.model('comment', CommentSchema);
