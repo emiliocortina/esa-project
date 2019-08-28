@@ -77,3 +77,44 @@ exports.modifyTopic = async (req, res, next) => {
 		return;
 	}
 };
+
+exports.deleteTopic = async (req, res, next) => {
+	const id = req.params.id;
+	const user = tokenServ.readTokken(req.token).email;
+	let topic = await Topic.findById(id);
+	if (topic) {
+		if (topic.user !== user) {
+			next(
+				errorServ.buildError(
+					req.url,
+					HttpStatus.UNAUTHORIZED,
+					'not_owner',
+					'You have to be the owner to delete the topic'
+				)
+			);
+			return;
+		}
+
+		Topic.findByIdAndDelete(id)
+			.then(() => {
+				res.status(HttpStatus.CREATED).json({
+					message: 'Topic deleted'
+				});
+				return;
+			})
+			.catch(() => {
+				next(
+					errorServ.buildError(
+						req.url,
+						HttpStatus.BAD_REQUEST,
+						'bad_data',
+						'Incorrect data'
+					)
+				);
+				return;
+			});
+	} else {
+		next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'topic_not_found', 'The topic doesnt exist'));
+		return;
+	}
+};
