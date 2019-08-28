@@ -35,3 +35,45 @@ exports.findTopicById = async (req, res, next) => {
 		return;
 	}
 };
+
+exports.modifyTopic = async (req, res, next) => {
+	const id = req.params.id;
+	const user = tokenServ.readTokken(req.token).email;
+	let topic = await Topic.findById(id);
+	if (topic) {
+		if (topic.user !== user) {
+			next(
+				errorServ.buildError(
+					req.url,
+					HttpStatus.UNAUTHORIZED,
+					'not_owner',
+					'You have to be the owner to modify the topic'
+				)
+			);
+			return;
+		}
+		const updateFields = req.body;
+		updateFields['edited'] = true;
+		Topic.findByIdAndUpdate(id, updateFields)
+			.then(() => {
+				res.status(HttpStatus.CREATED).json({
+					message: 'Topic updated'
+				});
+				return;
+			})
+			.catch(() => {
+				next(
+					errorServ.buildError(
+						req.url,
+						HttpStatus.BAD_REQUEST,
+						'bad_data',
+						'Incorrect data'
+					)
+				);
+				return;
+			});
+	} else {
+		next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'topic_not_found', 'The topic doesnt exist'));
+		return;
+	}
+};
