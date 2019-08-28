@@ -23,3 +23,15 @@ exports.createTopic = async (req, res, next) => {
 			return;
 		});
 };
+
+exports.findTopicById = async (req, res, next) => {
+	const id = req.params.id;
+	var topic = await Topic.findById(id);
+	if (topic) {
+		res.status(HttpStatus.OK).json(topic);
+		return;
+	} else {
+		next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'topic_not_found', 'The topic doesnt exist'));
+		return;
+	}
+};
