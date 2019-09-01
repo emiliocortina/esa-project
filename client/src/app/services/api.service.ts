@@ -95,6 +95,32 @@ export class ApiService {
         return headers;
     }
 
+    public buildSortAndFilterParamrs(fieldsToSort: SortField[], pageElements: number, pageNumber: number) {
+        const params: { sort_by: string, page_elements: number, page_number: number } = {
+            sort_by: '',
+            page_elements: 10,
+            page_number: 1
+        };
+
+        if (fieldsToSort) {
+            let sortBy = '';
+            fieldsToSort.forEach((field) => {
+                sortBy += `${field.key}(${field.order}),`;
+
+            });
+            params.sort_by = sortBy;
+        }
+        if (pageElements) {
+            params.page_elements = pageElements;
+        }
+        if (pageNumber) {
+            params.page_number = pageNumber;
+        }
+
+        return params;
+
+    }
+
 
 
 
