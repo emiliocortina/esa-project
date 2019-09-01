@@ -3,6 +3,7 @@ const Topic = require('./../models/Topic');
 const HttpStatus = require('./../constants/HttpStatus');
 const tokenServ = require('../services/token.service');
 const sortAndFilterService = require('./../services/SortAndFilter.service');
+const PaginationModule = require('./../models/PaginationModel');
 const salt = 10;
 
 const errorServ = require('./../services/error.service');
@@ -123,11 +124,28 @@ exports.deleteTopic = async (req, res, next) => {
 exports.findTopicsPaginatedByDateDescending = async (req, res, next) => {
 	const sortAndFilterInfo = sortAndFilterService.parseHeader(req.query);
 
-	console.log(sortAndFilterInfo);
-	const topcis= await Topic.find
+	var key = sortAndFilterInfo.sortFields[0].key;
+	var order = sortAndFilterInfo.sortFields[0].order == PaginationModule.ASC ? 1 : -1;
 
-	res.status(HttpStatus.CREATED).json({
-		message: 'DONETE'
-	});
+	const sort = {};
+	sort[key] = order;
+
+	const topics = await Topic.find()
+		.sort(sort)
+		.skip((sortAndFilterInfo.page_number - 1) * sortAndFilterInfo.page_elements)
+		.limit(sortAndFilterInfo.page_elements)
+		.catch(() => {
+			next(
+				errorServ.buildError(
+					req.url,
+					HttpStatus.BAD_REQUEST,
+					'bad_data',
+					'Bad data for the filter'
+				)
+			);
+			return;
+		});
+
+	res.status(HttpStatus.CREATED).json(topics);
 	return;
 };

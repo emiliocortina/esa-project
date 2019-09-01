@@ -2,8 +2,8 @@ var PaginationModel = require('./../models/PaginationModel');
 
 exports.parseHeader = function(params) {
 	const sort_by_raw = params.sort_by;
-	const page_number = params.page_number ? params.page_number : 1;
-	const page_elements = params.page_elements ? params.page_elements : 10;
+	const page_number = params.page_number ? parseInt(params.page_number) : 1;
+	const page_elements = params.page_elements ? parseInt(params.page_elements) : 10;
 
 	var paginationInfo = new PaginationModel.PaginationInfo();
 	paginationInfo.page_number = page_number;
