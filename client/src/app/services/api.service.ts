@@ -2,10 +2,7 @@ import { Injectable, HostListener } from '@angular/core';
 import { Headers, Http, RequestMethod, Request, RequestOptions } from '@angular/http';
 import { HttpClient, HttpRequest, HttpHeaders, HttpResponse, HttpParams } from '@angular/common/http';
 
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/catch';
-import 'rxjs/add/observable/of';
-import { catchError, tap, map } from 'rxjs/operators';
+import { tap, map } from 'rxjs/operators';
 
 import { Router } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';

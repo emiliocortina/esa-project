@@ -2,6 +2,7 @@ const topicController = {};
 const Topic = require('./../models/Topic');
 const HttpStatus = require('./../constants/HttpStatus');
 const tokenServ = require('../services/token.service');
+const sortAndFilterService = require('./../services/SortAndFilter.service');
 const salt = 10;
 
 const errorServ = require('./../services/error.service');
@@ -117,4 +118,16 @@ exports.deleteTopic = async (req, res, next) => {
 		next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'topic_not_found', 'The topic doesnt exist'));
 		return;
 	}
+};
+
+exports.findTopicsPaginatedByDateDescending = async (req, res, next) => {
+	const sortAndFilterInfo = sortAndFilterService.parseHeader(req.query);
+
+	console.log(sortAndFilterInfo);
+	const topcis= await Topic.find
+
+	res.status(HttpStatus.CREATED).json({
+		message: 'DONETE'
+	});
+	return;
 };
