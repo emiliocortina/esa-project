@@ -1,15 +1,18 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 
-const CommentSchema = new Schema({
+let CommentSchema = new Schema({
 	text: { type: String, required: false },
 	satellite_data: { type: String, required: false },
 	//MAKESURE comprobar a nivel de controller que uno de los esta
 	timestamp: { type: Date, required: true, default: Date.now },
 	user: { type: String, required: true },
-	//answer: [ CommentSchema.schema ], //TODO esperando respuesta de stack overflow 🙄🙄🙄🙄🙄
+
 	liked: [ String ]
 });
+
+CommentSchema.add({ answers: [ CommentSchema ] }); //para poder tener comentarios dentro de comentarios
+
 const TopicSchema = new Schema({
 	title: { type: String, required: true },
 	text_content: { type: String, required: true },
