@@ -23,5 +23,8 @@ const TopicSchema = new Schema({
 	edited: { type: Boolean, default: false },
 	liked: [ String ]
 });
-module.exports = mongoose.model('topic', TopicSchema);
+module.exports = {
+	TopicSchema: mongoose.model('topic', TopicSchema),
+	CommentSchema: CommentSchema
+};
 //module.exports = mongoose.model('comment', CommentSchema);

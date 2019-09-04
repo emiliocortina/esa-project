@@ -1,5 +1,5 @@
-const topicController = {};
-const Topic = require('./../models/Topic');
+const TopicModule = require('./../models/Topic');
+const Topic = TopicModule.TopicSchema;
 const HttpStatus = require('./../constants/HttpStatus');
 const tokenServ = require('../services/token.service');
 const sortAndFilterService = require('./../services/SortAndFilter.service');
