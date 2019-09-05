@@ -29,6 +29,7 @@ app.use('/auth', require('./routes/users.routes.js'));
 //middleware
 app.use('/api/private', require('./middleware/autenticated.middleware'));
 app.use('/api/private', require('./routes/topics.routes'));
+app.use('/api/private', require('./routes/comments.routes'));
 
 //Error manager
 app.use(function(err, req, res, next) {

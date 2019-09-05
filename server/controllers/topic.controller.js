@@ -28,7 +28,7 @@ exports.createTopic = async (req, res, next) => {
 
 exports.findTopicById = async (req, res, next) => {
 	const id = req.params.id;
-	var topic = await Topic.findById(id);
+	var topic = await Topic.findById(id).populate('comments');
 	if (topic) {
 		res.status(HttpStatus.OK).json(topic);
 		return;
@@ -64,14 +64,7 @@ exports.modifyTopic = async (req, res, next) => {
 				return;
 			})
 			.catch(() => {
-				next(
-					errorServ.buildError(
-						req.url,
-						HttpStatus.BAD_REQUEST,
-						'bad_data',
-						'Incorrect data'
-					)
-				);
+				next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Incorrect data'));
 				return;
 			});
 	} else {
@@ -105,14 +98,7 @@ exports.deleteTopic = async (req, res, next) => {
 				return;
 			})
 			.catch(() => {
-				next(
-					errorServ.buildError(
-						req.url,
-						HttpStatus.BAD_REQUEST,
-						'bad_data',
-						'Incorrect data'
-					)
-				);
+				next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Incorrect data'));
 				return;
 			});
 	} else {
@@ -134,15 +120,10 @@ exports.findTopicsPaginatedByDateDescending = async (req, res, next) => {
 		.sort(sort)
 		.skip((sortAndFilterInfo.page_number - 1) * sortAndFilterInfo.page_elements)
 		.limit(sortAndFilterInfo.page_elements)
+		.populate('comments')
+		.exec()
 		.catch(() => {
-			next(
-				errorServ.buildError(
-					req.url,
-					HttpStatus.BAD_REQUEST,
-					'bad_data',
-					'Bad data for the filter'
-				)
-			);
+			next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Bad data for the filter'));
 			return;
 		});
 

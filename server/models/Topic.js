@@ -7,11 +7,10 @@ let CommentSchema = new Schema({
 	//MAKESURE comprobar a nivel de controller que uno de los esta
 	timestamp: { type: Date, required: true, default: Date.now },
 	user: { type: String, required: true },
+	answers: [ { type: Schema.Types.ObjectId, ref: 'comment' } ],
 
 	liked: [ String ]
 });
-
-CommentSchema.add({ answers: [ CommentSchema ] }); //para poder tener comentarios dentro de comentarios
 
 const TopicSchema = new Schema({
 	title: { type: String, required: true },
@@ -19,12 +18,12 @@ const TopicSchema = new Schema({
 	user: { type: String, required: true }, //de momento con un string del usuario nos vale
 	timestamp: { type: Date, required: false, default: Date.now },
 	satellite_data: { type: String, required: false },
-	comments: [ CommentSchema ],
+	comments: [ { type: Schema.Types.ObjectId, ref: 'comment' } ],
 	edited: { type: Boolean, default: false },
 	liked: [ String ]
 });
 module.exports = {
 	TopicSchema: mongoose.model('topic', TopicSchema),
-	CommentSchema: CommentSchema
+	CommentSchema: mongoose.model('comment', CommentSchema)
 };
 //module.exports = mongoose.model('comment', CommentSchema);
