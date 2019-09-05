@@ -1,78 +1,76 @@
 // App Styles
 // ----------------------------------------------------------------------------
-// Put style rules here that you want to apply to the entire application. These 
-// styles are for the entire app and not just one component. Additionally, this 
-// file can hold Sass mixins, functions, and placeholder classes to be imported 
+// Put style rules here that you want to apply to the entire application. These
+// styles are for the entire app and not just one component. Additionally, this
+// file can hold Sass mixins, functions, and placeholder classes to be imported
 // and used throughout the application.
 
-
 :root {
-  //https://ionicframework.com/docs/theming/themes#application-colors
+	//https://ionicframework.com/docs/theming/themes#application-colors
 
-  .dark-theme {
-    --ion-background-color: #041008;
-    --ion-background-color-rgb: 16, 16, 16;
+	.dark-theme {
+		--ion-background-color: #041008;
+		--ion-background-color-rgb: 16, 16, 16;
 
-    --ion-text-color: #ffffff;
-    --ion-text-color-rgb: 255, 255, 255;
+		--ion-text-color: #ffffff;
+		--ion-text-color-rgb: 255, 255, 255;
 
-    --ion-color-step-50: #1c1c1c;
-    --ion-color-step-100: #282828;
-    --ion-color-step-150: #343434;
-    --ion-color-step-200: #404040;
-    --ion-color-step-250: #4c4c4c;
-    --ion-color-step-300: #585858;
-    --ion-color-step-350: #646464;
-    --ion-color-step-400: #707070;
-    --ion-color-step-450: #7c7c7c;
-    --ion-color-step-500: #888888;
-    --ion-color-step-550: #939393;
-    --ion-color-step-600: #9f9f9f;
-    --ion-color-step-650: #ababab;
-    --ion-color-step-700: #b7b7b7;
-    --ion-color-step-750: #c3c3c3;
-    --ion-color-step-800: #cfcfcf;
-    --ion-color-step-850: #dbdbdb;
-    --ion-color-step-900: #e7e7e7;
-    --ion-color-step-950: #f3f3f3;
-    --color-selected: white;
-  }
+		--ion-color-step-50: #1c1c1c;
+		--ion-color-step-100: #282828;
+		--ion-color-step-150: #343434;
+		--ion-color-step-200: #404040;
+		--ion-color-step-250: #4c4c4c;
+		--ion-color-step-300: #585858;
+		--ion-color-step-350: #646464;
+		--ion-color-step-400: #707070;
+		--ion-color-step-450: #7c7c7c;
+		--ion-color-step-500: #888888;
+		--ion-color-step-550: #939393;
+		--ion-color-step-600: #9f9f9f;
+		--ion-color-step-650: #ababab;
+		--ion-color-step-700: #b7b7b7;
+		--ion-color-step-750: #c3c3c3;
+		--ion-color-step-800: #cfcfcf;
+		--ion-color-step-850: #dbdbdb;
+		--ion-color-step-900: #e7e7e7;
+		--ion-color-step-950: #f3f3f3;
+		--color-selected: white;
+	}
 
-  .light-theme {
-    --color-selected: #381C17;
-  }
-
+	.light-theme {
+		--color-selected: #381c17;
+	}
 }
-
 
 .md {
-  .header-md:after, .footer-md:before {
-    background: none;
-  }
+	.header-md:after,
+	.footer-md:before {
+		background: none;
+	}
 
-  ion-header, ion-tab-bar, .footer-md {
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px 0px;
-    border: none !important;
-  }
+	ion-header,
+	ion-tab-bar,
+	.footer-md {
+		box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px 0px;
+		border: none !important;
+	}
 
-  .sc-ion-card-md-h {
-    box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
-  }
+	.sc-ion-card-md-h {
+		box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
+	}
 }
 
-
 ion-tab-button {
-  --color-selected: #381C17;
+	--color-selected: #381c17;
 }
 
 ion-header {
-  border: none;
+	border: none;
 }
 
 ion-header img {
-  max-height: 2rem;
+	max-height: 2rem;
 }
-
 
 /* SPLASH SCREEN */
 /*
@@ -80,58 +78,61 @@ ion-header img {
 */
 
 .splash {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  z-index: 999;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: var(--ion-color-primary);
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	z-index: 999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background: var(--ion-color-primary);
 }
 
 .spinner {
-  width: 40px;
-  height: 40px;
-  position: relative;
-  margin: 100px auto;
+	width: 40px;
+	height: 40px;
+	position: relative;
+	margin: 100px auto;
 }
 
-.double-bounce1, .double-bounce2 {
-  width: 100%;
-  height: 100%;
-  border-radius: 50%;
-  background-color: #333;
-  opacity: 0.6;
-  position: absolute;
-  top: 0;
-  left: 0;
+.double-bounce1,
+.double-bounce2 {
+	width: 100%;
+	height: 100%;
+	border-radius: 50%;
+	background-color: #333;
+	opacity: 0.6;
+	position: absolute;
+	top: 0;
+	left: 0;
 
-  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-  animation: sk-bounce 2.0s infinite ease-in-out;
+	-webkit-animation: sk-bounce 2.0s infinite ease-in-out;
+	animation: sk-bounce 2.0s infinite ease-in-out;
 }
 
 .double-bounce2 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+	-webkit-animation-delay: -1.0s;
+	animation-delay: -1.0s;
 }
 
 @-webkit-keyframes sk-bounce {
-  0%, 100% {
-    -webkit-transform: scale(0.0)
-  }
-  50% {
-    -webkit-transform: scale(1.0)
-  }
+	0%,
+	100% {
+		-webkit-transform: scale(0.0);
+	}
+	50% {
+		-webkit-transform: scale(1.0);
+	}
 }
 
 @keyframes sk-bounce {
-  0%, 100% {
-    transform: scale(0.0);
-    -webkit-transform: scale(0.0);
-  }
-  50% {
-    transform: scale(1.0);
-    -webkit-transform: scale(1.0);
-  }
+	0%,
+	100% {
+		transform: scale(0.0);
+		-webkit-transform: scale(0.0);
+	}
+	50% {
+		transform: scale(1.0);
+		-webkit-transform: scale(1.0);
+	}
 }
