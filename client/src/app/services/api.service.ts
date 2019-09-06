@@ -131,7 +131,6 @@ export class ApiService {
         const url = this.urlLit + service;
         const complete = () => { };
 
-
         return (
             this.direct<R>(method, url, params, body, options))
             .pipe(
@@ -147,15 +146,14 @@ export class ApiService {
     }
 
     private direct<R>(method: string, url: string, params: {}, body: {}, options: RequestOptions): Observable<R> {
-
         const aux = this.getHeaders();
+        console.log(url);
         return this.httpClient.request<R>(method, url, {
             headers: this.getHeaders(),
             params,
             body,
             observe: 'response',
         }).pipe(map((resp: HttpResponse<R>) => {
-
             return resp.body;
         }));
     }
