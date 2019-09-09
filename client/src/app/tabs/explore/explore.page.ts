@@ -1,26 +1,26 @@
 import {Component, OnInit} from '@angular/core';
-import {TopicsService} from '../../services/topics.service';
-import {Topic} from '../../services/models/topics/topic.model';
+import {ThreadsService} from '../../services/threads.service';
+import {Thread} from '../../services/models/threads/thread.model';
 import {CategoriesService} from '../../services/categories.service';
 import {Category} from '../../services/models/category.model';
 import {Router} from '@angular/router';
 
 @Component({
     selector: 'app-tab1',
-    templateUrl: 'topics.page.html',
-    styleUrls: ['topics.page.scss']
+    templateUrl: 'explore.page.html',
+    styleUrls: ['explore.page.scss']
 })
-export class TopicsPage implements OnInit {
+export class ExplorePage implements OnInit {
 
-    topicsPage: number = 0;
-    topics: Topic[];
+    page: number = 0;
+    threads: Thread[];
 
     categories: Category[];
     categoriesToggle: boolean;
 
 
     constructor(
-        private topicsService: TopicsService,
+        private threadsService: ThreadsService,
         private categoriesService: CategoriesService,
         private router: Router
     ) {
@@ -29,10 +29,10 @@ export class TopicsPage implements OnInit {
     }
 
     ngOnInit(): void {
-        this.topics = [];
-        //this.topicsService.loadPopularTopics(this.topics);
+        this.threads = [];
+        //this.threadsService.loadPopularThreads(this.threads);
         //this.loadPosts();
-        this.loadPosts();
+        this.loadThreads();
     }
 
 
@@ -47,27 +47,27 @@ export class TopicsPage implements OnInit {
     }
 
 
-    // = = = = = = = = = = = = POSTS = = = = = = = = = = = = //
+    // = = = = = = = = = = = = THREADS = = = = = = = = = = = = //
 
     goToSearchPage() {
         this.router.navigate(['/search']);
     }
 
-    readPost(id: string) {
-        this.router.navigate(['/post', id]);
+    readThread(id: string) {
+        this.router.navigate(['/thread', id]);
     }
 
-    loadPosts(infiniteScroll?) {
-        this.topicsService
-            .loadPopularTopics(this.topics, this.topicsPage, res => {
+    loadThreads(infiniteScroll?) {
+        this.threadsService
+            .loadPopularThreads(this.threads, this.page, res => {
                 if (infiniteScroll)
                     infiniteScroll.complete();
             });
     }
 
     loadMorePosts(infiniteScroll) {
-        this.topicsPage++;
-        this.loadPosts(infiniteScroll);
+        this.page++;
+        this.loadThreads(infiniteScroll);
     }
 
 

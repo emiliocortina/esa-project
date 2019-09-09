@@ -8,6 +8,7 @@ export class Post {
     user: User;
     created: Date;
     satelliteData: SatelliteStats[];
+    comments: Post[];
 
     constructor(id: string, textContent: string, user: User, created: Date, satelliteData?: SatelliteStats[]) {
         this.id = id;
@@ -17,6 +18,7 @@ export class Post {
         if (satelliteData) {
             this.satelliteData = satelliteData;
         }
+        this.comments = [];
     }
 
 }

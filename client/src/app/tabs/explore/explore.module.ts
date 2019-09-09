@@ -3,7 +3,7 @@ import {RouterModule} from '@angular/router';
 import {NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {FormsModule} from '@angular/forms';
-import {TopicsPage} from './topics.page';
+import {ExplorePage} from './explore.page';
 import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
@@ -11,11 +11,11 @@ import {HttpClientModule} from '@angular/common/http';
         IonicModule,
         CommonModule,
         FormsModule,
-        RouterModule.forChild([{path: '', component: TopicsPage}])
+        RouterModule.forChild([{path: '', component: ExplorePage}])
     ],
     providers: [
         HttpClientModule],
-    declarations: [TopicsPage]
+    declarations: [ExplorePage]
 })
-export class TopicsPageModule {
+export class ExplorePageModule {
 }

@@ -1,22 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { TopicPagePage } from './topic-page.page';
+import { ThreadSearchPage } from './thread-search.page';
 
-describe('TopicPagePage', () => {
-  let component: TopicPagePage;
-  let fixture: ComponentFixture<TopicPagePage>;
+describe('ThreadSearchPage', () => {
+  let component: ThreadSearchPage;
+  let fixture: ComponentFixture<ThreadSearchPage>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TopicPagePage ],
+      declarations: [ ThreadSearchPage ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TopicPagePage);
+    fixture = TestBed.createComponent(ThreadSearchPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

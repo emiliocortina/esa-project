@@ -30,18 +30,18 @@
         <ion-list-header>
             <ion-label>Featured</ion-label>
         </ion-list-header>
-        <div class="posts">
+        <div class="threads">
 
-            <ion-card *ngFor="let topic of topics" class="welcome-card" color="red">
-                <div (click)="readPost(topic.id)">
+            <ion-card *ngFor="let thread of threads" class="welcome-card" color="red">
+                <div (click)="readThread(thread.id)">
 
-                    <img src="{{topic.getCoverImage()}}" alt=""/>
+                    <img src="{{thread.getCoverImage()}}" alt=""/>
                     <ion-card-header>
-                        <ion-card-subtitle>{{topic.category.name}}</ion-card-subtitle>
-                        <ion-card-title>{{topic.title}}</ion-card-title>
+                        <ion-card-subtitle>{{thread.category.name}}</ion-card-subtitle>
+                        <ion-card-title>{{thread.title}}</ion-card-title>
                     </ion-card-header>
                     <ion-card-content>
-                        <p>{{topic.getPreview()}}</p>
+                        <p>{{thread.getPreview()}}</p>
                     </ion-card-content>
 
                 </div>
