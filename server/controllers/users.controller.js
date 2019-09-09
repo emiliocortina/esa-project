@@ -4,7 +4,11 @@ const bcrypt = require('bcrypt');
 const salt = 10;
 const tokenServ = require('../services/token.service');
 const errorServ = require('./../services/error.service');
+
 usersCtrl.signup = async (req, res, next) => {
+
+	console.log("TOY ENTRANDO");
+
 	const user = new Model(req.body);
 	user.unencodedPass = user.password;
 	let existentUser = await Model.findOne({ email: user.email });

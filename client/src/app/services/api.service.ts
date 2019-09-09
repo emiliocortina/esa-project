@@ -147,7 +147,6 @@ export class ApiService {
 
     private direct<R>(method: string, url: string, params: {}, body: {}, options: RequestOptions): Observable<R> {
         const aux = this.getHeaders();
-        console.log(url);
         return this.httpClient.request<R>(method, url, {
             headers: this.getHeaders(),
             params,

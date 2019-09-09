@@ -29,8 +29,8 @@ export class AuthenticationService {
     }
 
     signup(signUpObject: SignUpObject): Observable<Session> {
-
-        return this.http.post(this.basePath + 'signup', signUpObject).pipe(map(data => this.extractData(data)));
+        return this.http.post('http://localhost:3000/auth/signup', signUpObject).pipe(map(data => this.extractData(data)));
+        //return this.http.post(this.basePath + 'signup', signUpObject).pipe(map(data => this.extractData(data)));
     }
 
     private extractData(res: any) {

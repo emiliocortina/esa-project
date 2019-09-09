@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import { ApiService } from 'src/app/services/api.service';
+import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
+import { SignUpObject } from 'src/app/services/authentication/SignUpObject';
 
 @Component({
   selector: 'app-signup',
@@ -12,12 +14,14 @@ export class SignupPage implements OnInit {
 
   signupForm: FormGroup;
 
-  constructor(private router: Router, private formBuilder: FormBuilder, private apiServ: ApiService) { 
+  constructor(private router: Router, private formBuilder: FormBuilder, 
+    private apiServ: ApiService, private authServ: AuthenticationService) { 
     this.signupForm = this.formBuilder.group({
       name: ['', Validators.required],
-      nickname: ['', Validators.required],
+      surname: ['', Validators.required],
       email: ['', Validators.required],
       password: ['', Validators.required],
+      passwordRep: ['', Validators.required],
     });
   }
 
@@ -25,7 +29,8 @@ export class SignupPage implements OnInit {
   }
 
   signUp() {
-    this.apiServ.request("auth/signup", "post", {}, this.signupForm.value);
+    this.authServ.signup(new SignUpObject(this.signupForm.value));
+    //this.apiServ.request("auth/signup", "post", {}, this.signupForm.value);
   }
 
   goToLogin() {
