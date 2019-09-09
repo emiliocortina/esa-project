@@ -15,7 +15,7 @@
 		"member-ordering": [
 			true,
 			{
-				"order": [ "static-field", "instance-field", "static-method", "instance-method" ]
+				"order": [ "static-field", "instance-field", "public-constructor", "static-method", "instance-method" ]
 			}
 		],
 		"indent": [ true, "tabs", 4 ],
