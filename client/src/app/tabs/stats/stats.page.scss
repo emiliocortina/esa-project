@@ -15,6 +15,11 @@ ion-row {
   flex-direction: column;
 }
 
+#mapCanvas {
+  min-height: 100px;
+  min-width: 100px;
+}
+
 .md ion-card {
   max-width: 25rem;
 }

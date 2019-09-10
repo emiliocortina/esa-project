@@ -1,11 +1,13 @@
 
 <ion-grid>
+
     <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
         <ion-card>
-            <img src="/assets/images/map2.jpg" alt=""/>
+            <!--<img src="/assets/images/map2.jpg" alt=""/>-->
+            <div id="mapCanvas"></div>
             <ion-card-header>
-                <ion-card-title>Stats around</ion-card-title>
-                <ion-card-subtitle>Oviedo, Asturias, Spain</ion-card-subtitle>
+                <ion-card-title>{{ locationName }}</ion-card-title>
+                <ion-card-subtitle color="secondary">{{ locationLatitude }}º, {{ locationLongitude }}º</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
                 <ion-list lines="none" *ngIf="stats">
