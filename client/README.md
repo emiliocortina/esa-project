@@ -28,3 +28,9 @@ Para guardar la sesión y demás en el móvil puede ser útil esto:
 https://ionicframework.com/docs/building/storage
 
 Parece bastante facil de usar :l
+
+## Color palette
+Primary (azul): #06336B
+Secondary (rosa): #FC637A
+Tertiary (amarillo): #FEDE49
+
