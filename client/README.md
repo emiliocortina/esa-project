@@ -21,7 +21,7 @@ https://ionicframework.com/docs/installation/android
 ### Geolocation
 Para mandar peticiones al satélite necesitaremos primero 
 obtener la ubicación del dispositivo:
-ionic cordova plugin add cordova-plugin-geolocation
+https://ionicframework.com/docs/native/geolocation
 
 ### Storage
 Para guardar la sesión y demás en el móvil puede ser útil esto:

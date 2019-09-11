@@ -6,16 +6,20 @@ import {FormsModule} from '@angular/forms';
 import {StatsPage} from './stats.page';
 import {StatsDetailsPage} from './stats-details/stats-details.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
+import { GeolocationSearchModalModule } from 'src/app/components/geolocation-search-modal/geolocation-search-modal.module';
+import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 
 @NgModule({
     imports: [
+        GeolocationSearchModalModule,
         IonicModule,
         CommonModule,
         FormsModule,
         RouterModule.forChild([{path: '', component: StatsPage}])
     ],
     providers: [
-        Geolocation
+        Geolocation,
+        NativeGeocoder
     ],
     declarations: [StatsPage, StatsDetailsPage],
     entryComponents: [StatsDetailsPage]

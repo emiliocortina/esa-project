@@ -10,8 +10,9 @@
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
-		"dev": "ionic cordova run browser",
-		"devapp": "ionic serve --devapp"
+		"dev": "ionic serve -o",
+		"devapp": "ionic serve --devapp",
+		"dev-cordova": "ionic cordova run browser"
 	},
 	"private": true,
 	"dependencies": {
@@ -24,7 +25,7 @@
 		"@angular/router": "^7.2.2",
 		"@ionic-native/core": "^5.13.0",
 		"@ionic-native/geolocation": "^5.13.0",
-		"@ionic-native/google-maps": "^5.5.0",
+		"@ionic-native/native-geocoder": "^5.13.0",
 		"@ionic-native/splash-screen": "^5.0.0",
 		"@ionic-native/status-bar": "^5.0.0",
 		"@ionic/angular": "^4.1.0",
@@ -32,7 +33,7 @@
 		"cordova-browser": "6.0.0",
 		"cordova-ios": "^5.0.1",
 		"cordova-plugin-geolocation": "^4.0.2",
-		"cordova-plugin-googlemaps": "^2.6.2",
+		"cordova-plugin-nativegeocoder": "^3.2.2",
 		"core-js": "^2.5.4",
 		"rxjs": "~6.5.1",
 		"tslib": "^1.9.0",
@@ -82,7 +83,7 @@
 			},
 			"cordova-plugin-ionic-keyboard": {},
 			"cordova-plugin-geolocation": {},
-			"cordova-plugin-googlemaps": {}
+			"cordova-plugin-nativegeocoder": {}
 		},
 		"platforms": [
 			"android",

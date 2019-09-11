@@ -16,6 +16,8 @@ ion-row {
 }
 
 #mapCanvas {
+  height: minmax(100px, 50%);
+  width: minmax(100px, 80%);
   min-height: 100px;
   min-width: 100px;
 }

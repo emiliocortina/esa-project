@@ -1,21 +1,22 @@
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StatsPage } from './stats.page';
+import { GeolocationSearchModal } from './geolocation-search-modal.component';
 
-describe('StatsPage', () => {
-  let component: StatsPage;
-  let fixture: ComponentFixture<StatsPage>;
+describe('GeolocationSearchModal', () => {
+  let component: GeolocationSearchModal;
+  let fixture: ComponentFixture<GeolocationSearchModal>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [StatsPage],
+      declarations: [ GeolocationSearchModal ],
       schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    }).compileComponents();
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StatsPage);
+    fixture = TestBed.createComponent(GeolocationSearchModal);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
