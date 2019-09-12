@@ -6,8 +6,8 @@ const routes: Routes = [
 
     {path: '', loadChildren: './tabs/tabs.module#TabsPageModule'},
     {path: 'tabs', loadChildren: './tabs/tabs.module#TabsPageModule'},
-    {path: 'post/:id', loadChildren: './tabs/topics/topic-page/topic-page.module#TopicPagePageModule'},
-    {path: 'search', loadChildren: './tabs/topics/topic-search/topic-search.module#TopicSearchPageModule'}
+    {path: 'thread/:id', loadChildren: './tabs/explore/thread-page/thread-page.module#ThreadPageModule'},
+    {path: 'search', loadChildren: './tabs/explore/thread-search/thread-search.module#ThreadSearchPageModule'}
 
 ];
 

@@ -2,8 +2,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {SatelliteStats} from '../../../services/models/satellite-data/satellite-stats.model';
 import {ModalController, ToastController} from '@ionic/angular';
 import {StorageService} from '../../../services/authentication/storage.service';
-import {Topic} from "../../../services/models/topics/topic.model";
-import {TopicsService} from "../../../services/topics.service";
+import {Thread} from "../../../services/models/threads/thread.model";
+import {ThreadsService} from "../../../services/threads.service";
 
 @Component({
     selector: 'app-stats-details',
@@ -19,7 +19,7 @@ export class StatsDetailsPage implements OnInit {
     postBody: string;
 
     constructor(private modalController: ModalController, private usersService: StorageService,
-                private toastController: ToastController, private topicService: TopicsService) {
+                private toastController: ToastController, private threadsService: ThreadsService) {
     }
 
     ngOnInit() {
@@ -46,7 +46,7 @@ export class StatsDetailsPage implements OnInit {
                     });
                     toast.present();
                 } else {
-                    this.submitTopic();
+                    this.submitThread();
                 }
             }
 
@@ -71,10 +71,10 @@ export class StatsDetailsPage implements OnInit {
     showInfo() {
     }
 
-    private submitTopic() {
-        const topic = new Topic('0', this.postTitle, this.stats.category, this.postBody);
+    private submitThread() {
+        const thread = new Thread('0', this.postTitle, this.stats.category, this.postBody);
         // TODO
-        // this.topicService.submitTopic(topic);
-        this.modalController.dismiss({success: 'Topic successfully created!'});
+        // this.threadsService.submitThread(thread);
+        this.modalController.dismiss({success: 'Thread successfully created!'});
     }
 }

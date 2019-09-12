@@ -10,7 +10,7 @@
 		"test": "ng test",
 		"lint": "ng lint",
 		"e2e": "ng e2e",
-		"dev": "ng serve -o"
+		"dev": "ionic serve -o"
 	},
 	"private": true,
 	"dependencies": {
@@ -76,6 +76,9 @@
 			},
 			"cordova-plugin-ionic-keyboard": {}
 		},
-		"platforms": [ "android", "ios" ]
+		"platforms": [
+			"android",
+			"ios"
+		]
 	}
 }

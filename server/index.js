@@ -48,6 +48,7 @@ app.use(function(err, req, res, next) {
 	res.status(parseInt(errorObject.status)).json(errorObject);
 	return;
 });
+
 //Server start
 app.listen(app.get('port'), () => {
 	logger.info(`Server listening on port ${app.get('port')}`);
