@@ -13,12 +13,15 @@
 
 <ion-content>
 
-    <ion-searchbar placeholder="Search" debounce="0" [(ngModel)]="searchText" (ionChange)="findLocation()"></ion-searchbar>
+    <ion-searchbar placeholder="Search" debounce="500" [(ngModel)]="searchText" (ionChange)="findLocation()"></ion-searchbar>
 
     <ion-list>
 
-      <ion-item *ngFor="let result of results">
-        <ion-label>Location: {{ result.locationName }}</ion-label>
+      <ion-item *ngFor="let res of results" (click)="selectLocation(res)">
+        <ion-label>
+          <h2> {{ res.locality }} </h2>
+          <p> {{ res.administrativeArea }}, {{ res.countryName }} </p>
+        </ion-label>
       </ion-item>
 
     </ion-list>

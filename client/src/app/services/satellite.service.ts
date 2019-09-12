@@ -12,7 +12,7 @@ export class SatelliteService {
     }
 
 
-    public fetchSatelliteData(data: SatelliteStats[]): void {
+    public fetchSatelliteData(data: SatelliteStats[], latitude: number, longitude: number): void {
         this.fetchPollution(data);
         this.fetchTemperatures(data);
         this.fetchRainfall(data);

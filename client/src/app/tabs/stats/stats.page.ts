@@ -16,7 +16,7 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
     styleUrls: ['stats.page.scss']
 })
 export class StatsPage implements OnInit {
-
+  
     stats: SatelliteStats[];
 
     // TODO geocoding API
@@ -26,6 +26,8 @@ export class StatsPage implements OnInit {
     
     loading: any;
         
+
+    isLocationReady: boolean = false;
     locationName: string;
     locationLatitude: number;
     locationLongitude: number;
@@ -40,10 +42,11 @@ export class StatsPage implements OnInit {
 
     ngOnInit(): void {
         this.stats = [];
-        this.satelliteService.fetchSatelliteData(this.stats);
-
-
+                
         // Get current position using https://ionicframework.com/docs/native/geolocation
+
+        this.isLocationReady = false;
+        console.log('Getting current geolocation...');
 
         this.geolocation.getCurrentPosition().then((resp) => {
             this.updateGeolocation(resp.coords.latitude, resp.coords.longitude);
@@ -57,41 +60,53 @@ export class StatsPage implements OnInit {
     async openModal()
     {
         const modal = await this.modalController.create({
-            component: GeolocationSearchModal
+            component: GeolocationSearchModal,
+            componentProps: { 
+                statsPage: this
+            }
         });
         return await modal.present();
     }
 
 
-
-
     private async updateGeolocation(latitude: number, longitude: number)
     {
         console.log("Geolocation update");
+        this.isLocationReady = true;
 
         this.locationName = "";
         this.locationLatitude = latitude;
         this.locationLongitude = longitude;
 
-        let options: NativeGeocoderOptions = {
-            useLocale: true,
-            maxResults: 1
-          };
-
+        this.satelliteService.fetchSatelliteData(this.stats, latitude, longitude);
 
         // https://github.com/sebastianbaar/cordova-plugin-nativegeocoder
-        
-        this.nativeGeocoder.reverseGeocode(latitude, longitude, options)
-            .then((result: NativeGeocoderResult[]) => {
-                
-                if (result.length == 0)
-                {
-                    this.locationName = "Unknown location";
-                }
-                else this.locationName = result[0].locality;
 
+        this.nativeGeocoder.reverseGeocode(latitude, longitude, { useLocale: true, maxResults: 1 })
+            .then((result: NativeGeocoderResult[]) => {
+                console.log(JSON.stringify(result[0]));
+                this.locationName = result[0].locality;
             })            
-            .catch((error: any) => console.log(error));
+            .catch((error: any) => {
+                console.log(error);
+                this.locationName = "Unknown location";
+            });
+    }
+
+    /**
+     * Used by the GeolocationSearchModal
+     * @param location 
+     */
+    setSelectedLocation(location: NativeGeocoderResult)
+    {
+        console.log("Geolocation set");
+        this.isLocationReady = true;
+
+        this.locationName = location.locality;
+        this.locationLatitude = Number(location.latitude);
+        this.locationLongitude = Number(location.longitude);
+
+        this.satelliteService.fetchSatelliteData(this.stats, this.locationLatitude, this.locationLongitude);
     }
 
     
