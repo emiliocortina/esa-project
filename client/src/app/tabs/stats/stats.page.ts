@@ -33,9 +33,15 @@ export class StatsPage implements OnInit {
     locationLongitude: number;
 
 
-    constructor(private satelliteService: SatelliteService, private modalController: ModalController,
-                private toastController: ToastController, private router: Router,
-                private geolocation: Geolocation, private nativeGeocoder: NativeGeocoder) {
+    constructor(
+        private satelliteService: SatelliteService, 
+        private modalController: ModalController,
+        private toastController: ToastController,
+        private router: Router,
+        private geolocation: Geolocation,
+        private nativeGeocoder: NativeGeocoder
+    ) {
+
     }
 
     

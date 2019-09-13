@@ -1,11 +1,6 @@
 
 <ion-header translucent>
-    <ion-toolbar>
-        <ion-buttons slot="end">
-            <ion-button (click)="openModal()">
-                <ion-icon slot="icon-only" name="search"></ion-icon>
-            </ion-button>
-        </ion-buttons>
+    <ion-toolbar >
         <ion-title>
             <img src="/assets/icon/logo.svg">
         </ion-title>
@@ -19,8 +14,9 @@
 
         <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
             <ion-card>
-                <!--<img src="/assets/images/map2.jpg" alt=""/>-->
+                <!-- TODO <img src="/assets/images/map2.jpg" alt=""/>-->
                 <div id="mapCanvas"></div>
+
                 <ion-card-header *ngIf="isLocationReady">
                     <ion-card-title>{{ locationName }}</ion-card-title>
                     <ion-card-subtitle color="secondary">{{ locationLatitude }}º, {{ locationLongitude }}º</ion-card-subtitle>
@@ -28,6 +24,7 @@
                 <ion-card-header *ngIf="!isLocationReady">
                     <ion-card-subtitle color="secondary">Obtaining current location...</ion-card-subtitle>
                 </ion-card-header>
+
                 <ion-card-content>
                     <ion-list lines="none" *ngIf="stats">
                         <ion-item *ngFor="let dataItem of stats" (click)="showStatsDetails(dataItem)" button>
@@ -37,7 +34,19 @@
                         </ion-item>
                     </ion-list>
                 </ion-card-content>
+
             </ion-card>
+
+            <div>
+                <ion-chip>
+                    <ion-icon name="locate"></ion-icon>
+                    <ion-label>Locate</ion-label>
+                </ion-chip>
+                <ion-chip (click)="openModal()">
+                    <ion-icon name="search"></ion-icon>
+                    <ion-label>Search</ion-label>
+                </ion-chip>
+            </div>
         </ion-row>
     </ion-grid>
 

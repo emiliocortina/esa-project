@@ -4,6 +4,8 @@ import {Thread} from '../../services/models/threads/thread.model';
 import {CategoriesService} from '../../services/categories.service';
 import {Category} from '../../services/models/category.model';
 import {Router} from '@angular/router';
+import { ModalController } from '@ionic/angular';
+import { SettingsModal } from 'src/app/components/settings-modal/settings-modal.component';
 
 @Component({
     selector: 'app-tab1',
@@ -22,7 +24,8 @@ export class ExplorePage implements OnInit {
     constructor(
         private threadsService: ThreadsService,
         private categoriesService: CategoriesService,
-        private router: Router
+        private router: Router,
+        private modalController: ModalController
     ) {
 
         this.categories = this.categoriesService.getCategories();
@@ -36,6 +39,20 @@ export class ExplorePage implements OnInit {
     }
 
 
+    async goToSettingsPage()
+    {
+        const modal = await this.modalController.create({
+            component: SettingsModal,
+            componentProps: { 
+                statsPage: this
+            }
+        });
+        return await modal.present();
+    }
+
+
+
+
     // = = = = = = = = = = = = CATEGORIES = = = = = = = = = = = = //
 
     toggleShowCategories(): void {
@@ -45,6 +62,9 @@ export class ExplorePage implements OnInit {
     isShowingCategories(): boolean {
         return this.categoriesToggle;
     }
+
+
+
 
 
     // = = = = = = = = = = = = THREADS = = = = = = = = = = = = //
@@ -69,6 +89,9 @@ export class ExplorePage implements OnInit {
         this.page++;
         this.loadThreads(infiniteScroll);
     }
+
+
+    
 
 
 }
