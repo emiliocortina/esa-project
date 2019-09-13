@@ -47,12 +47,17 @@ export class StatsPage implements OnInit {
     }
 
     
-
     ngOnInit(): void {
         this.stats = [];
         this.getCurrentLocation();
     }
 
+
+    /**
+     * Uses the native geolocation API to get our current
+     * location coordinates.
+     * Once we get them, we'll update our data.
+     */
     getCurrentLocation()
     {
         // Get current position using https://ionicframework.com/docs/native/geolocation
@@ -61,7 +66,7 @@ export class StatsPage implements OnInit {
         this.anyErrorWithLocation = false;
         console.log('Getting current geolocation...');
 
-        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true })
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: false })
             .then((resp) => {
                 this.updateGeolocation(resp.coords.latitude, resp.coords.longitude);
             })
@@ -72,7 +77,13 @@ export class StatsPage implements OnInit {
     }
 
 
-    async openModal()
+
+
+    /**
+     * Opens the GeolocationSearchModal to manually search
+     * a location coordinates.
+     */
+    async openSearchModal()
     {
         const modal = await this.modalController.create({
             component: GeolocationSearchModal,
@@ -84,6 +95,14 @@ export class StatsPage implements OnInit {
     }
 
 
+
+
+    /**
+     * Used locally. Updates our data once we get the current coordinates,
+     * and also looks for the name of the place we're at.
+     * @param latitude 
+     * @param longitude 
+     */
     private async updateGeolocation(latitude: number, longitude: number)
     {
         console.log("Geolocation update");
@@ -94,9 +113,7 @@ export class StatsPage implements OnInit {
         this.locationLatitude = latitude;
         this.locationLongitude = longitude;
 
-        while (this.stats.length > 0)
-            this.stats.pop();
-        this.satelliteService.fetchSatelliteData(this.stats, latitude, longitude);
+        this.updateData();
 
         // https://github.com/sebastianbaar/cordova-plugin-nativegeocoder
 
@@ -111,8 +128,11 @@ export class StatsPage implements OnInit {
             });
     }
 
+
+
     /**
-     * Used by the GeolocationSearchModal
+     * Used by the GeolocationSearchModal.
+     * Sets our location tot he coordinates of a given NativeGeocoderResult.
      * @param location 
      */
     setSelectedLocation(location: NativeGeocoderResult)
@@ -125,10 +145,23 @@ export class StatsPage implements OnInit {
         this.locationLatitude = Number(location.latitude);
         this.locationLongitude = Number(location.longitude);
 
-        this.satelliteService.fetchSatelliteData(this.stats, this.locationLatitude, this.locationLongitude);
+        this.updateData();
     }
 
     
+
+
+    /**
+     * Updates the data we're showing, depending on our
+     * current stored coordinates.
+     */
+    private updateData()
+    {
+        while (this.stats.length > 0)
+            this.stats.pop();
+        this.satelliteService.fetchSatelliteData(this.stats, this.locationLatitude, this.locationLongitude);
+    }
+
 
 
     async showStatsDetails(selectedStats: SatelliteStats) {

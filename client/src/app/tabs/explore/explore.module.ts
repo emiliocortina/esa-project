@@ -6,10 +6,12 @@ import {FormsModule} from '@angular/forms';
 import {ExplorePage} from './explore.page';
 import {HttpClientModule} from '@angular/common/http';
 import { SettingsModalModule } from 'src/app/components/settings-modal/settings-modal.module';
+import { CategoriesPopoverModule } from './categories-popover/categories-popover.module';
 
 @NgModule({
     imports: [
         SettingsModalModule,
+        CategoriesPopoverModule,
         IonicModule,
         CommonModule,
         FormsModule,
