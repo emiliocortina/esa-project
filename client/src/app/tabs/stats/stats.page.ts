@@ -28,6 +28,8 @@ export class StatsPage implements OnInit {
         
 
     isLocationReady: boolean = false;
+    anyErrorWithLocation: boolean = false;
+
     locationName: string;
     locationLatitude: number;
     locationLongitude: number;
@@ -48,18 +50,25 @@ export class StatsPage implements OnInit {
 
     ngOnInit(): void {
         this.stats = [];
-                
+        this.getCurrentLocation();
+    }
+
+    getCurrentLocation()
+    {
         // Get current position using https://ionicframework.com/docs/native/geolocation
 
         this.isLocationReady = false;
+        this.anyErrorWithLocation = false;
         console.log('Getting current geolocation...');
 
-        this.geolocation.getCurrentPosition().then((resp) => {
-            this.updateGeolocation(resp.coords.latitude, resp.coords.longitude);
-        }).catch((error) => {
-            console.log('Error getting location', error);
-        });
-
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: true })
+            .then((resp) => {
+                this.updateGeolocation(resp.coords.latitude, resp.coords.longitude);
+            })
+            .catch((error) => {
+                console.log('Error getting location', error);
+                this.anyErrorWithLocation = true;
+            });
     }
 
 
@@ -79,11 +88,14 @@ export class StatsPage implements OnInit {
     {
         console.log("Geolocation update");
         this.isLocationReady = true;
+        this.anyErrorWithLocation = false;
 
         this.locationName = "";
         this.locationLatitude = latitude;
         this.locationLongitude = longitude;
 
+        while (this.stats.length > 0)
+            this.stats.pop();
         this.satelliteService.fetchSatelliteData(this.stats, latitude, longitude);
 
         // https://github.com/sebastianbaar/cordova-plugin-nativegeocoder
@@ -107,6 +119,7 @@ export class StatsPage implements OnInit {
     {
         console.log("Geolocation set");
         this.isLocationReady = true;
+        this.anyErrorWithLocation = false;
 
         this.locationName = location.locality;
         this.locationLatitude = Number(location.latitude);
