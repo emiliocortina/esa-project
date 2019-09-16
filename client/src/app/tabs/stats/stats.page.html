@@ -17,13 +17,22 @@
                 <!-- TODO <img src="/assets/images/map2.jpg" alt=""/>-->
                 <div id="mapCanvas"></div>
 
-                <ion-card-header *ngIf="isLocationReady">
-                    <ion-card-title>{{ locationName }}</ion-card-title>
-                    <ion-card-subtitle color="secondary">{{ locationLatitude }}º, {{ locationLongitude }}º</ion-card-subtitle>
-                </ion-card-header>
-                <ion-card-header *ngIf="!isLocationReady">
-                    <ion-card-subtitle color="secondary">Obtaining current location...</ion-card-subtitle>
-                </ion-card-header>
+
+                <div *ngIf="anyErrorWithLocation">
+                    <ion-card-header>
+                        <ion-card-subtitle color="danger">Failed obtaining current location.</ion-card-subtitle>
+                    </ion-card-header>
+                </div>
+                <div *ngIf="!anyErrorWithLocation">
+                    <ion-card-header *ngIf="isLocationReady">
+                        <ion-card-title>{{ locationName }}</ion-card-title>
+                        <ion-card-subtitle color="secondary">{{ locationLatitude }}º, {{ locationLongitude }}º</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-header *ngIf="!isLocationReady">
+                        <ion-card-subtitle color="secondary">Obtaining current location...</ion-card-subtitle>
+                    </ion-card-header>
+                </div>
+
 
                 <ion-card-content>
                     <ion-list lines="none" *ngIf="stats">
@@ -38,11 +47,11 @@
             </ion-card>
 
             <div>
-                <ion-chip>
+                <ion-chip (click)="getCurrentLocation()">
                     <ion-icon name="locate"></ion-icon>
                     <ion-label>Locate</ion-label>
                 </ion-chip>
-                <ion-chip (click)="openModal()">
+                <ion-chip (click)="openSearchModal()">
                     <ion-icon name="search"></ion-icon>
                     <ion-label>Search</ion-label>
                 </ion-chip>

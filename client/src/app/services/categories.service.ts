@@ -5,6 +5,7 @@ import {Category} from './models/category.model';
     providedIn: 'root'
 })
 export class CategoriesService {
+    
     private categories: Category[];
 
     constructor() {
@@ -15,6 +16,10 @@ export class CategoriesService {
 
     // TODO maybe take categories from database or json file
     private setUpCategories(): void {
+
+        this.addCategory('popular', 'Popular', '/assets/icon/hot.svg', 'assets/images/desert.jpg');
+        this.addCategory('recent', 'Recent', '/assets/icon/satellite.svg', 'assets/images/desert.jpg');
+
         this.addCategory('temperatures', 'Temperatures', '/assets/icon/hot.svg', 'assets/images/desert.jpg');
         this.addCategory('pollution', 'Pollution', '/assets/icon/factory.svg', 'assets/images/pollution.jpg');
         this.addCategory('rain', 'Rain', '/assets/icon/drop.svg', 'assets/images/rain.jpg');
@@ -26,11 +31,19 @@ export class CategoriesService {
     }
 
 
-    public getCategories(): Category[] {
+
+    getDefaultCategory(): Category
+    {
+        return this.getCategory("popular");
+    }
+
+    public getCategories(): Category[]
+    {
         return this.categories;
     }
 
-    public getCategory(id: string): Category {
+    public getCategory(id: string): Category
+    {
         return this.categories.find(cat => cat.id == id);
     }
 

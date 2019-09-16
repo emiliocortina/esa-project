@@ -31,6 +31,11 @@ export class GeolocationSearchModal implements OnInit
     await this.modalController.dismiss();
   }
 
+
+  /**
+   * Sets the location of the StatsPage and closes the modal.
+   * @param location 
+   */
   async selectLocation(location: NativeGeocoderResult)
   {
     console.log("New location!");
@@ -38,6 +43,11 @@ export class GeolocationSearchModal implements OnInit
     await this.modalController.dismiss();
   }
 
+
+  /**
+   * Uses the Cordova native geocoder plugin to look for the
+   * coordinates of 'this.searchText'.
+   */
   findLocation()
   {
     console.log("Looking for: " + this.searchText);
@@ -63,6 +73,6 @@ export class GeolocationSearchModal implements OnInit
         while(this.results.length > 0)
           this.results.pop();
       });
-    }
+  }
 
 }
