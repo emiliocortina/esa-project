@@ -3,26 +3,26 @@
         <ion-buttons slot="start">
             <ion-back-button defaultHref=""></ion-back-button>
         </ion-buttons>
-        <ion-title *ngIf="topic">{{ topic.title }}</ion-title>
+        <ion-title *ngIf="thread">{{ thread.title }}</ion-title>
     </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="topic" fullscreen>
-    <img [src]="topic.getCoverImage()" alt="">
+<ion-content *ngIf="thread" fullscreen>
+    <img [src]="thread.getCoverImage()" alt="">
 
     <div class="initialPost">
         <ion-card-header>
-            <ion-card-title>{{topic.title}}</ion-card-title>
-            <ion-card-subtitle>By {{topic.getCreatorName()}} on {{topic.initialPost.created.toLocaleDateString()}}</ion-card-subtitle>
+            <ion-card-title>{{thread.title}}</ion-card-title>
+            <ion-card-subtitle>By {{thread.getCreatorName()}} on {{thread.initialPost.created.toLocaleDateString()}}</ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-            <p>{{topic.getPreview()}}</p>
-            <p class="postDate">{{topic.initialPost.created.toLocaleTimeString()}}</p>
+            <p>{{thread.getPreview()}}</p>
+            <p class="postDate">{{thread.initialPost.created.toLocaleTimeString()}}</p>
         </ion-card-content>
     </div>
 
     <div class="comments">
-        <ion-card class="commentPost" *ngFor="let post of topic.comments">
+        <ion-card class="commentPost" *ngFor="let post of thread.initialPost.comments">
             <ion-card-header>
                 <ion-card-subtitle>@{{post.user.nickName}}</ion-card-subtitle>
             </ion-card-header>
