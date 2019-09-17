@@ -31,7 +31,7 @@ app.use('/api/private', require('./middleware/autenticated.middleware'));
 app.use('/api/private', require('./routes/satelliteData.routes'));
 app.use('/api/private', require('./routes/satelliteDataValue.routes'));
 app.use('/api/private', require('./routes/coop.routes'));
-app.use('/api/private', require('./routes/topics.routes'));
+app.use('/api/private', require('./routes/thread.routes'));
 app.use('/api/private', require('./routes/comments.routes'));
 
 //Error manager

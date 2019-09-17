@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('./../controllers/thread.controller');
+const ctrl = require('../controllers/thread.controller');
 
 /**
  * @api {post} /api/private/topic Creates a topic

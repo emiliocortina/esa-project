@@ -29,7 +29,7 @@ usersCtrl.signup = async (req, res, next) => {
 		user.unencodedPass = null;
 		user.save((err, doc) => {
 			if (err) {
-				console.log('err: ' + err);
+				
 
 				next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 				return;
