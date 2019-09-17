@@ -1,6 +1,6 @@
-const ThreadModule = require('../models/Thread');
-const Thread = ThreadModule.ThreadSchema;
-const Coop = ThreadModule.CoopSchema;
+const Thread = require('../models/Thread');
+
+
 const HttpStatus = require('../constants/HttpStatus');
 const tokenServ = require('../services/token.service');
 const sortAndFilterService = require('../services/SortAndFilter.service');

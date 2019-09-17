@@ -30,6 +30,7 @@ app.use('/auth', require('./routes/users.routes.js'));
 app.use('/api/private', require('./middleware/autenticated.middleware'));
 app.use('/api/private', require('./routes/satelliteData.routes'));
 app.use('/api/private', require('./routes/satelliteDataValue.routes'));
+app.use('/api/private', require('./routes/coop.routes'));
 app.use('/api/private', require('./routes/topics.routes'));
 app.use('/api/private', require('./routes/comments.routes'));
 
@@ -46,7 +47,7 @@ app.use(function(err, req, res, next) {
 		res.status(400).json({ error: 'undefined error' });
 		return;
 	}
-
+	logger.error(`${err.error_code} : ${err.error_description}`);
 	res.status(parseInt(errorObject.status)).json(errorObject);
 	return;
 });
