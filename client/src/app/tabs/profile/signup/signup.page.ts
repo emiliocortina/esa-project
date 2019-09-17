@@ -29,8 +29,8 @@ export class SignupPage implements OnInit {
   }
 
   signUp() {
-    this.authServ.signup(new SignUpObject(this.signupForm.value));
-    //this.apiServ.request("auth/signup", "post", {}, this.signupForm.value);
+    let res = this.authServ.signup(new SignUpObject(this.signupForm.value));
+    //let res = this.apiServ.request("auth/signup", "post", {}, this.signupForm.value);
   }
 
   goToLogin() {
