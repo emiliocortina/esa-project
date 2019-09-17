@@ -1,0 +1,25 @@
+<div>
+
+    <p>Plain vlues go here</p>
+
+    <ion-list lines="none" *ngIf="data">
+
+        <!-- TODO once we have an array, we'll have to do a ngFor
+        <ion-item *ngFor="let dataItem of stats" (click)="showStatsDetails(dataItem)" button>
+            <ion-icon slot="start" color="medium" src="{{ dataItem.category.iconUrl }}"></ion-icon>
+            <ion-label>{{dataItem.name}}</ion-label>
+            <ion-badge color="{{dataItem.getOverviewField().color}}">{{dataItem.getOverviewField().getOverview()}}</ion-badge>
+        </ion-item>
+        -->
+
+        <ion-item>
+            <!-- TODO icon
+            <ion-icon slot="start" color="medium" src=""></ion-icon>
+            -->
+            <ion-label>{{ values.name }}</ion-label>
+            <ion-badge color="green">{{ values.func(0) }}</ion-badge>
+        </ion-item>
+
+    </ion-list>
+
+</div>

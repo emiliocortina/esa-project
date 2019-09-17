@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SatelliteStats } from 'src/app/services/models/satellite-data/satellite-stats.model';
+import { SatelliteData } from 'src/app/services/models/satellite-data/satellite-data.model';
 import { Chart } from 'chart.js';
 
 /**
@@ -15,7 +15,7 @@ import { Chart } from 'chart.js';
 })
 export class ChartComponent implements OnInit
 {
-  data: SatelliteStats;
+  data: SatelliteData;
   chart: Chart;
 
   constructor() 
@@ -24,11 +24,14 @@ export class ChartComponent implements OnInit
 
   ngOnInit()
   {
+  }
+
+  setData(data: SatelliteData) {
+    this.data = data;
     this.buildChart();
   }
 
-
-  buildChart()
+  private buildChart()
   {
     this.chart = new Chart("myChart",
     {

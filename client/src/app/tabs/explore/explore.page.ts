@@ -4,9 +4,9 @@ import {Thread} from '../../services/models/threads/thread.model';
 import {CategoriesService} from '../../services/categories.service';
 import {Category} from '../../services/models/category.model';
 import {Router} from '@angular/router';
-import { ModalController, PopoverController } from '@ionic/angular';
-import { SettingsModal } from 'src/app/components/settings-modal/settings-modal.component';
-import { CategoriesPopover } from './categories-popover/categories-popover.component';
+import {ModalController, PopoverController} from '@ionic/angular';
+import {SettingsModal} from 'src/app/components/settings-modal/settings-modal.component';
+import {CategoriesPopover} from './categories-popover/categories-popover.component';
 
 @Component({
     selector: 'app-tab1',
@@ -43,11 +43,10 @@ export class ExplorePage implements OnInit {
 
     // = = = = = = = = = = = = CATEGORIES = = = = = = = = = = = = //
 
-    async openCategoryPopup()
-    {
+    async openCategoryPopup() {
         const popover = await this.popoverController.create({
             component: CategoriesPopover,
-            componentProps: { 
+            componentProps: {
                 explorePage: this
             },
             translucent: true
@@ -62,9 +61,6 @@ export class ExplorePage implements OnInit {
     isShowingCategories(): boolean {
         return this.categoriesToggle;
     }
-
-
-
 
 
     // = = = = = = = = = = = = THREADS = = = = = = = = = = = = //
@@ -89,9 +85,6 @@ export class ExplorePage implements OnInit {
         this.page++;
         this.loadThreads(infiniteScroll);
     }
-
-
-    
 
 
 }

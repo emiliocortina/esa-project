@@ -1,6 +1,6 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import {SatelliteService} from '../../services/satellite.service';
-import {SatelliteStats} from '../../services/models/satellite-data/satellite-stats.model';
+import {SatelliteData} from '../../services/models/satellite-data/satellite-data.model';
 import {ModalController, ToastController, LoadingController} from '@ionic/angular';
 import {StatsDetailsPage} from './stats-details/stats-details.page';
 import {Router} from '@angular/router';
@@ -8,6 +8,9 @@ import {Router} from '@angular/router';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GeolocationSearchModal } from 'src/app/components/geolocation-search-modal/geolocation-search-modal.component';
 import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@ionic-native/native-geocoder/ngx';
+import { SatelliteDataDisplay } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.component';
+import { DataCategory } from 'src/app/services/models/satellite-data/data-category.model';
+import { CategoriesService } from 'src/app/services/categories.service';
 
 
 @Component({
@@ -17,16 +20,6 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
 })
 export class StatsPage implements OnInit {
   
-    stats: SatelliteStats[];
-
-    // TODO geocoding API
-    // Google geocoding API (turning search text into coordinate)
-    // has a pricing which we won't pay right now.
-    // Thus, we're not supporting location search with text.
-    
-    loading: any;
-        
-
     isLocationReady: boolean = false;
     anyErrorWithLocation: boolean = false;
 
@@ -34,8 +27,12 @@ export class StatsPage implements OnInit {
     locationLatitude: number;
     locationLongitude: number;
 
+    @ViewChild("SatelliteDataDisplay")
+    dataDisplay: SatelliteDataDisplay;
+
 
     constructor(
+        private categoriesService: CategoriesService,
         private satelliteService: SatelliteService, 
         private modalController: ModalController,
         private toastController: ToastController,
@@ -48,7 +45,7 @@ export class StatsPage implements OnInit {
 
     
     ngOnInit(): void {
-        this.stats = [];
+        //this.dataDisplay = new SatelliteDataDisplay();
         this.getCurrentLocation();
     }
 
@@ -155,16 +152,30 @@ export class StatsPage implements OnInit {
      * Updates the data we're showing, depending on our
      * current stored coordinates.
      */
-    private updateData()
+    private async updateData()
     {
-        while (this.stats.length > 0)
-            this.stats.pop();
-        this.satelliteService.fetchSatelliteData(this.stats, this.locationLatitude, this.locationLongitude);
+        console.log("Calling updateData");
+        // TODO don't use dummy data
+        var cat = new DataCategory("mock data", this.categoriesService.getCategory("temperatures"));
+
+        this.satelliteService.fetchSatelliteData(
+                this.locationLatitude, 
+                this.locationLongitude, 
+                new Date(),
+                new Date(),
+                cat)
+            .then( data => {
+                // Display a chart with the data
+                this.dataDisplay.displayChart(data);
+            });
     }
 
 
 
-    async showStatsDetails(selectedStats: SatelliteStats) {
+
+
+
+    async showStatsDetails(selectedStats: SatelliteData) {
         const modal = await this.modalController.create({
             component: StatsDetailsPage,
             componentProps: {
