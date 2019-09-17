@@ -23,4 +23,4 @@ const routes: Routes = [
   ],
   declarations: [ThreadSearchPage]
 })
-export class TopicSearchPageModule {}
+export class ThreadSearchPageModule {}

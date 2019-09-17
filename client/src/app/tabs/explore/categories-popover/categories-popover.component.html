@@ -1,0 +1,26 @@
+<ion-item-group>
+
+  <ion-item-divider>
+    <ion-list class="categoriesList" lines="none">
+      <ion-list-header class="unselectableText">
+        <h4>Cooper Categories</h4>
+      </ion-list-header>
+
+      <ion-item *ngFor="let cat of cooperCategories" (click)="selectCategory(cat)">
+        <ion-icon slot="start" color="medium" src="{{ cat.iconUrl }}"></ion-icon>
+        <ion-label>{{ cat.name }}</ion-label>
+      </ion-item>
+    </ion-list>
+
+  </ion-item-divider>
+
+  <ion-item-divider>
+    <ion-list class="categoriesList" lines="none">
+      <ion-list-header class="unselectableText">
+          <h4>Followed Categories</h4>
+      </ion-list-header>
+      <ion-item><ion-label>TBD</ion-label></ion-item>
+    </ion-list>
+  </ion-item-divider>
+
+</ion-item-group>

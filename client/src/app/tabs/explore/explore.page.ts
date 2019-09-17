@@ -4,6 +4,9 @@ import {Thread} from '../../services/models/threads/thread.model';
 import {CategoriesService} from '../../services/categories.service';
 import {Category} from '../../services/models/category.model';
 import {Router} from '@angular/router';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { SettingsModal } from 'src/app/components/settings-modal/settings-modal.component';
+import { CategoriesPopover } from './categories-popover/categories-popover.component';
 
 @Component({
     selector: 'app-tab1',
@@ -15,17 +18,19 @@ export class ExplorePage implements OnInit {
     page: number = 0;
     threads: Thread[];
 
-    categories: Category[];
+    currentCategory: Category;
     categoriesToggle: boolean;
 
 
     constructor(
         private threadsService: ThreadsService,
         private categoriesService: CategoriesService,
-        private router: Router
+        private router: Router,
+        private modalController: ModalController,
+        private popoverController: PopoverController
     ) {
 
-        this.categories = this.categoriesService.getCategories();
+        this.currentCategory = this.categoriesService.getDefaultCategory();
     }
 
     ngOnInit(): void {
@@ -36,7 +41,33 @@ export class ExplorePage implements OnInit {
     }
 
 
+    async goToSettingsPage()
+    {
+        const modal = await this.modalController.create({
+            component: SettingsModal,
+            componentProps: { 
+                statsPage: this
+            }
+        });
+        return await modal.present();
+    }
+
+
+
+
     // = = = = = = = = = = = = CATEGORIES = = = = = = = = = = = = //
+
+    async openCategoryPopup()
+    {
+        const popover = await this.popoverController.create({
+            component: CategoriesPopover,
+            componentProps: { 
+                explorePage: this
+            },
+            translucent: true
+        });
+        return await popover.present();
+    }
 
     toggleShowCategories(): void {
         this.categoriesToggle = !this.categoriesToggle;
@@ -45,6 +76,9 @@ export class ExplorePage implements OnInit {
     isShowingCategories(): boolean {
         return this.categoriesToggle;
     }
+
+
+
 
 
     // = = = = = = = = = = = = THREADS = = = = = = = = = = = = //
@@ -69,6 +103,9 @@ export class ExplorePage implements OnInit {
         this.page++;
         this.loadThreads(infiniteScroll);
     }
+
+
+    
 
 
 }

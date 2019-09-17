@@ -1,21 +1,63 @@
 
-<ion-grid>
-    <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
-        <ion-card>
-            <img src="/assets/images/map2.jpg" alt=""/>
-            <ion-card-header>
-                <ion-card-title>Stats around</ion-card-title>
-                <ion-card-subtitle>Oviedo, Asturias, Spain</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-                <ion-list lines="none" *ngIf="stats">
-                    <ion-item *ngFor="let dataItem of stats" (click)="showStatsDetails(dataItem)" button>
-                        <ion-icon slot="start" color="medium" src="{{ dataItem.category.iconUrl }}"></ion-icon>
-                        <ion-label>{{dataItem.name}}</ion-label>
-                        <ion-badge color="{{dataItem.getOverviewField().color}}">{{dataItem.getOverviewField().getOverview()}}</ion-badge>
-                    </ion-item>
-                </ion-list>
-            </ion-card-content>
-        </ion-card>
-    </ion-row>
-</ion-grid>
+<ion-header translucent>
+    <ion-toolbar >
+        <ion-title>
+            <img src="/assets/icon/logo.svg">
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+
+    <ion-grid>
+
+        <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
+            <ion-card>
+                <!-- TODO <img src="/assets/images/map2.jpg" alt=""/>-->
+                <div id="mapCanvas"></div>
+
+
+                <div *ngIf="anyErrorWithLocation">
+                    <ion-card-header>
+                        <ion-card-subtitle color="danger">Failed obtaining current location.</ion-card-subtitle>
+                    </ion-card-header>
+                </div>
+                <div *ngIf="!anyErrorWithLocation">
+                    <ion-card-header *ngIf="isLocationReady">
+                        <ion-card-title>{{ locationName }}</ion-card-title>
+                        <ion-card-subtitle color="secondary">{{ locationLatitude }}º, {{ locationLongitude }}º</ion-card-subtitle>
+                    </ion-card-header>
+                    <ion-card-header *ngIf="!isLocationReady">
+                        <ion-card-subtitle color="secondary">Obtaining current location...</ion-card-subtitle>
+                    </ion-card-header>
+                </div>
+
+
+                <ion-card-content>
+                    <ion-list lines="none" *ngIf="stats">
+                        <ion-item *ngFor="let dataItem of stats" (click)="showStatsDetails(dataItem)" button>
+                            <ion-icon slot="start" color="medium" src="{{ dataItem.category.iconUrl }}"></ion-icon>
+                            <ion-label>{{dataItem.name}}</ion-label>
+                            <ion-badge color="{{dataItem.getOverviewField().color}}">{{dataItem.getOverviewField().getOverview()}}</ion-badge>
+                        </ion-item>
+                    </ion-list>
+                </ion-card-content>
+
+            </ion-card>
+
+            <div>
+                <ion-chip (click)="getCurrentLocation()">
+                    <ion-icon name="locate"></ion-icon>
+                    <ion-label>Locate</ion-label>
+                </ion-chip>
+                <ion-chip (click)="openSearchModal()">
+                    <ion-icon name="search"></ion-icon>
+                    <ion-label>Search</ion-label>
+                </ion-chip>
+            </div>
+        </ion-row>
+    </ion-grid>
+
+
+</ion-content>
