@@ -4,8 +4,6 @@ var config = require('../config/commonConfig');
 var errorServ = require('./../services/error.service');
 
 ensureAuthenticated = function(req, res, next) {
-	//console.log(req.token);
-
 	if (!req.token) {
 		next(errorServ.buildError(req.url, 403, 'auth_error', 'No authetication'));
 		return;

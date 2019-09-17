@@ -1,48 +1,27 @@
 import {Injectable} from '@angular/core';
-import {SatelliteStats} from './models/satellite-data/satellite-stats.model';
-import {CategoriesService} from './categories.service';
-import {StatsField} from './models/satellite-data/stats-field.model';
+import {SatelliteData} from './models/satellite-data/satellite-data.model';
+import { DataCategory } from './models/satellite-data/data-category.model';
+import { SatelliteDataValues } from './models/satellite-data/satellite-data-values.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SatelliteService {
 
-    constructor(private categoriesService: CategoriesService) {
+    constructor()
+    {
     }
 
 
-    public fetchSatelliteData(data: SatelliteStats[], latitude: number, longitude: number): void {
-        this.fetchPollution(data);
-        this.fetchTemperatures(data);
-        this.fetchRainfall(data);
-        this.fetchTides(data);
+    public async fetchSatelliteData(latitude: number, longitude: number, 
+            start: Date, end: Date, category: DataCategory) : Promise<SatelliteData>
+    {
+        // TODO RIGHT NOW RETURN RANDOM VALUES
+        var func = (x) => { return Math.random() * Math.pow(x, 2) + Math.random() * x + Math.random() };
+        var values = new SatelliteDataValues(func, category);
+
+        var data = new SatelliteData(latitude, longitude, start, end, values);
+        return data;
     }
 
-    private fetchTemperatures(data: SatelliteStats[]) {
-        data.push(new SatelliteStats('Temperatures',
-            this.categoriesService.getCategory('temperatures'),
-            new StatsField('Current', 20, 'ºC', 'success')));
-    }
-
-    private fetchTides(data: SatelliteStats[]) {
-        const tidesStats = new SatelliteStats('Tides',
-            this.categoriesService.getCategory('tides'),
-            new StatsField('Current Height', 4, 'm', 'warning'));
-        tidesStats.addField(new StatsField('Highest', 8, 'm', 'danger'));
-        tidesStats.addField(new StatsField('Lowest', 4, 'm', 'warning'));
-        data.push(tidesStats);
-    }
-
-    private fetchRainfall(data: SatelliteStats[]) {
-        data.push(new SatelliteStats('Rain',
-            this.categoriesService.getCategory('rain'),
-            new StatsField('Volume', 5, 'l/m2', 'success')));
-    }
-
-    private fetchPollution(data: SatelliteStats[]) {
-        data.push(new SatelliteStats('Pollution',
-            this.categoriesService.getCategory('pollution'),
-            new StatsField('Amount', 334, 'ppm', 'danger')));
-    }
 }

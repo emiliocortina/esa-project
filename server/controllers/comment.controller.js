@@ -1,4 +1,4 @@
-const TopicModule = require('./../models/Topic');
+const TopicModule = require('../models/Thread');
 const Comment = TopicModule.CommentSchema;
 const Topic = TopicModule.TopicSchema;
 const HttpStatus = require('./../constants/HttpStatus');

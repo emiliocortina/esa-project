@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {SatelliteStats} from '../../../services/models/satellite-data/satellite-stats.model';
+import {SatelliteData} from '../../../services/models/satellite-data/satellite-data.model';
 import {ModalController, ToastController} from '@ionic/angular';
 import {StorageService} from '../../../services/authentication/storage.service';
 import {Thread} from "../../../services/models/threads/thread.model";
@@ -14,7 +14,7 @@ export class StatsDetailsPage implements OnInit {
 
     showCard = false;
 
-    @Input() stats: SatelliteStats;
+    @Input() stats: SatelliteData;
     postTitle: string;
     postBody: string;
 
@@ -72,7 +72,7 @@ export class StatsDetailsPage implements OnInit {
     }
 
     private submitThread() {
-        const thread = new Thread('0', this.postTitle, this.stats.category, this.postBody);
+        //const thread = new Thread('0', this.postTitle, this.stats.category, this.postBody);
         // TODO
         // this.threadsService.submitThread(thread);
         this.modalController.dismiss({success: 'Thread successfully created!'});

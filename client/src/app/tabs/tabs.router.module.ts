@@ -26,11 +26,11 @@ const routes: Routes = [
         ]
       },
       {
-        path: 'profile',
+        path: 'agencies',
         children: [
           {
             path: '',
-            loadChildren: ''
+            loadChildren: './agencies/agencies.module#AgenciesPageModule'
           }
         ]
       },

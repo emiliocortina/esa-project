@@ -5,7 +5,7 @@
                 <ion-icon slot="icon-only" name="contact"></ion-icon>
             </ion-button>
         </ion-buttons>
-        <ion-title>
+        <ion-title >
             <img src="/assets/icon/logo.svg">
         </ion-title>
     </ion-toolbar>
@@ -39,19 +39,14 @@
                 </div>
 
 
-                <ion-card-content>
-                    <ion-list lines="none" *ngIf="stats">
-                        <ion-item *ngFor="let dataItem of stats" (click)="showStatsDetails(dataItem)" button>
-                            <ion-icon slot="start" color="medium" src="{{ dataItem.category.iconUrl }}"></ion-icon>
-                            <ion-label>{{dataItem.name}}</ion-label>
-                            <ion-badge color="{{dataItem.getOverviewField().color}}">
-                                {{dataItem.getOverviewField().getOverview()}}</ion-badge>
-                        </ion-item>
-                    </ion-list>
-                </ion-card-content>
+                <!-- <ion-card-content> -->
+                    <app-satellite-data-display #SatelliteDataDisplay></app-satellite-data-display>
+                <!-- </ion-card-content> -->
 
             </ion-card>
 
+            
+            <!-- SEARCH AND LOCATE BUTTONS -->
             <div>
                 <ion-chip (click)="getCurrentLocation()">
                     <ion-icon name="locate"></ion-icon>
