@@ -9,19 +9,16 @@ usersCtrl.signup = async (req, res, next) => {
 	const user = new Model(req.body);
 	user.unencodedPass = user.password;
 	let existentUser = await Model.findOne({ email: user.email });
-
 	if (existentUser) {
 		next(errorServ.buildError(req.url, 400, 'email_repeated', 'Already existing email'));
 		return;
 	}
-
 	existentUser = await Model.findOne({ nickName: user.nickName });
 	if (existentUser) {
 		next(errorServ.buildError(req.url, 400, 'nick_repeated', 'Already existing nick name'));
 		return;
 	}
 
-	
 	bcrypt.hash(user.unencodedPass, salt, function(err, hash) {
 		if (err) {
 			

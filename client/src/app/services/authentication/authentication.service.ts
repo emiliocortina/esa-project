@@ -26,7 +26,7 @@ export class AuthenticationService {
 
 	signup(signUpObject: SignUpObject): Observable<Session> {
 		return this.apiService
-			.request('auth/signup', 'post', null, signUpObject)
+			.request('auth/signup', 'post', null, JSON.stringify(signUpObject))
 			.pipe(map((data) => this.extractData(data)));
 	}
 
