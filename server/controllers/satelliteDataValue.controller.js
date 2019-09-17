@@ -1,15 +1,15 @@
 const HttpStatus = require('../constants/HttpStatus');
 const tokenServ = require('../services/token.service');
-const SatelliteData = require('../models/SatelliteData').SatelliteData;
+const SatelliteDataValue = require('../models/SatelliteData').SatelliteDataValue;
 const errorServ = require('../services/error.service');
 
-exports.createSatelliteData = async (req, res, next) => {
-	let satData = new SatelliteData(req.body);
+exports.createSatelliteDataValue = async (req, res, next) => {
+	let satData = new SatelliteDataValue(req.body);
 	satData
 		.save()
 		.then(() => {
 			res.status(HttpStatus.CREATED).json({
-				message: 'SatelliteData created',
+				message: 'SatelliteDataValue created',
 				id: satData.id
 			});
 			return;
@@ -19,15 +19,15 @@ exports.createSatelliteData = async (req, res, next) => {
 			return;
 		});
 };
-exports.getSatelliteData = async (req, res, next) => {
+exports.getSatelliteDataValue = async (req, res, next) => {
 	const id = req.params.id;
-	let satData = await SatelliteData.findById(id).populate('satelliteDataValues');
+	let satData = await SatelliteDataValue.findById(id);
 
 	if (satData) {
 		res.status(HttpStatus.OK).json(satData);
 		return;
 	} else {
-		next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'not_found', 'Not satellite data found'));
+		next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'not_found', 'Not satellite data value found'));
 		return;
 	}
 };

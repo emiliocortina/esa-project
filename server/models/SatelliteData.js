@@ -10,6 +10,18 @@ let SatelliteDataSchema = new Schema({
 			y: { type: Number, required: true },
 			text: { type: String, required: true }
 		}
-	]
+	],
+	satelliteDataValues: [ { type: Schema.Types.ObjectId, ref: 'satelliteDataValue' } ]
 });
-module.exports = mongoose.model('satelliteData', SatelliteDataSchema);
+
+let SatelliteDataValue = new Schema({
+	function: { type: String, required: true },
+	dataCategory: {
+		unit: { type: String, required: true },
+		threadCategory: { type: String, required: true }
+	}
+});
+module.exports = module.exports = {
+	SatelliteData: mongoose.model('satelliteData', SatelliteDataSchema),
+	SatelliteDataValue: mongoose.model('satelliteDataValue', SatelliteDataValue)
+};
