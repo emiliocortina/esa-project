@@ -50,7 +50,7 @@ export class LoginPage implements OnInit {
 	}
 
 	async errorLogin(error: any) {
-		let errorMessage;
+		let errorMessage; 
 		if (error.error && error.error.error) {
 			errorMessage = error.error.error;
 		} else {
@@ -68,6 +68,6 @@ export class LoginPage implements OnInit {
 	private correctLogin(data: Session) {
 		this.storageService.setCurrentSession(data);
 		this.error = null;
-		this.router.navigate([ '/tabs/profile' ], { replaceUrl: true });
+		this.router.navigate([ '/profile' ], { replaceUrl: true });
 	}
 }

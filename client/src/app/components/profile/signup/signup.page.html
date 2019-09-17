@@ -1,50 +1,100 @@
 <ion-header translucent no-border>
   <ion-toolbar>
-      <ion-buttons slot="start">
-          <ion-button routerLink="/tabs">
-              <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
-          </ion-button>
-      </ion-buttons>
-      <ion-title>Profile</ion-title>
+    <ion-buttons slot="start">
+      <ion-button routerLink="/tabs">
+        <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Profile</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-grid>
     <ion-row justify-content-center align-items-center>
-      <ion-card>
-        <img src="/assets/icon/logo_color.svg" alt=""/>
+        <img src="/assets/icon/logo_color.svg" alt="" />
         <ion-card-content>
           <form id="signup-form" [formGroup]="signupForm" (ngSubmit)="signUp()">
+
+              <ion-label>Avatar</ion-label>
+              <ion-row justify-content-center align-items-center>
+                  <ion-button fill="clear" (click)="previousAvatar()">
+                    <ion-icon slot="icon-only" name="arrow-back" color="dark"></ion-icon>
+                  </ion-button>
+
+                  <ion-avatar class="avatar">
+                    <img id="avatarId" src="../../../../assets/avatar/{{currentAvatarId}}.svg">
+                  </ion-avatar>
+
+                  <ion-button fill="clear" (click)="nextAvatar()">
+                    <ion-icon slot="icon-only" name="arrow-forward" color="dark"></ion-icon>
+                  </ion-button>
+              </ion-row>
+
             <ion-label>Name</ion-label>
             <ion-row justify-content-center align-items-center>
-              <ion-input formControlName="name" required placeholder="Enter your full name" id="name"></ion-input>
+              <ion-input formControlName="name" placeholder="Enter your full name" id="name"></ion-input>
             </ion-row>
-            <ion-label>Surname</ion-label>
-          <ion-row justify-content-center align-items-center>
-            <ion-input formControlName="surname" required placeholder="Enter your surname" id="surname"></ion-input>
-          </ion-row>
-          <ion-label>Email</ion-label>
-          <ion-row justify-content-center align-items-center>
-            <ion-input formControlName="email" required placeholder="Enter your email address" id="email"></ion-input>
-          </ion-row>
-          <ion-label>Password</ion-label>
-          <ion-row justify-content-center align-items-center>
-            <ion-input formControlName="password" required placeholder="Enter your password" inputmode="password" type="password" id="password"></ion-input>
-          </ion-row>
-          <ion-label>Repeat password</ion-label>
-          <ion-row justify-content-center align-items-center>
-            <ion-input formControlName="passwordRep" required placeholder="Repeat your password" inputmode="password" type="password" id="passwordRep"></ion-input>
-          </ion-row>
-          <ion-row justify-content-center align-items-center>
-            <ion-button type="submit" color="dark">Sign up</ion-button>
-          </ion-row>
-          <ion-row justify-content-center align-items-center>
-            <ion-button routerLink="/profile/login" size="small" color="light">Login</ion-button>
-          </ion-row>
-        </form>
+            <ion-row *ngFor="let validation of validation_messages.name">
+              <div class="error-message"
+                *ngIf="signupForm.get('name').hasError(validation.type) && (signupForm.get('name').dirty || signupForm.get('name').touched)">
+                {{ validation.message }}
+              </div>
+            </ion-row>
+            <ion-label>Nickname</ion-label>
+            <ion-row justify-content-center align-items-center>
+              <ion-input formControlName="nickname" placeholder="Enter a nickname" id="nickname"></ion-input>
+            </ion-row>
+            <ion-row *ngFor="let validation of validation_messages.nickname">
+              <div class="error-message"
+                *ngIf="signupForm.get('nickname').hasError(validation.type) && (signupForm.get('nickname').dirty || signupForm.get('nickname').touched)">
+                {{ validation.message }}
+              </div>
+            </ion-row>
+            <ion-label>Email</ion-label>
+            <ion-row justify-content-center align-items-center>
+              <ion-input formControlName="email" placeholder="Enter your email address" id="email"></ion-input>
+            </ion-row>
+            <ion-row *ngFor="let validation of validation_messages.email">
+              <div class="error-message"
+                *ngIf="signupForm.get('email').hasError(validation.type) && (signupForm.get('email').dirty || signupForm.get('email').touched)">
+                {{ validation.message }}
+              </div>
+            </ion-row>
+            <ion-label>Password</ion-label>
+            <ion-row justify-content-center align-items-center>
+              <ion-input formControlName="password" placeholder="Enter your password" inputmode="password"
+                type="password" id="password"></ion-input>
+            </ion-row>
+            <ion-row *ngFor="let validation of validation_messages.password">
+              <div class="error-message"
+                *ngIf="signupForm.get('password').hasError(validation.type) && (signupForm.get('password').dirty || signupForm.get('password').touched)">
+                {{ validation.message }}
+              </div>
+            </ion-row>
+            <ion-label>Repeat password</ion-label>
+            <ion-row>
+              <ion-input formControlName="passwordRep" placeholder="Repeat your password" inputmode="password"
+                type="password" id="passwordRep"></ion-input>
+            </ion-row>
+            <ion-row *ngFor="let validation of validation_messages.passwordRep">
+              <div class="error-message"
+                *ngIf="signupForm.get('passwordRep').hasError(validation.type) && (signupForm.get('passwordRep').dirty || signupForm.get('passwordRep').touched)">
+                {{ validation.message }}
+              </div>
+            </ion-row>
+            <ion-row>
+              <div class="error-message" *ngIf="signupForm.hasError('notMatch')">{{ signupForm.getError('notMatch') }}
+              </div>
+            </ion-row>
+            <ion-row justify-content-center align-items-center>
+              <ion-button type="submit" color="dark">Sign up</ion-button>
+            </ion-row>
+            <ion-row justify-content-center align-items-center>
+              <ion-button routerLink="/profile/login" size="small" color="light">Login</ion-button>
+            </ion-row>
+          </form>
         </ion-card-content>
-      </ion-card>
     </ion-row>
   </ion-grid>
 
