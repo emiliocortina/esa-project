@@ -1,5 +1,10 @@
 <ion-header translucent no-border>
     <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button routerLink="/tabs">
+                <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-buttons slot="end">
             <ion-button (click)="logOut()" routerLink="/profile/login">
                 <ion-icon slot="icon-only" name="log-out" color="dark"></ion-icon>
@@ -11,7 +16,7 @@
 </ion-header>
 
 <ion-content>
-    
+
     <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
         <ion-card>
             <ion-card-header>

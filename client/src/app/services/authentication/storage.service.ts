@@ -48,5 +48,11 @@ export class StorageService {
     this.removeCurrentSession();
     this.router.navigate(['/login']);
   }
-
+  getAvatarId(): string {
+    const user = this.getCurrentUser();
+    if (user) {
+      return user.avatarId;
+    } 
+    return null;
+  }
 }
