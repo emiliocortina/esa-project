@@ -12,15 +12,24 @@
 <ion-content>
   <ion-grid>
     <ion-row justify-content-center align-items-center>
-      <ion-card>
         <img src="/assets/icon/logo_color.svg" alt="" />
         <ion-card-content>
           <form id="signup-form" [formGroup]="signupForm" (ngSubmit)="signUp()">
 
+              <ion-label>Avatar</ion-label>
               <ion-row justify-content-center align-items-center>
-                  <ion-button (click)="openAvatarPopup()" id="avatar">Select an avatar</ion-button>
-                </ion-row>
-            
+                  <ion-button fill="clear" (click)="previousAvatar()">
+                    <ion-icon slot="icon-only" name="arrow-back" color="dark"></ion-icon>
+                  </ion-button>
+
+                  <ion-avatar class="avatar">
+                    <img id="avatarId" src="../../../../assets/avatar/{{currentAvatarId}}.svg">
+                  </ion-avatar>
+
+                  <ion-button fill="clear" (click)="nextAvatar()">
+                    <ion-icon slot="icon-only" name="arrow-forward" color="dark"></ion-icon>
+                  </ion-button>
+              </ion-row>
 
             <ion-label>Name</ion-label>
             <ion-row justify-content-center align-items-center>
@@ -86,7 +95,6 @@
             </ion-row>
           </form>
         </ion-card-content>
-      </ion-card>
     </ion-row>
   </ion-grid>
 

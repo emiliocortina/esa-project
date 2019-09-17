@@ -7,8 +7,12 @@ import { User } from '../models/users/user';
   providedIn: 'root'
 })
 export class StorageService {
+    
+    
   private localStorageService;
   private currentSession: Session = null;
+  onUserChange: (user: User) => void;
+
   constructor(private router: Router) {
     this.localStorageService = localStorage;
     this.currentSession = this.loadSessionData();
@@ -16,6 +20,7 @@ export class StorageService {
   setCurrentSession(session: Session): void {
     this.currentSession = session;
     this.localStorageService.setItem('currentUser', JSON.stringify(session));
+    this.onUserChange(this.getCurrentUser());
   }
   loadSessionData(): Session {
     const sessionStr = this.localStorageService.getItem('currentUser');
@@ -43,4 +48,5 @@ export class StorageService {
     this.removeCurrentSession();
     this.router.navigate(['/login']);
   }
+
 }

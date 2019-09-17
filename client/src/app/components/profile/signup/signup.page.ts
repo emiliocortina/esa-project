@@ -6,7 +6,6 @@ import { AuthenticationService } from 'src/app/services/authentication/authentic
 import { SignUpObject } from 'src/app/services/authentication/SignUpObject';
 import { ToastController, PopoverController } from '@ionic/angular';
 import { Session } from 'src/app/services/authentication/session';
-import { AvatarPopover } from './avatar-popover/avatar-popover.component';
 
 export function passwordMatchValidator(psw: string, pswRep: string) {
 	return function (frm) {
@@ -29,7 +28,9 @@ export function passwordMatchValidator(psw: string, pswRep: string) {
 export class SignupPage implements OnInit {
 
 	signupForm: FormGroup;
-	selectedAvatarId = "1";
+	currentAvatarId = 1;
+	minAvatarId = 1;
+	maxAvatarId = 10;
 
 	validation_messages = {
 		'name': [
@@ -62,6 +63,7 @@ export class SignupPage implements OnInit {
 
 	ngOnInit() {
 		this.signupForm = this.formBuilder.group({
+			avatarId: new FormControl(),
 			name: new FormControl('', Validators.required),
 			nickname: new FormControl('', Validators.required),
 			email: new FormControl('', Validators.compose([
@@ -82,9 +84,8 @@ export class SignupPage implements OnInit {
 
 	signUp() {
 		if (this.signupForm.valid) {
-			
 			this.authServ
-				.signup(new SignUpObject(this.signupForm.value))
+				.signup(new SignUpObject(this.signupForm.value, this.currentAvatarId.toString()))
 				.subscribe((data) => {
 					this.correctSignup(data)}, (error) => this.errorSignup(error));
 		}
@@ -110,15 +111,20 @@ export class SignupPage implements OnInit {
 		this.router.navigate(['/profile/login'], { replaceUrl: true });
 	}
 
-	async openAvatarPopup()
-    {
-        const popover = await this.popoverController.create({
-            component: AvatarPopover,
-            componentProps: { 
-                explorePage: this
-            },
-            translucent: true
-        });
-        return await popover.present();
-    }
+	previousAvatar() {
+		if (this.currentAvatarId > this.minAvatarId) {
+			this.currentAvatarId -= 1;
+		} else {
+			this.currentAvatarId = this.maxAvatarId;
+		}
+	}
+
+	nextAvatar() {
+		if (this.currentAvatarId < this.maxAvatarId) {
+			this.currentAvatarId += 1;
+		} else {
+			this.currentAvatarId = this.minAvatarId;
+		}
+	}
+
 }

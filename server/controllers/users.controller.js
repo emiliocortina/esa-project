@@ -41,7 +41,8 @@ usersCtrl.signup = async (req, res, next) => {
 				user: {
 					email: user.email,
 					name: user.name,
-					surname: user.surname
+					nickName: user.nickName,
+					avatarId: user.avatarId
 				}
 			}); //ok
 			return;
