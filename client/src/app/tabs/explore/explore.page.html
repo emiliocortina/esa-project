@@ -2,7 +2,7 @@
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-button routerLink="/profile">
-                <ion-icon slot="icon-only" name="contact"></ion-icon>
+                <ion-icon id="userAvatar" slot="icon-only" src="assets/avatar/{{avatarId}}.svg"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title>
@@ -57,4 +57,10 @@
 
         </div>
     </ion-list>
+
+    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+        <ion-fab-button color="secondary">
+            <ion-icon name="add" color="light"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
 </ion-content>

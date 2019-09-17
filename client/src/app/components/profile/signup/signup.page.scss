@@ -33,3 +33,16 @@ ion-input {
 ion-button {
   margin-top: 1rem;
 }
+
+.error-message {
+  color: red;
+}
+
+ion-row ion-avatar img {
+  padding: 0;
+  margin: 0;
+}
+
+ion-avatar {
+  box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.1);
+}

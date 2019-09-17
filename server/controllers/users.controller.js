@@ -9,22 +9,18 @@ usersCtrl.signup = async (req, res, next) => {
 	const user = new Model(req.body);
 	user.unencodedPass = user.password;
 	let existentUser = await Model.findOne({ email: user.email });
-
 	if (existentUser) {
 		next(errorServ.buildError(req.url, 400, 'email_repeated', 'Already existing email'));
 		return;
 	}
-
 	existentUser = await Model.findOne({ nickName: user.nickName });
 	if (existentUser) {
 		next(errorServ.buildError(req.url, 400, 'nick_repeated', 'Already existing nick name'));
 		return;
 	}
 
-	
 	bcrypt.hash(user.unencodedPass, salt, function(err, hash) {
 		if (err) {
-			
 			next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 			return;
 		}
@@ -32,19 +28,20 @@ usersCtrl.signup = async (req, res, next) => {
 		user.unencodedPass = null;
 		user.save((err, doc) => {
 			if (err) {
-				console.log('err: ' + err);
+				
 
 				next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 				return;
 			}
 			res.status(201).json({
 				message: 'user created, logged in',
-				token: tokenServ.createToken(user.email),
+				token: tokenServ.createToken(user),
 				code: 0,
 				user: {
 					email: user.email,
 					name: user.name,
-					surname: user.surname
+					nickName: user.nickName,
+					avatarId: user.avatarId
 				}
 			}); //ok
 			return;
@@ -62,7 +59,7 @@ usersCtrl.login = async (req, res, next) => {
 			if (exist) {
 				res.json({
 					status: 'logged in',
-					token: tokenServ.createToken(email),
+					token: tokenServ.createToken(user),
 					user: {
 						email: email,
 						name: user.name,

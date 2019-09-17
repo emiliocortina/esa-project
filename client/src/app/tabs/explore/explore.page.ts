@@ -7,6 +7,7 @@ import {Router} from '@angular/router';
 import {ModalController, PopoverController} from '@ionic/angular';
 import {SettingsModal} from 'src/app/components/settings-modal/settings-modal.component';
 import {CategoriesPopover} from './categories-popover/categories-popover.component';
+import { StorageService } from 'src/app/services/authentication/storage.service';
 
 @Component({
     selector: 'app-tab1',
@@ -20,6 +21,7 @@ export class ExplorePage implements OnInit {
 
     currentCategory: Category;
     categoriesToggle: boolean;
+    avatarId: string;
 
 
     constructor(
@@ -27,7 +29,8 @@ export class ExplorePage implements OnInit {
         private categoriesService: CategoriesService,
         private router: Router,
         private modalController: ModalController,
-        private popoverController: PopoverController
+        private popoverController: PopoverController,
+        private userService: StorageService
     ) {
 
         this.currentCategory = this.categoriesService.getDefaultCategory();
@@ -38,6 +41,7 @@ export class ExplorePage implements OnInit {
         //this.threadsService.loadPopularThreads(this.threads);
         //this.loadPosts();
         this.loadThreads();
+        this.avatarId = this.userService.getAvatarId();
     }
 
 
