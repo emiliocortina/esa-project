@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const salt = 10;
 const tokenServ = require('../services/token.service');
 const errorServ = require('./../services/error.service');
+
 usersCtrl.signup = async (req, res, next) => {
 	const user = new Model(req.body);
 	user.unencodedPass = user.password;

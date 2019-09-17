@@ -1,0 +1,51 @@
+<ion-header translucent no-border>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button routerLink="/tabs">
+              <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row justify-content-center align-items-center>
+      <ion-card>
+        <img src="/assets/icon/logo_color.svg" alt=""/>
+        <ion-card-content>
+          <form id="signup-form" [formGroup]="signupForm" (ngSubmit)="signUp()">
+            <ion-label>Name</ion-label>
+            <ion-row justify-content-center align-items-center>
+              <ion-input formControlName="name" required placeholder="Enter your full name" id="name"></ion-input>
+            </ion-row>
+            <ion-label>Surname</ion-label>
+          <ion-row justify-content-center align-items-center>
+            <ion-input formControlName="surname" required placeholder="Enter your surname" id="surname"></ion-input>
+          </ion-row>
+          <ion-label>Email</ion-label>
+          <ion-row justify-content-center align-items-center>
+            <ion-input formControlName="email" required placeholder="Enter your email address" id="email"></ion-input>
+          </ion-row>
+          <ion-label>Password</ion-label>
+          <ion-row justify-content-center align-items-center>
+            <ion-input formControlName="password" required placeholder="Enter your password" inputmode="password" type="password" id="password"></ion-input>
+          </ion-row>
+          <ion-label>Repeat password</ion-label>
+          <ion-row justify-content-center align-items-center>
+            <ion-input formControlName="passwordRep" required placeholder="Repeat your password" inputmode="password" type="password" id="passwordRep"></ion-input>
+          </ion-row>
+          <ion-row justify-content-center align-items-center>
+            <ion-button type="submit" color="dark">Sign up</ion-button>
+          </ion-row>
+          <ion-row justify-content-center align-items-center>
+            <ion-button routerLink="/profile/login" size="small" color="light">Login</ion-button>
+          </ion-row>
+        </form>
+        </ion-card-content>
+      </ion-card>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
