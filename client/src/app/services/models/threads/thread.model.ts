@@ -1,6 +1,6 @@
 import {Category} from '../category.model';
 import {Post} from './post.model';
-import {User} from '../../authentication/user';
+import {User} from '../users/user';
 
 export class Thread {
 

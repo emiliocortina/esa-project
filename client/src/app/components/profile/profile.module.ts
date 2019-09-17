@@ -6,7 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ProfilePage} from './profile.page';
 import {LoginPage} from './login/login.page';
 import {NeedAuthGuard} from '../../auth.guard';
-import {SignupPage} from "./signup/signup.page";
+import {SignupPage} from './signup/signup.page';
 
 @NgModule({
     imports: [

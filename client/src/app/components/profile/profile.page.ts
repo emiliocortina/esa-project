@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/authentication/storage.service';
-import {User} from '../../services/authentication/user';
+import {User} from '../../services/models/users/user';
 import {Router} from '@angular/router';
 
 @Component({
