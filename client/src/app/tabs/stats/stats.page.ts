@@ -11,6 +11,8 @@ import { NativeGeocoder, NativeGeocoderOptions, NativeGeocoderResult } from '@io
 import { SatelliteDataDisplay } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.component';
 import { DataCategory } from 'src/app/services/models/satellite-data/data-category.model';
 import { CategoriesService } from 'src/app/services/categories.service';
+import { SatelliteDataValues } from 'src/app/services/models/satellite-data/satellite-data-values.model';
+import { Category } from 'src/app/services/models/category.model';
 
 
 @Component({
@@ -20,6 +22,9 @@ import { CategoriesService } from 'src/app/services/categories.service';
 })
 export class StatsPage implements OnInit {
   
+    // Some sample data from that location
+    collectedData: SatelliteData[];
+
     isLocationReady: boolean = false;
     anyErrorWithLocation: boolean = false;
 
@@ -27,8 +32,10 @@ export class StatsPage implements OnInit {
     locationLatitude: number;
     locationLongitude: number;
 
-    @ViewChild("SatelliteDataDisplay")
-    dataDisplay: SatelliteDataDisplay;
+    // TODO change start/end date
+    startDate: Date;
+    endDate: Date;
+
 
 
     constructor(
@@ -45,35 +52,9 @@ export class StatsPage implements OnInit {
 
     
     ngOnInit(): void {
-        //this.dataDisplay = new SatelliteDataDisplay();
+        this.collectedData = [];
         this.getCurrentLocation();
     }
-
-
-    /**
-     * Uses the native geolocation API to get our current
-     * location coordinates.
-     * Once we get them, we'll update our data.
-     */
-    getCurrentLocation()
-    {
-        // Get current position using https://ionicframework.com/docs/native/geolocation
-
-        this.isLocationReady = false;
-        this.anyErrorWithLocation = false;
-        console.log('Getting current geolocation...');
-
-        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: false })
-            .then((resp) => {
-                this.updateGeolocation(resp.coords.latitude, resp.coords.longitude);
-            })
-            .catch((error) => {
-                console.log('Error getting location', error);
-                this.anyErrorWithLocation = true;
-            });
-    }
-
-
 
 
     /**
@@ -155,18 +136,45 @@ export class StatsPage implements OnInit {
     private async updateData()
     {
         console.log("Calling updateData");
-        // TODO don't use dummy data
-        var cat = new DataCategory("mock data", this.categoriesService.getCategory("temperatures"));
 
-        this.satelliteService.fetchSatelliteData(
-                this.locationLatitude, 
-                this.locationLongitude, 
-                new Date(),
-                new Date(),
-                cat)
-            .then( data => {
-                // Display a chart with the data
-                this.dataDisplay.displayChart(data);
+        while (this.collectedData.length > 0)
+            this.collectedData.pop();
+
+        var categories = this.categoriesService.getCategories();
+
+        for (var i = 0; i < categories.length; i ++)
+        {
+            var data = await this.satelliteService.fetchSatelliteData(
+                    this.locationLatitude, 
+                    this.locationLongitude, 
+                    new Date(),
+                    new Date(),categories[i]
+                );
+            this.collectedData.push(data);
+        }
+    }
+
+
+    /**
+     * Uses the native geolocation API to get our current
+     * location coordinates.
+     * Once we get them, we'll update our data.
+     */
+    getCurrentLocation()
+    {
+        // Get current position using https://ionicframework.com/docs/native/geolocation
+
+        this.isLocationReady = false;
+        this.anyErrorWithLocation = false;
+        console.log('Getting current geolocation...');
+
+        this.geolocation.getCurrentPosition({ maximumAge: 3000, timeout: 5000, enableHighAccuracy: false })
+            .then((resp) => {
+                this.updateGeolocation(resp.coords.latitude, resp.coords.longitude);
+            })
+            .catch((error) => {
+                console.log('Error getting location', error);
+                this.anyErrorWithLocation = true;
             });
     }
 
@@ -175,11 +183,11 @@ export class StatsPage implements OnInit {
 
 
 
-    async showStatsDetails(selectedStats: SatelliteData) {
+    async showSatelliteDataDetails(data: SatelliteData) {
         const modal = await this.modalController.create({
             component: StatsDetailsPage,
             componentProps: {
-                stats: selectedStats
+                data: data
             }
         });
         modal.onDidDismiss().then((detail) => {

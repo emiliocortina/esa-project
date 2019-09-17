@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar>
-        <ion-title color="dark">{{stats.name}}</ion-title>
+        <ion-title color="dark">{{ data.title }}</ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="dismissModal()">
                 <ion-icon slot="icon-only" name="close" color="dark"></ion-icon>
@@ -10,27 +10,33 @@
 </ion-header>
 
 <ion-content>
-    <ion-list lines="none">
-        <ion-list-header class="unselectableText">
-            {{stats.name}} Measurements
-        </ion-list-header>
-        <ion-item *ngFor="let field of stats.fields">
-            <ion-label>{{field.name}}</ion-label>
-            <ion-checkbox slot="start" color="dark" [(ngModel)]="field.isChecked"></ion-checkbox>
-            <ion-badge color="{{field.color}}" slot="end">{{field.getOverview()}}</ion-badge>
-        </ion-item>
-    </ion-list>
 
-    <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button color="secondary" (click)="showInfo()" href="https://google.com">
-            <ion-icon name="information"></ion-icon>
-        </ion-fab-button>
-    </ion-fab>
+    <ion-grid>
+
+        <ion-row class="displayRow">
+            <app-satellite-data-display #SatelliteDataDisplay></app-satellite-data-display>
+        </ion-row>
+
+        <!--
+        <ion-row>
+            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+                <ion-fab-button color="secondary" (click)="showInfo()" href="https://google.com">
+                    <ion-icon name="information"></ion-icon>
+                </ion-fab-button>
+            </ion-fab>
+        </ion-row>
 
 
+        <ion-row justify-content-center>
+            <ion-button [color]="showCard? 'success' : 'dark'" class="createPost" (click)="createPost()">Create post</ion-button>
+        </ion-row>
+    -->
+    </ion-grid>
+
+    <!--
     <ion-card class="welcome-card" *ngIf="showCard">
         <ion-card-header>
-            <ion-card-subtitle>{{stats.category.name}}</ion-card-subtitle>
+            <ion-card-subtitle>{{ data.title }}</ion-card-subtitle>
             <ion-card-title>
                 <ion-input placeholder="Enter title" [(ngModel)]="postTitle"></ion-input>
             </ion-card-title>
@@ -45,8 +51,7 @@
             </div>
         </ion-card-content>
     </ion-card>
+    -->
 
-    <ion-row justify-content-center>
-        <ion-button [color]="showCard? 'success' : 'dark'" class="createPost" (click)="createPost()">Create post</ion-button>
-    </ion-row>
+    
 </ion-content>

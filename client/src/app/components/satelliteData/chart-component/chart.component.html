@@ -1,5 +1,13 @@
-<div>
+<div class="chart">
 
-    <canvas id="myChart" width="400" height="400"></canvas>
+    <ion-list>
+        
+        <ion-card *ngFor="let dataValues of dataValuesArray; let i = index">
 
+            <canvas id="{{ 'chart' + i }}" class="chartCanvas"></canvas>
+
+        </ion-card>
+        
+    </ion-list>
+    
 </div>

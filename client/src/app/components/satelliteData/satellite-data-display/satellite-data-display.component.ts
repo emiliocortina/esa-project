@@ -20,7 +20,7 @@ export class SatelliteDataDisplay implements OnInit
   @ViewChild("Chart")
   chart: ChartComponent; // To display in chart, if needed
 
-  @ViewChild("PlainValuesComponent")
+  //@ViewChild("PlainValuesComponent")
   plainValues: PlainValuesComponent; // To display in plain values, if needed
 
   showChart : boolean;
@@ -36,14 +36,18 @@ export class SatelliteDataDisplay implements OnInit
 
   public displayChart(data: SatelliteData)
   {
-    this.chart.setData(data);
+    console.log("Display chart");
+    this.chart.setDataValues(data.values);
     this.showChart = true;
+    this.showPlainValues= false;
   }
 
   public displayConstants(data: SatelliteData)
   {
+    console.log("Display Constants");
     this.plainValues.setData(data);
     this.showPlainValues= true;
+    this.showChart= false;
   }
 
 }

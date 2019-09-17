@@ -11,19 +11,21 @@ ion-grid {
 ion-row {
   justify-content: center;
   align-items: center;
-  height: 100%;
   flex-direction: column;
 }
 
-#mapCanvas {
-  height: minmax(100px, 50%);
-  width: minmax(100px, 80%);
-  min-height: 100px;
-  min-width: 100px;
+.cardRow {
+  height: 85%;
+  width: 100%;
 }
 
-.md ion-card {
-  max-width: 25rem;
+.buttonsRow {
+  height: 15%;
+  width: 100%;
+}
+
+ion-card {
+  width: 90%;
 }
 
 ion-buttons ion-button ion-icon {

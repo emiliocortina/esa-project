@@ -14,7 +14,7 @@ import { SatelliteDataValues } from 'src/app/services/models/satellite-data/sate
 export class PlainValuesComponent
 {
   data: SatelliteData;
-  values: SatelliteDataValues; // We get it from 'data'
+  values: SatelliteDataValues[]; // We get it from 'data'
   // TODO we should use an array. For now, let's just use the primary value from 'data'
 
 
@@ -25,7 +25,7 @@ export class PlainValuesComponent
   public setData(data: SatelliteData)
   {
     this.data = data;
-    this.values = data.primaryValues;
+    this.values = data.values;
   }
 
   

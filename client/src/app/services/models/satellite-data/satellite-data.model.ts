@@ -9,20 +9,22 @@ import {SatelliteDataValues} from './satellite-data-values.model';
  */
 export class SatelliteData
 {
+    title: string;
+
     latitude: number;
     longitude: number;
     start: Date;
     end: Date;
     
-    primaryValues: SatelliteDataValues;
-    secondaryValues: SatelliteDataValues; // Optional
+    values: SatelliteDataValues[];
 
-    constructor(latitude: number, longitude: number, start: Date, end: Date, primaryValues: SatelliteDataValues) 
+    constructor(title: string, latitude: number, longitude: number, start: Date, end: Date, values: SatelliteDataValues[]) 
     {
+        this.title = title;
         this.longitude = longitude;
         this.latitude = latitude;
         this.start = start;
         this.end = end;
-        this.primaryValues = primaryValues;
+        this.values = values;
     }
 }

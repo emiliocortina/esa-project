@@ -16,10 +16,6 @@ export class CategoriesService {
 
     // TODO maybe take categories from database or json file
     private setUpCategories(): void {
-
-        this.addCategory('popular', 'Popular', '/assets/icon/hot.svg', 'assets/images/desert.jpg');
-        this.addCategory('recent', 'Recent', '/assets/icon/satellite.svg', 'assets/images/desert.jpg');
-
         this.addCategory('temperatures', 'Temperatures', '/assets/icon/hot.svg', 'assets/images/desert.jpg');
         this.addCategory('pollution', 'Pollution', '/assets/icon/factory.svg', 'assets/images/pollution.jpg');
         this.addCategory('rain', 'Rain', '/assets/icon/drop.svg', 'assets/images/rain.jpg');
@@ -34,7 +30,7 @@ export class CategoriesService {
 
     getDefaultCategory(): Category
     {
-        return this.getCategory("popular");
+        return this.getCategory("temperatures");
     }
 
     public getCategories(): Category[]

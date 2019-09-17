@@ -1,9 +1,11 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {SatelliteData} from '../../../services/models/satellite-data/satellite-data.model';
 import {ModalController, ToastController} from '@ionic/angular';
 import {StorageService} from '../../../services/authentication/storage.service';
 import {Thread} from "../../../services/models/threads/thread.model";
 import {ThreadsService} from "../../../services/threads.service";
+import { SatelliteDataDisplay } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.component';
+import { SatelliteDataValues } from 'src/app/services/models/satellite-data/satellite-data-values.model';
 
 @Component({
     selector: 'app-stats-details',
@@ -14,15 +16,21 @@ export class StatsDetailsPage implements OnInit {
 
     showCard = false;
 
-    @Input() stats: SatelliteData;
+    @Input() data: SatelliteData;
     postTitle: string;
     postBody: string;
+
+    @ViewChild("SatelliteDataDisplay")
+    dataDisplay: SatelliteDataDisplay;
+
 
     constructor(private modalController: ModalController, private usersService: StorageService,
                 private toastController: ToastController, private threadsService: ThreadsService) {
     }
 
-    ngOnInit() {
+    ngOnInit()
+    {
+        this.dataDisplay.displayChart(this.data);
     }
 
     async dismissModal() {

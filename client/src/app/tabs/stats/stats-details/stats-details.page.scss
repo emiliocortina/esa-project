@@ -14,3 +14,18 @@ ion-card {
 ion-button.createPost {
   border-radius: 9999px;
 }
+
+ion-grid {
+  height: 100%;
+  width: 100%;
+}
+
+app-satellite-data-display {
+  width: 100%;
+  height: 100%;
+}
+
+.displayRow {
+  height: 85%;
+  width: 100%;
+}

@@ -12,16 +12,13 @@
 </ion-header>
 
 
-<ion-content>
+<ion-content justify-content-center align-items-center>
 
     <ion-grid>
 
-        <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
-            <ion-card>
-                <!-- TODO <img src="/assets/images/map2.jpg" alt=""/>-->
-                <div id="mapCanvas"></div>
-
-
+        <ion-row class="cardRow">
+            
+            <ion-card> 
                 <div *ngIf="anyErrorWithLocation">
                     <ion-card-header>
                         <ion-card-subtitle color="danger">Failed obtaining current location.</ion-card-subtitle>
@@ -30,7 +27,7 @@
                 <div *ngIf="!anyErrorWithLocation">
                     <ion-card-header *ngIf="isLocationReady">
                         <ion-card-title>{{ locationName }}</ion-card-title>
-                        <ion-card-subtitle color="secondary">{{ locationLatitude }}º, {{ locationLongitude }}º
+                        <ion-card-subtitle color="secondary">{{ locationLatitude.toFixed(4) }}º, {{ locationLongitude.toFixed(4) }}º
                         </ion-card-subtitle>
                     </ion-card-header>
                     <ion-card-header *ngIf="!isLocationReady">
@@ -38,14 +35,24 @@
                     </ion-card-header>
                 </div>
 
+                <ion-card-content>
 
-                <!-- <ion-card-content> -->
-                    <app-satellite-data-display #SatelliteDataDisplay></app-satellite-data-display>
-                <!-- </ion-card-content> -->
+                    <ion-list>
+                        <ion-item *ngFor="let data of collectedData" (click)="showSatelliteDataDetails(data)" button>
+                            <ion-icon slot="start" color="medium" src="{{ data.values[0].dataCategory.threadCategory.iconUrl }}"></ion-icon>
+                            <ion-label>{{ data.title }}</ion-label>
+                            <!--<ion-badge color="{{dataItem.getOverviewField().color}}">{{dataItem.getOverviewField().getOverview()}}</ion-badge>-->
+                        </ion-item>
+                    </ion-list>
 
+                </ion-card-content>
+                
             </ion-card>
-
+        </ion-row>
             
+
+        <ion-row class="buttonsRow">
+           
             <!-- SEARCH AND LOCATE BUTTONS -->
             <div>
                 <ion-chip (click)="getCurrentLocation()">
@@ -59,6 +66,7 @@
             </div>
         </ion-row>
     </ion-grid>
+
 
 
 </ion-content>
