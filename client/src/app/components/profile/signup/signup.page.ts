@@ -1,61 +1,98 @@
 import { Component, OnInit } from '@angular/core';
-import {Router} from "@angular/router";
-import {FormBuilder, FormGroup, Validators, FormControl} from '@angular/forms';
+import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { StorageService } from 'src/app/services/authentication/storage.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { SignUpObject } from 'src/app/services/authentication/SignUpObject';
-import { ToastController } from '@ionic/angular';
+import { ToastController, PopoverController } from '@ionic/angular';
 import { Session } from 'src/app/services/authentication/session';
 
+export function passwordMatchValidator(psw: string, pswRep: string) {
+	return function (frm) {
+		let pswValue = frm.get(psw).value;
+		let pswRepValue = frm.get(pswRep).value;
+		if (pswValue === pswRepValue) {
+			return null;
+		} else {
+			return { 'notMatch': 'Passwords do not match' }
+		}
+	}
+}
+
 @Component({
-  selector: 'app-signup',
-  templateUrl: './signup.page.html',
-  styleUrls: ['./signup.page.scss'],
+	selector: 'app-signup',
+	templateUrl: './signup.page.html',
+	styleUrls: ['./signup.page.scss'],
 })
 
 export class SignupPage implements OnInit {
 
-  signupForm: FormGroup;
+	signupForm: FormGroup;
+	currentAvatarId = 1;
+	minAvatarId = 1;
+	maxAvatarId = 10;
 
-  public error: {
-		code: number;
-		message: string;
-	} = null;
+	validation_messages = {
+		'name': [
+			{ type: 'required', message: 'Name is required.' }
+		],
+		'nickname': [
+			{ type: 'required', message: 'A nickname is required.' }
+		],
+		'email': [
+			{ type: 'required', message: 'Email is required.' },
+			{ type: 'pattern', message: 'Email is not valid' },
+		],
+		'password': [
+			{ type: 'required', message: 'Password is required' },
+			{ type: 'minlength', message: 'Password must have at least 8 characters' },
+			{ type: 'pattern', message: 'Password must have: uppercase letters, lowercase letters and numbers' },
+		],
+		'passwordRep': [
+			{ type: 'required', message: 'Password repetition is required' },
+			{ type: 'notMatch', message: 'Passwords do not match' }
+		]
+	}
 
-  constructor(private router: Router, 
-    private formBuilder: FormBuilder, 
-    private authServ: AuthenticationService,
-    private toastController: ToastController,
-    private storageService: StorageService) { }
+	constructor(private router: Router,
+		private formBuilder: FormBuilder,
+		private authServ: AuthenticationService,
+		private toastController: ToastController,
+		private storageService: StorageService,
+		public popoverController: PopoverController) { }
 
-  ngOnInit() {
-    this.signupForm = this.formBuilder.group({
-      name: new FormControl('', Validators.required),
-      surname: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required),
-      passwordRep: new FormControl('', Validators.required),
-    });
-  }
+	ngOnInit() {
+		this.signupForm = this.formBuilder.group({
+			avatarId: new FormControl(),
+			name: new FormControl('', Validators.required),
+			nickname: new FormControl('', Validators.required),
+			email: new FormControl('', Validators.compose([
+				Validators.required,
+				Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+			])),
+			password: new FormControl('', Validators.compose([
+				Validators.minLength(8),
+				Validators.required,
+				Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9]+$')])),
+			passwordRep: new FormControl('', Validators.required),
+		},
+			{
+				validator: passwordMatchValidator('password', 'passwordRep')
+			}
+		);
+	}
 
-  signUp() {
-		this.error = null;
+	signUp() {
 		if (this.signupForm.valid) {
 			this.authServ
-				.signup(new SignUpObject(this.signupForm.value))
-				.subscribe((data) => this.correctSignup(data), (error) => this.errorSignup(error));
-		} else {
-      console.log(this.signupForm.errors);
-    }
-  }
-
-  async errorSignup(error: any) {
-		let errorMessage;
-		if (error.error && error.error.error) {
-			errorMessage = error.error.error;
-		} else {
-			errorMessage = 'Cannot signup';
+				.signup(new SignUpObject(this.signupForm.value, this.currentAvatarId.toString()))
+				.subscribe((data) => {
+					this.correctSignup(data)}, (error) => this.errorSignup(error));
 		}
+	}
+
+	async errorSignup(error: any) {
+		let errorMessage = error.error.error_description;
 		const toast = await this.toastController.create({
 			color: 'danger',
 			message: errorMessage,
@@ -67,11 +104,27 @@ export class SignupPage implements OnInit {
 
 	private correctSignup(data: Session) {
 		this.storageService.setCurrentSession(data);
-		this.error = null;
-		this.router.navigate([ '/tabs/profile' ], { replaceUrl: true });
+		this.router.navigate(['/profile'], { replaceUrl: true });
 	}
 
-  goToLogin() {
-    this.router.navigate(['/tabs/profile/login'], { replaceUrl: true });
-  }
+	goToLogin() {
+		this.router.navigate(['/profile/login'], { replaceUrl: true });
+	}
+
+	previousAvatar() {
+		if (this.currentAvatarId > this.minAvatarId) {
+			this.currentAvatarId -= 1;
+		} else {
+			this.currentAvatarId = this.maxAvatarId;
+		}
+	}
+
+	nextAvatar() {
+		if (this.currentAvatarId < this.maxAvatarId) {
+			this.currentAvatarId += 1;
+		} else {
+			this.currentAvatarId = this.minAvatarId;
+		}
+	}
+
 }

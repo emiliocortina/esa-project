@@ -13,14 +13,24 @@ export class ProfilePage implements OnInit {
     user: User;
 
     constructor(private usersService: StorageService, private router: Router) {
+
+        this.usersService.onUserChange = ( (user) => this.update(user) );
+
     }
 
     ngOnInit(): void {
-        this.user = this.usersService.getCurrentUser();
+        this.update(this.usersService.getCurrentUser());
+    }
+
+    private update(user: User)
+    {
+        this.user = user;
         if (!this.user) {
             console.log('no hay user');
         }
     }
+
+
 
     logOut() {
         this.usersService.removeCurrentSession();
