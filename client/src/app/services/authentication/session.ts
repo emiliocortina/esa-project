@@ -1,4 +1,4 @@
-import { User } from './user';
+import { User } from '../models/users/user';
 
 export class Session {
     public status: string;
