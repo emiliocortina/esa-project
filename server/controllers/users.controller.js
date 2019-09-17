@@ -20,10 +20,8 @@ usersCtrl.signup = async (req, res, next) => {
 		return;
 	}
 
-	
 	bcrypt.hash(user.unencodedPass, salt, function(err, hash) {
 		if (err) {
-			
 			next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 			return;
 		}
@@ -38,7 +36,7 @@ usersCtrl.signup = async (req, res, next) => {
 			}
 			res.status(201).json({
 				message: 'user created, logged in',
-				token: tokenServ.createToken(user.email),
+				token: tokenServ.createToken(user),
 				code: 0,
 				user: {
 					email: user.email,
@@ -61,7 +59,7 @@ usersCtrl.login = async (req, res, next) => {
 			if (exist) {
 				res.json({
 					status: 'logged in',
-					token: tokenServ.createToken(email),
+					token: tokenServ.createToken(user),
 					user: {
 						email: email,
 						name: user.name,

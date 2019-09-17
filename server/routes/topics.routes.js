@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const ctrl = require('./../controllers/topic.controller');
+const ctrl = require('./../controllers/thread.controller');
 
 /**
  * @api {post} /api/private/topic Creates a topic
@@ -18,10 +18,10 @@ const ctrl = require('./../controllers/topic.controller');
  * 
  *  }
  */
-router.post('/topic', ctrl.createTopic);
-router.get('/topic/:id', ctrl.findTopicById);
-router.patch('/topic/:id', ctrl.modifyTopic);
-router.delete('/topic/:id', ctrl.deleteTopic);
-router.get('/topicsByDate', ctrl.findTopicsPaginatedByDateDescending);
+router.post('/thread', ctrl.createThread);
+router.get('/thread/:id', ctrl.findThreadById);
+router.patch('/thread/:id', ctrl.modifyThread);
+router.delete('/thread/:id', ctrl.deleteThread);
+router.get('/threadsByDate', ctrl.findThreadsPaginatedByDateDescending);
 
 module.exports = router;
