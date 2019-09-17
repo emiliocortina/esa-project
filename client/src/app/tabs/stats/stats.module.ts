@@ -8,6 +8,7 @@ import {StatsDetailsPage} from './stats-details/stats-details.page';
 import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GeolocationSearchModalModule } from 'src/app/components/geolocation-search-modal/geolocation-search-modal.module';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
+import { SatelliteDataDisplayModule } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.module';
 
 @NgModule({
     imports: [
@@ -15,6 +16,7 @@ import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
         IonicModule,
         CommonModule,
         FormsModule,
+        SatelliteDataDisplayModule,
         RouterModule.forChild([{path: '', component: StatsPage}])
     ],
     providers: [

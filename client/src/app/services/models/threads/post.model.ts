@@ -1,5 +1,5 @@
 import {User} from '../../authentication/user';
-import {SatelliteStats} from '../satellite-data/satellite-stats.model';
+import {SatelliteData} from '../satellite-data/satellite-data.model';
 
 export class Post {
 
@@ -7,10 +7,10 @@ export class Post {
     textContent: string;
     user: User;
     created: Date;
-    satelliteData: SatelliteStats[];
+    satelliteData: SatelliteData[];
     comments: Post[];
 
-    constructor(id: string, textContent: string, user: User, created: Date, satelliteData?: SatelliteStats[]) {
+    constructor(id: string, textContent: string, user: User, created: Date, satelliteData?: SatelliteData[]) {
         this.id = id;
         this.textContent = textContent;
         this.user = user;
