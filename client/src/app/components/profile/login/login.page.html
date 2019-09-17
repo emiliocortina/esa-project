@@ -1,3 +1,14 @@
+<ion-header translucent no-border>
+  <ion-toolbar>
+      <ion-buttons slot="start">
+          <ion-button routerLink="/tabs">
+              <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-title>Profile</ion-title>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
   <ion-grid>
     <ion-row justify-content-center align-items-center>
@@ -21,7 +32,7 @@
           </form>
 
           <ion-row justify-content-center align-items-center>
-            <ion-button routerLink="/tabs/profile/signup" size="small" color="light">Sign up</ion-button>
+            <ion-button routerLink="/profile/signup" size="small" color="light">Sign up</ion-button>
           </ion-row>
 
         </ion-card-content>

@@ -41,20 +41,6 @@ export class ExplorePage implements OnInit {
     }
 
 
-    async goToSettingsPage()
-    {
-        const modal = await this.modalController.create({
-            component: SettingsModal,
-            componentProps: { 
-                statsPage: this
-            }
-        });
-        return await modal.present();
-    }
-
-
-
-
     // = = = = = = = = = = = = CATEGORIES = = = = = = = = = = = = //
 
     async openCategoryPopup()
