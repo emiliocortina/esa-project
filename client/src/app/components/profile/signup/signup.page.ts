@@ -4,8 +4,9 @@ import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms'
 import { StorageService } from 'src/app/services/authentication/storage.service';
 import { AuthenticationService } from 'src/app/services/authentication/authentication.service';
 import { SignUpObject } from 'src/app/services/authentication/SignUpObject';
-import { ToastController } from '@ionic/angular';
+import { ToastController, PopoverController } from '@ionic/angular';
 import { Session } from 'src/app/services/authentication/session';
+import { AvatarPopover } from './avatar-popover/avatar-popover.component';
 
 export function passwordMatchValidator(psw: string, pswRep: string) {
 	return function (frm) {
@@ -28,6 +29,7 @@ export function passwordMatchValidator(psw: string, pswRep: string) {
 export class SignupPage implements OnInit {
 
 	signupForm: FormGroup;
+	selectedAvatarId = "1";
 
 	validation_messages = {
 		'name': [
@@ -55,7 +57,8 @@ export class SignupPage implements OnInit {
 		private formBuilder: FormBuilder,
 		private authServ: AuthenticationService,
 		private toastController: ToastController,
-		private storageService: StorageService) { }
+		private storageService: StorageService,
+		public popoverController: PopoverController) { }
 
 	ngOnInit() {
 		this.signupForm = this.formBuilder.group({
@@ -106,4 +109,16 @@ export class SignupPage implements OnInit {
 	goToLogin() {
 		this.router.navigate(['/profile/login'], { replaceUrl: true });
 	}
+
+	async openAvatarPopup()
+    {
+        const popover = await this.popoverController.create({
+            component: AvatarPopover,
+            componentProps: { 
+                explorePage: this
+            },
+            translucent: true
+        });
+        return await popover.present();
+    }
 }
