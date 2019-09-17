@@ -1,6 +1,10 @@
-
 <ion-header translucent>
-    <ion-toolbar >
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-button routerLink="/profile">
+                <ion-icon slot="icon-only" name="contact"></ion-icon>
+            </ion-button>
+        </ion-buttons>
         <ion-title>
             <img src="/assets/icon/logo.svg">
         </ion-title>
@@ -26,7 +30,8 @@
                 <div *ngIf="!anyErrorWithLocation">
                     <ion-card-header *ngIf="isLocationReady">
                         <ion-card-title>{{ locationName }}</ion-card-title>
-                        <ion-card-subtitle color="secondary">{{ locationLatitude }}º, {{ locationLongitude }}º</ion-card-subtitle>
+                        <ion-card-subtitle color="secondary">{{ locationLatitude }}º, {{ locationLongitude }}º
+                        </ion-card-subtitle>
                     </ion-card-header>
                     <ion-card-header *ngIf="!isLocationReady">
                         <ion-card-subtitle color="secondary">Obtaining current location...</ion-card-subtitle>
