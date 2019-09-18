@@ -62,19 +62,28 @@ export class ChartsService {
 
 
             scales: {
-            xAxes: [{
-                gridLines: {
-                display:false
-                }
-            }],
-            yAxes: [{
-                ticks: {
-                beginAtZero: true
-                },
-                gridLines: {
-                display:false
-                }
-            }]
+                xAxes: [{
+                    ticks: {
+                        autoSkip: true,
+                        maxTicksLimit: 4
+                    },
+                    gridLines: {
+                        display:false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    scaleLabel: {
+                        display: true,
+                        labelString: dataValues.dataCategory.name
+                    },
+                    ticks: {
+                        beginAtZero: true
+                    },
+                    gridLines: {
+                        display:false
+                    }
+                }]
             },
 
             responsive: true,
@@ -83,13 +92,18 @@ export class ChartsService {
 
 
             legend: {
-            display: false
+                display: false
             },
 
             tooltips: {
-            enabled: true
+                enabled: true
             },
 
+            elements: {
+                point:{
+                    radius: 0
+                }
+            }
 
         };
 

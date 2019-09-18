@@ -4,7 +4,14 @@
         
         <ion-card *ngFor="let dataValues of dataValuesArray; let i = index">
 
-            <canvas id="{{ 'chart' + i }}" class="chartCanvas"></canvas>
+            <ion-card-header>
+                <ion-card-title>{{ dataValues.dataCategory.name }}</ion-card-title>
+                <ion-card-subtitle>Subtitle goes here</ion-card-subtitle>
+            </ion-card-header>
+
+            <ion-card-content>
+                <canvas id="{{ 'chart' + i }}" class="chartCanvas"></canvas>
+            </ion-card-content>
 
         </ion-card>
         
