@@ -9,7 +9,7 @@ const routes: Routes = [
     {path: 'profile', loadChildren: './components/profile/profile.module#ProfilePageModule'},
     {path: 'thread/:id', loadChildren: './tabs/explore/thread-page/thread-page.module#ThreadPageModule'},
     {path: 'search', loadChildren: './tabs/explore/thread-search/thread-search.module#ThreadSearchPageModule'},
-  { path: 'agencies', loadChildren: './tabs/agencies/agencies.module#AgenciesPageModule' }
+  { path: 'agencies', loadChildren: './tabs/agencies/agencies.module#AgenciesPageModule' },
 
 ];
 
