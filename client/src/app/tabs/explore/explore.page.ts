@@ -1,14 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ThreadsService} from '../../services/threads.service';
-import {Thread} from '../../services/models/threads/thread.model';
-import {CategoriesService} from '../../services/categories.service';
-import {Category} from '../../services/models/category.model';
-import {Router} from '@angular/router';
-import {ModalController, PopoverController, ToastController} from '@ionic/angular';
-import {SettingsModal} from 'src/app/components/settings-modal/settings-modal.component';
-import {CategoriesPopover} from './categories-popover/categories-popover.component';
-import {StorageService} from 'src/app/services/authentication/storage.service';
-import {CreatePostModalPage} from './create-post-modal/create-post-modal.page';
+import { Component, OnInit } from '@angular/core';
+import { ThreadsService } from '../../services/threads/threads.service';
+import { Thread } from '../../services/models/threads/thread.model';
+import { CategoriesService } from '../../services/categories.service';
+import { Category } from '../../services/models/category.model';
+import { Router } from '@angular/router';
+import { ModalController, PopoverController, ToastController } from '@ionic/angular';
+import { SettingsModal } from 'src/app/components/settings-modal/settings-modal.component';
+import { CategoriesPopover } from './categories-popover/categories-popover.component';
+import { StorageService } from 'src/app/services/authentication/storage.service';
+import { CreatePostModalPage } from './create-post-modal/create-post-modal.page';
 
 @Component({
     selector: 'app-tab1',
@@ -54,13 +54,6 @@ export class ExplorePage implements OnInit {
     }
 
     async createCooper() {
-
-        const modal = await this.modalController.create({
-            component: CreatePostModalPage
-        });
-        return await modal.present();
-
-        /*
         if (!this.userService.isAuthenticated()) {
             const toast = await this.toastController.create({
                 message: 'You need to be logged in to submit a post.',
@@ -69,13 +62,13 @@ export class ExplorePage implements OnInit {
                 duration: 3000
               });
               toast.present();
+              this.router.navigate(['/profile/login']);
         } else {
             const modal = await this.modalController.create({
                 component: CreatePostModalPage
             });
             return await modal.present();
         }
-        */
     }
 
     // = = = = = = = = = = = = CATEGORIES = = = = = = = = = = = = //

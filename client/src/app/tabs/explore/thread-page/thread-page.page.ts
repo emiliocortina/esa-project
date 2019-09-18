@@ -1,6 +1,6 @@
 import {Component, OnInit, OnChanges, OnDestroy} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
-import {ThreadsService} from '../../../services/threads.service';
+import {ThreadsService} from '../../../services/threads/threads.service';
 import {Thread} from '../../../services/models/threads/thread.model';
 
 @Component({
