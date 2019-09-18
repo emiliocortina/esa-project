@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { SatelliteData } from 'src/app/services/models/satellite-data/satellite-data.model';
 import { Chart } from 'chart.js';
 import { SatelliteDataValues } from 'src/app/services/models/satellite-data/satellite-data-values.model';
 import { ChartsService } from 'src/app/services/charts.service';

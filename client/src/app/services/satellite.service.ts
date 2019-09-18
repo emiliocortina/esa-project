@@ -5,6 +5,7 @@ import { SatelliteDataValues } from './models/satellite-data/satellite-data-valu
 import { Category } from './models/category.model';
 import { ApiService } from './api.service';
 import { HttpParams } from '@angular/common/http';
+import { DataMarker } from './models/satellite-data/data-marker.model';
 
 @Injectable({
     providedIn: 'root'
@@ -61,9 +62,13 @@ export class SatelliteService {
         {
             var cat = new DataCategory(res[i].unit, category);
 
+            // TODO get the markers from the server
+            var markers: DataMarker[] = [];
+            markers.push(new DataMarker("Law was approved", new Date("2006-07-12"), ""));
+
             // TODO !!!!!! SQUARE REGRESSION!!!!!
             var func = (x) => { return Math.random() * Math.pow(x, 2) + Math.random() * x + Math.random() };
-            var values = new SatelliteDataValues(start, end, func, cat, res[i].dataPack);
+            var values = new SatelliteDataValues(start, end, func, cat, markers, res[i].dataPack);
             valuesArray.push(values);
         }
         
@@ -72,31 +77,5 @@ export class SatelliteService {
     }
 
 
-
-/*
-    // TODO remove this once we've got the API ready
-    private async simulateAPICall(latitude: number, longitude: number, 
-            start: Date, end: Date, category: Category) : Promise<any[]>
-    {
-        var categories : DataCategory[] = [];
-        var result = [];
-
-        var len = 1 + Math.round(Math.random() * 3);
-        for (var i = 0; i < len; i ++)
-        {
-            var keyValuePairs = [];
-            for (var j = 0; j < 10; j ++)
-            {
-                keyValuePairs.push([j, Math.random()]);
-            }
-
-            result.push({
-                unit: "Dummy cat " + i,
-                keyValuePairs: keyValuePairs
-            });
-        }
-
-        return result;
-    }
-*/
+    
 }
