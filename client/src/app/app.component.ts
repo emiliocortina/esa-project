@@ -1,11 +1,12 @@
 import {Component} from '@angular/core';
 
-import {Platform} from '@ionic/angular';
+import {Platform, ModalController} from '@ionic/angular';
 import {SplashScreen} from '@ionic-native/splash-screen/ngx';
 import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import { timer } from 'rxjs';
 import { SettingsService } from './services/settings.service';
+import { WelcomeSlides } from './components/welcome-slides-modal/welcome-slides-modal.component';
 
 @Component({
     selector: 'app-root',
@@ -19,10 +20,21 @@ export class AppComponent {
         private platform: Platform,
         private splashScreen: SplashScreen,
         private statusBar: StatusBar,
-        private settings: SettingsService
+        private settings: SettingsService,
+        private modalController: ModalController
     ) {
         this.initializeApp();
     }
+
+
+    private async openWelcomeSlides()
+    {
+        const modal = await this.modalController.create({
+            component: WelcomeSlides
+        });
+        return await modal.present();
+    }
+
 
     initializeApp() {
         this.platform.ready().then(() => {
@@ -47,8 +59,8 @@ export class AppComponent {
             }
 
             this.splashScreen.hide();
-
             // TODO check tutorial
+            this.openWelcomeSlides();
         });
     }
 

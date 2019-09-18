@@ -16,7 +16,8 @@ export class User {
         let path = '/assets/avatar/';
         if (this.avatarId) {
             path += this.avatarId + '.svg';
-        } else {
+        }
+        else {
             path += '6.svg';
         }
         return path;

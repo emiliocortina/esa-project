@@ -2,7 +2,8 @@
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-button routerLink="/profile">
-                <ion-icon id="userAvatar" slot="icon-only" src="assets/avatar/{{avatarId}}.svg"></ion-icon>
+                <ion-icon *ngIf="avatarId" id="userAvatar" slot="icon-only" src="assets/avatar/{{avatarId}}.svg"></ion-icon>
+                <ion-icon *ngIf="!avatarId" id="userAvatar" slot="icon-only" name="contact"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title>

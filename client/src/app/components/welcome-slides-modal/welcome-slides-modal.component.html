@@ -1,0 +1,50 @@
+
+<script type="module" src="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/dist/ionic/ionic.esm.js"></script>
+<script nomodule src="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/dist/ionic/ionic.js"></script>
+
+<!--
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@ionic/core@4.7.4/css/ionic.bundle.css"/>
+-->
+
+<ion-header translucent>
+    <ion-toolbar>
+        <ion-title>
+            <img src="/assets/icon/logo.svg">
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content fullscreen padding scroll-y="false">
+  <ion-slides pager='true'>
+
+    <ion-slide>
+      <!--<img src="./slide-1.png"/>-->
+      <h2>Welcome to <b>Cooper</b>!</h2>
+      <p>We do nice stuff</p>
+    </ion-slide>
+
+    <ion-slide>
+      <!--<img src="./slide-1.png"/>-->
+      <h2>Slice 2</h2>
+      <p>Climate-change stuff</p>
+    </ion-slide>
+
+    <ion-slide>
+      <!--<img src="./slide-1.png"/>-->
+      <h2>Slice 3</h2>
+      <p>You know... to stop it</p>
+    </ion-slide>
+
+    <ion-slide>
+      <!--<img src="./slide-1.png"/>-->
+      <h2>Slice 4</h2>
+      <p>And that's it</p>
+
+      <ion-button fill="clear" (click)="close()">
+        Continue 
+        <ion-icon slot="end" name="arrow-forward"></ion-icon>
+      </ion-button>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>

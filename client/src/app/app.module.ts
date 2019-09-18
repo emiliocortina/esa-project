@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { IonicStorageModule } from '@ionic/storage';
+import { WelcomeSlidesModule } from './components/welcome-slides-modal/welcome-slides-modal.module';
 
 @NgModule({
     declarations: [
@@ -22,7 +23,8 @@ import { IonicStorageModule } from '@ionic/storage';
         IonicModule.forRoot(),
         IonicStorageModule.forRoot(),
         AppRoutingModule,
-        HttpClientModule
+        HttpClientModule,
+        WelcomeSlidesModule
     ],
     providers: [
         ApiService,
