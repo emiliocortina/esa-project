@@ -18,11 +18,11 @@
 <ion-content>
 
     <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
-        <ion-card>
+        <ion-card *ngIf="user">
             <ion-card-header>
                 <ion-row justify-content-center align-items-center>
                     <ion-avatar>
-                        <img src="{{user.avatarId? '/assets/avatar/'+user.avatarId+'.svg' : '/assets/avatar/8.svg'}}">
+                        <img src="{{ user.avatarId? '/assets/avatar/'+user.avatarId+'.svg' : '/assets/avatar/8.svg'}}">
                     </ion-avatar>
                 </ion-row>
                 <ion-card-title>{{user.name}}</ion-card-title>

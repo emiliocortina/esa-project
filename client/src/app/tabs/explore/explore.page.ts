@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ThreadsService } from '../../services/threads.service';
-import { Thread } from '../../services/models/threads/thread.model';
-import { CategoriesService } from '../../services/categories.service';
-import { Category } from '../../services/models/category.model';
-import { Router } from '@angular/router';
-import { ModalController, PopoverController, ToastController } from '@ionic/angular';
-import { SettingsModal } from 'src/app/components/settings-modal/settings-modal.component';
-import { CategoriesPopover } from './categories-popover/categories-popover.component';
-import { StorageService } from 'src/app/services/authentication/storage.service';
-import { CreatePostModalPage } from './create-post-modal/create-post-modal.page';
+import {Component, OnInit} from '@angular/core';
+import {ThreadsService} from '../../services/threads.service';
+import {Thread} from '../../services/models/threads/thread.model';
+import {CategoriesService} from '../../services/categories.service';
+import {Category} from '../../services/models/category.model';
+import {Router} from '@angular/router';
+import {ModalController, PopoverController, ToastController} from '@ionic/angular';
+import {SettingsModal} from 'src/app/components/settings-modal/settings-modal.component';
+import {CategoriesPopover} from './categories-popover/categories-popover.component';
+import {StorageService} from 'src/app/services/authentication/storage.service';
+import {CreatePostModalPage} from './create-post-modal/create-post-modal.page';
 
 @Component({
     selector: 'app-tab1',
@@ -40,10 +40,17 @@ export class ExplorePage implements OnInit {
 
     ngOnInit(): void {
         this.threads = [];
-        //this.threadsService.loadPopularThreads(this.threads);
-        //this.loadPosts();
+        // this.threadsService.loadPopularThreads(this.threads);
+        // this.loadPosts();
         this.loadThreads();
         this.avatarId = this.userService.getAvatarId();
+        this.userService.onUserChange.push(user => {
+            if (user && user.avatarId) {
+                this.avatarId = user.avatarId;
+            } else {
+                this.avatarId = null;
+            }
+        });
     }
 
     async createCooper() {
