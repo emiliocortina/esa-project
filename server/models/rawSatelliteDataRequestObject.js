@@ -1,11 +1,11 @@
 class SatelliteRequestDto {
 	constructor() {
-		this.latitude;
-		this.longitude;
-		this.start;
-		this.end;
-		this.step;
-		this.threadCat;
+		this.latitude = null;
+		this.longitude = null;
+		this.start = null;
+		this.end = null;
+		this.step = null;
+		this.threadCat = null;
 	}
 
 	static parseRequest(params) {
