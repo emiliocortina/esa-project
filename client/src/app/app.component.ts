@@ -59,8 +59,9 @@ export class AppComponent {
             }
 
             this.splashScreen.hide();
+            
             // TODO check tutorial
-            this.openWelcomeSlides();
+            //this.openWelcomeSlides();
         });
     }
 
