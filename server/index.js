@@ -33,6 +33,7 @@ app.use('/api/private', require('./routes/satelliteDataValue.routes'));
 app.use('/api/private', require('./routes/coop.routes'));
 app.use('/api/private', require('./routes/thread.routes'));
 app.use('/api/private', require('./routes/comments.routes'));
+app.use('/api/private', require('./routes/satelliteApi.routes'));
 
 //Error manager
 app.use(function(err, req, res, next) {
