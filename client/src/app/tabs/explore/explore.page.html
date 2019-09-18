@@ -3,7 +3,7 @@
         <ion-buttons slot="start">
             <ion-button routerLink="/profile">
                 <ion-icon *ngIf="avatarId" id="userAvatar" slot="icon-only" src="assets/avatar/{{avatarId}}.svg"></ion-icon>
-                <ion-icon *ngIf="!avatarId" id="userAvatar" slot="icon-only" name="contact"></ion-icon>
+                <ion-icon *ngIf="!avatarId" slot="icon-only" name="contact"></ion-icon>
             </ion-button>
         </ion-buttons>
         <ion-title>
@@ -60,8 +60,8 @@
     </ion-list>
 
     <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-        <ion-fab-button (click)="createCooper()" color="secondary">
-            <ion-icon name="add" color="light"></ion-icon>
+        <ion-fab-button (click)="createCooper() color="secondary">
+            <ion-icon src="assets/icon/newPost.svg" color="light"></ion-icon>
         </ion-fab-button>
     </ion-fab>
 </ion-content>
