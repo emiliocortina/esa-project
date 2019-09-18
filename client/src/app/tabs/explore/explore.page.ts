@@ -40,10 +40,17 @@ export class ExplorePage implements OnInit {
 
     ngOnInit(): void {
         this.threads = [];
-        //this.threadsService.loadPopularThreads(this.threads);
-        //this.loadPosts();
+        // this.threadsService.loadPopularThreads(this.threads);
+        // this.loadPosts();
         this.loadThreads();
         this.avatarId = this.userService.getAvatarId();
+        this.userService.onUserChange.push(user => {
+            if (user && user.avatarId) {
+                this.avatarId = user.avatarId;
+            } else {
+                this.avatarId = null;
+            }
+        });
     }
 
     async createCooper() {

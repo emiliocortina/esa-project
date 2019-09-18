@@ -7,17 +7,17 @@ import { ThreadsService } from 'src/app/services/threads/threads.service';
 import { ThreadObject } from 'src/app/services/threads/ThreadObject';
 
 @Component({
-  selector: 'app-create-post-modal',
-  templateUrl: './create-post-modal.page.html',
-  styleUrls: ['./create-post-modal.page.scss'],
+    selector: 'app-create-post-modal',
+    templateUrl: './create-post-modal.page.html',
+    styleUrls: ['./create-post-modal.page.scss'],
 })
 export class CreatePostModalPage implements OnInit {
 
-  postTitle: string;
-  postBody: string;
-  selectedCategory: string;
+    postTitle: string;
+    postBody: string;
+    selectedCategory: string;
 
-  categories = [];
+    categories = [];
 
   constructor(public modalController: ModalController,
     private categoriesService: CategoriesService,
@@ -39,39 +39,24 @@ export class CreatePostModalPage implements OnInit {
     */
   }
 
-  async dismissModal() {
-    await this.modalController.dismiss();
-  }
-
-  async publishPost() {
-    const isPostEmpty = this.isPostEmpty();
-    if (isPostEmpty) {
-      const toast = await this.toastController.create({
-        message: isPostEmpty,
-        color: 'dark',
-        showCloseButton: true,
-        duration: 3000
-      });
-      toast.present();
-    } else {
-      this.submitThread();
+    async dismissModal() {
+        await this.modalController.dismiss();
     }
-  }
 
-  private isPostEmpty(): string {
-    if (!this.postTitle || this.postTitle.trim().length === 0) {
-      if (!this.postBody || this.postBody.trim().length === 0) {
-        return 'Cannot submit an empty post.';
-      } else {
-        return 'Post title must not be empty.';
-      }
-    } else {
-      if (!this.postBody || this.postBody.trim().length === 0) {
-        return 'Post body must not be empty.';
-      }
+    async publishPost() {
+        const isPostEmpty = this.isPostEmpty();
+        if (isPostEmpty) {
+            const toast = await this.toastController.create({
+                message: isPostEmpty,
+                color: 'dark',
+                showCloseButton: true,
+                duration: 3000
+            });
+            toast.present();
+        } else {
+            this.submitThread();
+        }
     }
-    return null;
-  }
 
   private async submitThread() {
     //const thread = new Thread('0', this.postTitle, this.stats.category, this.postBody);

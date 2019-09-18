@@ -14,7 +14,7 @@ export class ProfilePage implements OnInit {
 
     constructor(private usersService: StorageService, private router: Router) {
 
-        this.usersService.onUserChange = ( (user) => this.update(user) );
+        this.usersService.onUserChange.push(((user) => this.update(user)));
 
     }
 
@@ -34,6 +34,7 @@ export class ProfilePage implements OnInit {
 
     logOut() {
         this.usersService.removeCurrentSession();
+        this.router.navigate(['']);
     }
 
 }
