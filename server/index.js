@@ -5,6 +5,7 @@ const logger = require('node-color-log');
 const morgan = require('morgan');
 const cors = require('cors');
 const errorServ = require('./services/error.service');
+const ramaniConfiguration = require('./config/ramaniConfig');
 
 const { mongoose } = require('./database');
 
@@ -26,7 +27,13 @@ app.use(
 
 app.use('/auth', require('./routes/users.routes.js'));
 
-//middleware
+//public api ************************************************
+//           middlewares
+app.use('/api/satellite/layer/ozone', require('./middleware/ramani/ozoneLayer.middleware'));
+//           routes for the final controllers
+app.use('/api/satellite', require('./routes/satelliteApi.routes'));
+
+//middleware ***************************************************
 app.use('/api/private', require('./middleware/autenticated.middleware'));
 app.use('/api/private', require('./routes/satelliteData.routes'));
 app.use('/api/private', require('./routes/satelliteDataValue.routes'));
