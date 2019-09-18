@@ -7,9 +7,63 @@ import { Chart } from 'chart.js';
 })
 export class ChartsService {
     
-    constructor() {
-        this.buildMarkersPlugin();
+    constructor()
+    {
+        this.setUpMarkersPlugin();
     }
+
+    private setUpMarkersPlugin()
+    {
+        var plugin = {
+            getLinePosition: function (chart, pointIndex) {
+                const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
+                const data = meta.data;
+                return data[pointIndex]._model.x;
+            },
+            renderVerticalLine: function (chartInstance, pointIndex, text) {
+                const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
+                const scale = chartInstance.scales['y-axis-0'];
+                const context = chartInstance.chart.ctx;
+        
+                // render vertical line
+                context.beginPath();
+                context.strokeStyle = '#FFD03E';
+                context.moveTo(lineLeftOffset, scale.top);
+                context.lineTo(lineLeftOffset, scale.bottom);
+                context.stroke();
+        
+                // write label
+                context.fillStyle = "#000000";
+                context.textAlign = 'left';
+                context.fillText(text, lineLeftOffset + 4, /*(scale.bottom - scale.top) / 2*/ + scale.top + 12);
+            },
+        
+            afterDatasetsDraw: function (chart, easing)
+            {
+                if (chart.config.markerIndices)
+                {
+                    for (var i = 0; i < chart.config.markerIndices.length; i ++)
+                    {
+                        var index = chart.config.markerIndices[i];
+                        var text = "";
+                        if (chart.config.markerTitles)
+                            text = chart.config.markerTitles[i];
+
+                        this.renderVerticalLine(chart, index, text);
+                    }
+                }
+            }
+        };
+        Chart.plugins.register(plugin);
+    }
+
+
+
+
+
+
+
+
 
     public buildChartObject(dataValues: SatelliteDataValues)
     {
@@ -19,10 +73,13 @@ export class ChartsService {
         {
             var marker = dataValues.markers[i];
             var percent = (marker.date.getTime() - dataValues.start.getTime()) / (dataValues.end.getTime() - dataValues.start.getTime());
+
+            if (percent < 0 || percent >= 1)
+                continue;
+
             indices.push(Math.round(percent * dataValues.keyValuePairs.length));
             titles.push(marker.name);
         }
-        
 
         var obj = {
             type: 'line', // type of chart
@@ -128,50 +185,7 @@ export class ChartsService {
 
 
 
-    public buildMarkersPlugin()
-    {
-        var plugin = {
-            getLinePosition: function (chart, pointIndex) {
-                const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
-                const data = meta.data;
-                return data[pointIndex]._model.x;
-            },
-            renderVerticalLine: function (chartInstance, pointIndex, text) {
-                const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
-                const scale = chartInstance.scales['y-axis-0'];
-                const context = chartInstance.chart.ctx;
-        
-                // render vertical line
-                context.beginPath();
-                context.strokeStyle = '#FFD03E';
-                context.moveTo(lineLeftOffset, scale.top);
-                context.lineTo(lineLeftOffset, scale.bottom);
-                context.stroke();
-        
-                // write label
-                context.fillStyle = "#000000";
-                context.textAlign = 'left';
-                context.fillText(text, lineLeftOffset + 4, /*(scale.bottom - scale.top) / 2*/ + scale.top + 12);
-            },
-        
-            afterDatasetsDraw: function (chart, easing)
-            {
-                if (chart.config.markerIndices)
-                {
-                    for (var i = 0; i < chart.config.markerIndices.length; i ++)
-                    {
-                        var index = chart.config.markerIndices[i];
-                        var text = "";
-                        if (chart.config.markerTitles)
-                            text = chart.config.markerTitles[i];
-
-                        this.renderVerticalLine(chart, index, text);
-                    }
-                }
-            }
-        };
-        Chart.plugins.register(plugin);
-    }
+    
 
 
 }
