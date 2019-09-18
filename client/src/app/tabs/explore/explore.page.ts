@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ThreadsService } from '../../services/threads.service';
+import { ThreadsService } from '../../services/threads/threads.service';
 import { Thread } from '../../services/models/threads/thread.model';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../services/models/category.model';
@@ -47,13 +47,6 @@ export class ExplorePage implements OnInit {
     }
 
     async createCooper() {
-
-        const modal = await this.modalController.create({
-            component: CreatePostModalPage
-        });
-        return await modal.present();
-
-        /*
         if (!this.userService.isAuthenticated()) {
             const toast = await this.toastController.create({
                 message: 'You need to be logged in to submit a post.',
@@ -62,13 +55,13 @@ export class ExplorePage implements OnInit {
                 duration: 3000
               });
               toast.present();
+              this.router.navigate(['/profile/login']);
         } else {
             const modal = await this.modalController.create({
                 component: CreatePostModalPage
             });
             return await modal.present();
         }
-        */
     }
 
     // = = = = = = = = = = = = CATEGORIES = = = = = = = = = = = = //

@@ -3,7 +3,7 @@ import {SatelliteData} from '../../../services/models/satellite-data/satellite-d
 import {ModalController, ToastController} from '@ionic/angular';
 import {StorageService} from '../../../services/authentication/storage.service';
 import {Thread} from "../../../services/models/threads/thread.model";
-import {ThreadsService} from "../../../services/threads.service";
+import {ThreadsService} from "../../../services/threads/threads.service";
 import { SatelliteDataDisplay } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.component';
 import { SatelliteDataValues } from 'src/app/services/models/satellite-data/satellite-data-values.model';
 

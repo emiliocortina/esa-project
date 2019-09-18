@@ -1,7 +1,9 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {Thread} from './models/threads/thread.model';
-import {CategoriesService} from './categories.service';
+import {Thread} from '../models/threads/thread.model';
+import {CategoriesService} from '../categories.service';
+import { ThreadObject } from './ThreadObject';
+import { ApiService } from '../api.service';
 
 @Injectable({
     providedIn: 'root'
@@ -33,8 +35,9 @@ export class ThreadsService {
     ];
 
 
-    constructor(private http: HttpClient, private categoriesService: CategoriesService) {
-    }
+    constructor(private http: HttpClient,
+                private categoriesService: CategoriesService,
+                private apiService: ApiService) { }
 
 
     public getThread(id: string, res, err): void {
@@ -78,5 +81,10 @@ export class ThreadsService {
 
     private timeout(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
+    }
+
+    createThread(threadObject: ThreadObject) {
+        return this.apiService
+			.request('api/private/thread', 'post', null, threadObject).subscribe();
     }
 }

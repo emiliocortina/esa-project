@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CategoriesService } from 'src/app/services/categories.service';
+import { PostsService } from 'src/app/services/threads/posts.service';
+import { PostObject } from 'src/app/services/threads/PostObject';
+import { ThreadsService } from 'src/app/services/threads/threads.service';
+import { ThreadObject } from 'src/app/services/threads/ThreadObject';
 
 @Component({
   selector: 'app-create-post-modal',
@@ -17,12 +21,14 @@ export class CreatePostModalPage implements OnInit {
 
   constructor(public modalController: ModalController,
     private categoriesService: CategoriesService,
-    private toastController: ToastController
+    private toastController: ToastController,
+    private postsService: PostsService,
+    private threadsService: ThreadsService
   ) { }
 
   ngOnInit() {
     this.categories = this.categoriesService.getCategories();
-    console.log(this.categories);
+    this.selectedCategory = this.categories[0].id;
     /*
      <div class="chip" *ngFor="let field of stats.fields">
         <ion-chip outline color="{{field.color}}" (click)="field.isChecked=false" *ngIf="field.isChecked">
@@ -67,21 +73,23 @@ export class CreatePostModalPage implements OnInit {
     return null;
   }
 
-  private submitThread() {
+  private async submitThread() {
     //const thread = new Thread('0', this.postTitle, this.stats.category, this.postBody);
     // TODO
     // this.threadsService.submitThread(thread);
-    var postBody = {
-      text: this.postBody
-    }
+    var postBody =
 
-    var threadBody = {
-      title: this.postTitle,
-      category: 
-    };
+      this.postsService.createPost(new PostObject({
+        text: this.postBody
+      })).subscribe((res: any) => {
+        let id = res.id;
+        console.log(this.threadsService.createThread(new ThreadObject({
+          title: this.postTitle,
+          category: this.selectedCategory,
+          head: id
+        })));
 
-    console.log(postBody);
-    console.log(threadBody);
-    this.modalController.dismiss({success: 'Thread successfully created!'});
-}
+        this.modalController.dismiss({ success: 'Thread successfully created!' });
+      });
+  }
 }

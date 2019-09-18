@@ -1,6 +1,6 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title color="dark">New Cooper</ion-title>
+    <ion-title color="dark">New Coop</ion-title>
     <ion-buttons slot="start">
       <ion-button (click)="dismissModal()">
         <ion-icon slot="icon-only" name="arrow-back" color="dark"></ion-icon>
@@ -16,7 +16,8 @@
         <ion-label>Category</ion-label>
         <ion-select [(ngModel)]="selectedCategory">
           <ion-item>
-            <ion-select-option *ngFor="let category of categories" value="{{category.id}}" selected>{{category.name}}
+            <ion-select-option *ngFor="let category of categories" 
+              value="{{category.id}}">{{category.name}}
             </ion-select-option>
           </ion-item>
         </ion-select>
