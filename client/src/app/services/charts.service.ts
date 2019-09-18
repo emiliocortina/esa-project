@@ -30,8 +30,15 @@ export class ChartsService {
         for (var i = 0; i < dataValues.keyValuePairs.length; i ++)
         {
             var keyValuePair = dataValues.keyValuePairs[i];
-            keys.push(keyValuePair[0]);
-            values.push(keyValuePair[1]);
+
+            var startTime = dataValues.start.getTime();// + (dataValues.end - dataValues.start) * 
+            startTime += (dataValues.end.getTime() - dataValues.start.getTime()) * keyValuePair.x;
+
+            var date = new Date();
+            date.setTime(startTime);
+
+            keys.push(date.toDateString());
+            values.push(keyValuePair.y);
         }
     
         var data = {

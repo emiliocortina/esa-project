@@ -147,8 +147,9 @@ export class StatsPage implements OnInit {
             var data = await this.satelliteService.fetchSatelliteData(
                     this.locationLatitude, 
                     this.locationLongitude, 
-                    new Date(),
-                    new Date(),categories[i]
+                    new Date("2006-07-01"), // TODO change!!!!!
+                    new Date("2006-07-31"),
+                    categories[i]
                 );
             this.collectedData.push(data);
         }

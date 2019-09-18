@@ -5,6 +5,10 @@ import { DataCategory } from './data-category.model';
  */
 export class SatelliteDataValues
 {
+
+    start: Date;
+    end: Date;
+
     func: any; // The function that will evaluate an X value of the plot
     dataCategory: DataCategory;
 
@@ -12,7 +16,9 @@ export class SatelliteDataValues
     keyValuePairs;
 
 
-    constructor(func: any, dataCategory: DataCategory, keyValuePairs) {
+    constructor(start: Date, end: Date, func: any, dataCategory: DataCategory, keyValuePairs) {
+        this.start = start;
+        this.end = end;
         this.func = func;
         this.dataCategory = dataCategory;
         this.keyValuePairs = keyValuePairs; // TODO remove
