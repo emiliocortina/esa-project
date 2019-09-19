@@ -1,5 +1,5 @@
 
-import {SatelliteData} from '../satellite-data/satellite-data.model';
+import { SatelliteData } from '../satellite-data/satellite-data.model';
 import { User } from '../users/user';
 
 export class Post {
@@ -20,6 +20,10 @@ export class Post {
             this.satelliteData = satelliteData;
         }
         this.comments = [];
+    }
+
+    addComment(comment: Post) {
+        this.comments.push(comment);
     }
 
 }

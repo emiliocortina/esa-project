@@ -16,8 +16,7 @@
         <ion-label>Category</ion-label>
         <ion-select [(ngModel)]="selectedCategory">
           <ion-item>
-            <ion-select-option *ngFor="let category of categories" 
-              value="{{category.id}}">{{category.name}}
+            <ion-select-option *ngFor="let category of categories" value="{{category.id}}">{{category.name}}
             </ion-select-option>
           </ion-item>
         </ion-select>
@@ -31,6 +30,6 @@
     </ion-card-content>
   </ion-card>
   <ion-row justify-content-center align-items-center>
-      <ion-button id="publishBtn" fill="solid" color="secondary" (click)="publishPost()">Publish</ion-button>
+    <ion-button id="publishBtn" fill="solid" color="secondary" (click)="publishPost()">Publish</ion-button>
   </ion-row>
 </ion-content>
