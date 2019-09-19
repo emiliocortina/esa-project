@@ -18,19 +18,33 @@ export class SatelliteService {
 
 
 
+    /**
+     * 
+     * @param category 
+     * @param callback Callback to an object with start and end dates.
+     */
+    public async getAvailableDates(category: Category, callback)
+    {
+        // TODO get all subcategories
 
+        // TODO call to api/satellite/"category", instead of "ozone"
+        this.apiService.request("api/satellite/layer/ozone/dates", "get")
+            .subscribe(res => callback(res));
+    }
     
+
+
+
+
 
     public async fetchSatelliteData(latitude: number, longitude: number, 
             start: Date, end: Date, category: Category) : Promise<SatelliteData>
     {
-        // TODO RIGHT NOW RETURN RANDOM VALUES - We've gotta do a single call to our API
-        //var res = await this.simulateAPICall(latitude, longitude, start, end, category);
-
         var params = new HttpParams()
             .set("latitude", "" + latitude)
             .set("longitude", "" + longitude);
 
+        // TODO call to api/satellite/"category", instead of "ozone"
         var promise = this.apiService.request("api/satellite/layer/ozone", "get", params).toPromise();
         var res = await promise;
 
@@ -54,7 +68,7 @@ export class SatelliteService {
     }
 
     private processSatelliteData(res, latitude: number, longitude: number, 
-        start: Date, end: Date, category: Category)
+            start: Date, end: Date, category: Category)
     {
         var valuesArray : SatelliteDataValues[] = [];
 

@@ -5,11 +5,20 @@
     "version": "0.2.0",
     "configurations": [
         {
-            "name": "Run android on device",
+            "name": "Run Android Device",
             "type": "cordova",
             "request": "launch",
             "platform": "android",
             "target": "device",
+            "sourceMaps": true,
+            "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "Run Android Emulator",
+            "type": "cordova",
+            "request": "launch",
+            "platform": "android",
+            "target": "emulator",
             "sourceMaps": true,
             "cwd": "${workspaceFolder}"
         },

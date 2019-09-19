@@ -45,7 +45,8 @@ export class StatsPage implements OnInit {
         private toastController: ToastController,
         private router: Router,
         private geolocation: Geolocation,
-        private nativeGeocoder: NativeGeocoder
+        private nativeGeocoder: NativeGeocoder,
+        public loadingController: LoadingController
     ) {
 
     }
@@ -137,6 +138,11 @@ export class StatsPage implements OnInit {
     {
         console.log("Calling updateData");
 
+        const loading = await this.loadingController.create({
+            message: 'Getting data near your location...'
+        });
+        loading.present();
+
         while (this.collectedData.length > 0)
             this.collectedData.pop();
 
@@ -153,6 +159,8 @@ export class StatsPage implements OnInit {
                 );
             this.collectedData.push(data);
         }
+
+        this.loadingController.dismiss();
     }
 
 

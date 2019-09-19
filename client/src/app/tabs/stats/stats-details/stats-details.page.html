@@ -14,7 +14,15 @@
     <ion-grid>
 
         <ion-row class="dateSelectionRow">
-            <p>Date selection goes here</p>
+            
+            <ion-button (click)="updateStartDate()">
+                {{ startDate.toDateString() }}
+            </ion-button>
+        
+            <ion-button (click)="updateEndDate()">
+                {{ endDate.toDateString() }}
+            </ion-button>
+                
         </ion-row>
 
         <ion-row class="displayRow">

@@ -2,10 +2,9 @@ import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {SatelliteData} from '../../../services/models/satellite-data/satellite-data.model';
 import {ModalController, ToastController} from '@ionic/angular';
 import {StorageService} from '../../../services/authentication/storage.service';
-import {Thread} from "../../../services/models/threads/thread.model";
-import {ThreadsService} from "../../../services/threads.service";
-import { SatelliteDataDisplay } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.component';
-import { SatelliteDataValues } from 'src/app/services/models/satellite-data/satellite-data-values.model';
+import { SatelliteService } from 'src/app/services/satellite.service';
+import { Category } from 'src/app/services/models/category.model';
+import { DatePicker } from '@ionic-native/date-picker/ngx';
 
 @Component({
     selector: 'app-stats-details',
@@ -17,21 +16,67 @@ export class StatsDetailsPage implements OnInit {
     showCard = false;
 
     @Input() data: SatelliteData;
+    
+    startDate: Date;
+    endDate: Date;
+
+    limitStartDate: Date;
+    limitEndDate: Date;
+    
+    
     postTitle: string;
     postBody: string;
 
-    constructor(private modalController: ModalController, private usersService: StorageService,
-                private toastController: ToastController, private threadsService: ThreadsService) {
+    constructor(
+            private modalController: ModalController, 
+            private usersService: StorageService,
+            private toastController: ToastController, 
+            private satelliteService: SatelliteService,
+            private datePicker: DatePicker)
+    {
+
     }
 
     ngOnInit()
     {
-        
+        this.startDate = new Date();
+        this.endDate = new Date();
+
+        var cat : Category = this.data.values[0].dataCategory.threadCategory;
+        this.satelliteService.getAvailableDates(cat, res =>{
+
+            this.limitStartDate = new Date(res.start);
+            this.limitEndDate = new Date(res.end);
+            //this.checkCorrectStartDate();
+            //this.checkCorrectEndDate();
+        });
     }
 
     async dismissModal() {
         await this.modalController.dismiss();
     }
+
+
+    updateStartDate()
+    {
+        this.datePicker.show({
+            date: new Date(),
+            mode: 'date',
+            androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+          }).then(
+            date => console.log('Got date: ', date),
+            err => console.log('Error occurred while getting date: ', err)
+          );
+    }
+
+    updateEndDate()
+    {
+
+    }
+
+
+
+
 
     async createPost() {
         if (!this.showCard) {
