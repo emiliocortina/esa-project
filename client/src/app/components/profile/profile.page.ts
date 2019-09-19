@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {StorageService} from '../../services/authentication/storage.service';
 import {User} from '../../services/models/users/user';
 import {Router} from '@angular/router';
+import {Thread} from "../../services/models/threads/thread.model";
 
 @Component({
     selector: 'app-tab3',
@@ -11,6 +12,7 @@ import {Router} from '@angular/router';
 export class ProfilePage implements OnInit {
 
     user: User;
+    createdThreads: Thread[];
 
     constructor(private usersService: StorageService, private router: Router) {
 

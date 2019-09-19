@@ -33,6 +33,8 @@ app.use('/api/satellite/layer/no2*', require('./middleware/ramani/nitrogenDioxid
 app.use('/api/satellite/layer/ozone*', require('./middleware/ramani/ozoneLayer.middleware'));
 //           routes for the final controllers
 app.use('/api/satellite', require('./routes/satelliteApi.routes'));
+app.use('/api', require('./routes/public-thread.routes.js'));
+app.use('/api', require('./routes/public-coop.routes.js'));
 
 //middleware ***************************************************
 app.use('/api/private', require('./middleware/autenticated.middleware'));
