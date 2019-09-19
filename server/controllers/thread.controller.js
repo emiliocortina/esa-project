@@ -1,6 +1,5 @@
 const Thread = require('../models/Thread');
 
-
 const HttpStatus = require('../constants/HttpStatus');
 const tokenServ = require('../services/token.service');
 const sortAndFilterService = require('../services/SortAndFilter.service');
@@ -117,11 +116,7 @@ exports.findThreadsPaginatedByDateDescending = async (req, res, next) => {
 	}
 
 	let filter = {};
-	console.log('Sort & Filtersssss\n');
-	console.log(sortAndFilterInfo);
 	if(sortAndFilterInfo.filterFields) {
-		console.log('Filtersss\n');
-		console.log(sortAndFilterInfo.filterFields);
 		filter = sortAndFilterInfo.filterFields;
 	}
 
@@ -130,11 +125,14 @@ exports.findThreadsPaginatedByDateDescending = async (req, res, next) => {
 		.skip((sortAndFilterInfo.page_number - 1) * sortAndFilterInfo.page_elements)
 		.limit(sortAndFilterInfo.page_elements)
 		.exec()
-		.catch(() => {
-			next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Bad data for the filter'));
-			return;
-		});
-
-	res.status(HttpStatus.CREATED).json(threads);
-	return;
+		.then(
+			(threads) => {
+				res.status(HttpStatus.CREATED).json(threads);
+				return;
+			},
+			(err) => {
+				next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Bad data for the filter'));
+				return;
+			}
+		);
 };

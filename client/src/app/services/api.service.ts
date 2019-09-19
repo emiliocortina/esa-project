@@ -146,7 +146,6 @@ export class ApiService {
 			})
 			.pipe(
 				map((resp: HttpResponse<R>) => {
-					console.log(resp.body);
 					return resp.body;
 				})
 			);
