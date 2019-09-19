@@ -36,6 +36,7 @@ exports.findThreadById = async (req, res, next) => {
 	}
 };
 
+
 exports.modifyThread = async (req, res, next) => {
 	const id = req.params.id;
 	const user = tokenServ.readTokken(req.token).id;
@@ -108,13 +109,23 @@ exports.deleteThread = async (req, res, next) => {
 exports.findThreadsPaginatedByDateDescending = async (req, res, next) => {
 	const sortAndFilterInfo = sortAndFilterService.parseHeader(req.query);
 
-	var key = sortAndFilterInfo.sortFields[0].key;
-	var order = sortAndFilterInfo.sortFields[0].order == PaginationModule.ASC ? 1 : -1;
-
 	const sort = {};
-	sort[key] = order;
+	if(sortAndFilterInfo.sortFields[0]) {
+		var key = sortAndFilterInfo.sortFields[0].key;
+		var order = sortAndFilterInfo.sortFields[0].order == PaginationModule.ASC ? 1 : -1;
+		sort[key] = order;
+	}
 
-	const threads = await Thread.find()
+	let filter = {};
+	console.log('Sort & Filtersssss\n');
+	console.log(sortAndFilterInfo);
+	if(sortAndFilterInfo.filterFields) {
+		console.log('Filtersss\n');
+		console.log(sortAndFilterInfo.filterFields);
+		filter = sortAndFilterInfo.filterFields;
+	}
+
+	const threads = await Thread.find(filter)
 		.sort(sort)
 		.skip((sortAndFilterInfo.page_number - 1) * sortAndFilterInfo.page_elements)
 		.limit(sortAndFilterInfo.page_elements)
