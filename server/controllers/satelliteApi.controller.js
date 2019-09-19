@@ -9,6 +9,15 @@ exports.handleDatasetCall = async (req, res, next) => {
 	return;
 };
 
+exports.getStartAndEndDate = async (req, res, next) => {
+	console.log('hey');
+	let minimunStartTime = req.ramaniMinimunStartTime;
+	let maximunEndTime = req.ramaniMaximunEndTime;
+
+	res.status(HttpStatus.OK).json({ start: minimunStartTime, end: maximunEndTime });
+	return;
+};
+
 exports.handleLayerCall = async (req, res, next) => {
 	let satRequestDto = SatelliteRequestDto.parseRequest(req.query);
 	let time = {};
@@ -31,12 +40,15 @@ exports.handleLayerCall = async (req, res, next) => {
 		} else {
 			let parsedStart = new Date(satRequestDto.start);
 			let parsedEnd = new Date(satRequestDto.end);
+
 			if (parsedStart.getTime() < minimunStartTime.getTime()) {
 				parsedStart = new Date(minimunStartTime);
 			}
+
 			if (parsedEnd.getTime() > maximunEndTime.getTime()) {
 				parsedEnd = new Date(maximunEndTime);
 			}
+
 			if (parsedStart.getTime() > maximunEndTime.getTime() || parsedEnd.getTime() < minimunStartTime.getTime()) {
 				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data available on that time'));
 				return;
@@ -70,6 +82,7 @@ exports.handleLayerCall = async (req, res, next) => {
 	ramani.getPointProfile(layerobj, function(err, ret) {
 		if (err) {
 			//error handling
+			console.log('hey');
 			next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
 			return;
 		}
