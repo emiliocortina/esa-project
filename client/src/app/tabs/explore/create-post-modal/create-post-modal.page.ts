@@ -76,22 +76,27 @@ export class CreatePostModalPage implements OnInit {
   }
 
   private async submitThread() {
-    //const thread = new Thread('0', this.postTitle, this.stats.category, this.postBody);
-    // TODO
-    // this.threadsService.submitThread(thread);
-    var postBody =
+    this.postsService.createCoop(new CoopObject({
+      text: this.postBody
+    })).subscribe(async (res: any) => {
+      let id = res.id;
+      console.log(this.threadsService.createThread(new ThreadObject({
+        title: this.postTitle,
+        category: this.selectedCategory,
+        head: id
+      })));
 
-      this.postsService.createCoop(new CoopObject({
-        text: this.postBody
-      })).subscribe((res: any) => {
-        let id = res.id;
-        console.log(this.threadsService.createThread(new ThreadObject({
-          title: this.postTitle,
-          category: this.selectedCategory,
-          head: id
-        })));
-
-        this.modalController.dismiss({ success: 'Thread successfully created!' });
+      const toast = await this.toastController.create({
+        message: "Thread successfully created!",
+        color: 'dark',
+        showCloseButton: true,
+        duration: 3000
       });
+      toast.present();
+
+      this.modalController.dismiss();
+    });
+
   }
+
 }

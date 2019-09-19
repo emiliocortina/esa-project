@@ -49,9 +49,11 @@
         </ion-item>
 
         <ion-buttons slot="primary">
-            <ion-button (click)="sendComment()">
-                <ion-icon slot="icon-only" name="send" color="dark"></ion-icon>
-            </ion-button>
+            <form id="commentForm" (ngSubmit)="sendComment()">
+                <ion-button type="submit">
+                    <ion-icon slot="icon-only" name="send" color="dark"></ion-icon>
+                </ion-button>
+            </form>
         </ion-buttons>
     </ion-toolbar>
 </ion-footer>

@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const salt = 10;
 const tokenServ = require('../services/token.service');
 const errorServ = require('./../services/error.service');
+const HttpStatus = require('../constants/HttpStatus');
 
 usersCtrl.signup = async (req, res, next) => {
 	const user = new Model(req.body);
@@ -19,7 +20,7 @@ usersCtrl.signup = async (req, res, next) => {
 		return;
 	}
 
-	bcrypt.hash(user.unencodedPass, salt, function(err, hash) {
+	bcrypt.hash(user.unencodedPass, salt, function (err, hash) {
 		if (err) {
 			next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 			return;
@@ -28,7 +29,7 @@ usersCtrl.signup = async (req, res, next) => {
 		user.unencodedPass = null;
 		user.save((err, doc) => {
 			if (err) {
-				
+
 
 				next(errorServ.buildError(req.url, 400, 'bad_register', 'Server error'));
 				return;
@@ -80,6 +81,19 @@ usersCtrl.login = async (req, res, next) => {
 	}
 };
 
-usersCtrl.logout = async (req, res) => {};
+usersCtrl.logout = async (req, res) => { };
+
+usersCtrl.findUserById = async (req, res, next) => {
+	const id = req.params.id;
+	let user = await Model.findById(id);
+
+	if (user) {
+		res.status(HttpStatus.OK).json(user);
+		return;
+	} else {
+		next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'not_found', 'No user found'));
+		return;
+	}
+};
 
 module.exports = usersCtrl;
