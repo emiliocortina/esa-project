@@ -5,12 +5,61 @@ const errorServ = require('../services/error.service');
 const ramani = require('ramani');
 
 exports.handleDatasetCall = async (req, res, next) => {
-	res.json({ message: 'Handle dataset call' });
-	return;
+	let url = req.ramaniDataset;
+	let satRequestDto = SatelliteRequestDto.parseRequest(req.query);
+	let start = new Date(satRequestDto.start);
+	let end = new Date(satRequestDto.end);
+	ramani.getPoint(
+		[ satRequestDto.latitude, satRequestDto.longitude ],
+		{
+			layer: req.ramaniLayerId,
+			dataset: url,
+			info_format: 'text/json',
+			time: `${start.toISOString()}/${end.toISOString()}`
+		},
+		function(err, ret) {
+			if (err) {
+				//error handling
+
+				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
+				return;
+			}
+
+			//process results
+			if (!ret) {
+				//console.log(obj);
+
+				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
+				return;
+			}
+
+			let dataObject = ret.features[0].featureInfo;
+
+			let firstDate = Date.parse(dataObject[0].time);
+			let lastDate = Date.parse(dataObject[dataObject.length - 1].time);
+			let datapack = dataObject.map((value) => {
+				let dateInCeroOne = (Date.parse(value.time) - firstDate) / (lastDate - firstDate);
+
+				let pointObject = { x: dateInCeroOne, y: value.value };
+				return pointObject;
+			});
+
+			let satResponseDto = [
+				{
+					unit: req.ramaniValueUnit,
+					dates: { start: start, end: end },
+					dataPack: datapack
+				}
+			];
+			res.status(HttpStatus.OK).json(satResponseDto);
+			return;
+		}
+	);
+
+	//	ramani.getPointProfile()
 };
 
 exports.getStartAndEndDate = async (req, res, next) => {
-	console.log('hey');
 	let minimunStartTime = req.ramaniMinimunStartTime;
 	let maximunEndTime = req.ramaniMaximunEndTime;
 
@@ -58,7 +107,6 @@ exports.handleLayerCall = async (req, res, next) => {
 			time['raw'] = [ parsedStart, parsedEnd ];
 		}
 	} catch (err) {
-		//console.log(err);
 		next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'date format incorrect'));
 		return;
 	}
@@ -76,6 +124,9 @@ exports.handleLayerCall = async (req, res, next) => {
 			params: params
 		}
 	];
+	if (req.ramaniDataset) {
+		layerobj[0].dataset = req.ramaniDataset;
+	}
 
 	//results
 
