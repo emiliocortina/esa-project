@@ -10,7 +10,7 @@ export class Thread {
     initialPost: Post;
     author: User;
 
-    constructor(id: string, title: string, category: Category, initialCoop: Post, author: User) {
+    constructor(id: string, title: string, category: Category, initialCoop: Post = null, author: User = null) {
         this.id = id;
         this.title = title;
         this.category = category;

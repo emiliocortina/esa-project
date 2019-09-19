@@ -21,7 +21,6 @@ export class ThreadPage implements OnInit, OnChanges, OnDestroy {
     private routerSubscription: any;
     private thread: Thread;
     commentText: string;
-    comments: Post[];
 
     constructor(private route: ActivatedRoute,
         private threadService: ThreadsService,
