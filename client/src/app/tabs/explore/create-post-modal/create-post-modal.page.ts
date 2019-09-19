@@ -48,13 +48,7 @@ export class CreatePostModalPage implements OnInit {
   async publishPost() {
     const isPostEmpty = this.isPostEmpty();
     if (isPostEmpty) {
-      const toast = await this.toastController.create({
-        message: isPostEmpty,
-        color: 'dark',
-        showCloseButton: true,
-        duration: 3000
-      });
-      toast.present();
+      this.generateToast(isPostEmpty, 'danger');
     } else {
       this.submitThread();
     }
@@ -86,17 +80,20 @@ export class CreatePostModalPage implements OnInit {
         head: id
       })));
 
-      const toast = await this.toastController.create({
-        message: "Thread successfully created!",
-        color: 'dark',
-        showCloseButton: true,
-        duration: 3000
-      });
-      toast.present();
+      this.generateToast("Thread successfully created!", 'success');
 
       this.modalController.dismiss();
     });
 
   }
 
+  async generateToast(msg: string, col: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      color: col,
+      showCloseButton: true,
+      duration: 3000
+    });
+    toast.present();
+  }
 }
