@@ -17,22 +17,33 @@
 
 <ion-content>
 
-    <ion-row justify-content-center align-items-center style="height: 100%; flex-direction: column">
-        <ion-card *ngIf="user">
-            <ion-card-header>
-                <ion-row justify-content-center align-items-center>
-                    <ion-avatar>
-                        <img src="{{ user.avatarId? '/assets/avatar/'+user.avatarId+'.svg' : '/assets/avatar/8.svg'}}">
-                    </ion-avatar>
-                </ion-row>
-                <ion-card-title>{{user.name}}</ion-card-title>
-                <ion-card-subtitle>@{{user.nickName}}</ion-card-subtitle>
-            </ion-card-header>
-            <ion-card-content>
-                <b>Email: </b><span>{{user.email}}</span>
-            </ion-card-content>
-        </ion-card>
-    </ion-row>
+    <div class="wrapper" *ngIf="user">
+        <div class="avatarDiv">
+            <ion-avatar>
+                <img src="{{ user.avatarId? '/assets/avatar/'+user.avatarId+'.svg' : '/assets/avatar/8.svg'}}">
+            </ion-avatar>
+            <ion-card-title>{{user.name}}</ion-card-title>
+            <ion-card-subtitle>@{{user.nickName}}</ion-card-subtitle>
+            <ion-card-subtitle id="userEmail">{{user.email}}</ion-card-subtitle>
+        </div>
+    </div>
 
+    <ion-list id="threadList">
+        <ion-list-header>Created threads</ion-list-header>
+        <!-- Sentinel 1 -->
+        <ion-card class="createdThread" *ngFor="let thread of createdThreads">
+            <div class="linkToThread" routerLink="{{'/thread/' + thread.id}}">
+                <ion-card-header>
+                    <ion-card-subtitle>{{thread.category.name}}</ion-card-subtitle>
+                    <ion-card-title>{{thread.title}}</ion-card-title>
+
+                </ion-card-header>
+                <ion-card-content>
+                    <ion-label>{{thread.getPreview()}}</ion-label>
+                </ion-card-content>
+            </div>
+
+        </ion-card>
+    </ion-list>
 
 </ion-content>

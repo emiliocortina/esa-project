@@ -59,9 +59,10 @@ export class ThreadsService {
         });
     }
 
-    public loadThreadsByUser(list: Thread[], userId: string) {
-        const params = {page_elements: 10, page_number: 1, sort_by: 'id(DES)', filter_by: 'author(' + userId + ')'};
-        this.apiService.request('api/threadsByDate', 'get', params, null).subscribe((threads: any[]) => {
+    public loadThreadsByUser(list: Thread[], userEmail: string) {
+        // TODO paginar esta llamada
+        const params = {email: userEmail};
+        this.apiService.request('api/threadsByAuthorEmail', 'get', params, null).subscribe((threads: any[]) => {
             threads.forEach((t) => {
                 this.apiService.request('api/coop/' + t.head, 'get', null, null).subscribe((coop: any) => {
                     let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), coop.text);

@@ -34,6 +34,7 @@
 		"cordova-android": "8.0.0",
 		"cordova-browser": "6.0.0",
 		"cordova-ios": "^5.0.1",
+		"cordova-plugin-add-swift-support": "^2.0.2",
 		"cordova-plugin-geolocation": "^4.0.2",
 		"cordova-plugin-nativegeocoder": "^3.2.2",
 		"cordova-sqlite-storage": "^3.3.0",
@@ -86,7 +87,9 @@
 			},
 			"cordova-plugin-ionic-keyboard": {},
 			"cordova-plugin-geolocation": {},
-			"cordova-plugin-nativegeocoder": {},
+			"cordova-plugin-nativegeocoder": {
+				"LOCATION_WHEN_IN_USE_DESCRIPTION": "Use geocoder service"
+			},
 			"cordova-sqlite-storage": {}
 		},
 		"platforms": [
