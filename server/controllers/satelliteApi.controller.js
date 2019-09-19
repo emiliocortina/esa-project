@@ -5,35 +5,61 @@ const errorServ = require('../services/error.service');
 const ramani = require('ramani');
 
 exports.handleDatasetCall = async (req, res, next) => {
-	let url = 'https://analytics.ramani.ujuizi.com/goto/ad5264c63c4bf97e4bf8d68e010b3b24';
-	var layerobj = [];
-	layerobj.push({
-		point: [ 52.338, 6.332 ],
-		layers: [ 'air_temperature_2m' ],
-		dataset: url,
-		params: {
-			//TIME: '2010-11-29T00%3A00%3A00.000Z'
-		}
-	});
-	var getPointProfile = ramani.getPoint(
-		[ 6.332, 52.338 ],
+	let url = req.ramaniDataset;
+	let satRequestDto = SatelliteRequestDto.parseRequest(req.query);
+	let start = new Date(satRequestDto.start);
+	let end = new Date(satRequestDto.end);
+	ramani.getPoint(
+		[ satRequestDto.latitude, satRequestDto.longitude ],
 		{
-			layer: 'air_temperature_2m',
+			layer: req.ramaniLayerId,
 			dataset: url,
-			info_format: 'text/json'
+			info_format: 'text/json',
+			time: `${start.toISOString()}/${end.toISOString()}`
 		},
 		function(err, ret) {
-			console.log(err);
-			console.log(ret);
+			if (err) {
+				//error handling
 
-			res.json(ret);
+				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
+				return;
+			}
+
+			//process results
+			if (!ret) {
+				//console.log(obj);
+
+				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
+				return;
+			}
+
+			let dataObject = ret.features[0].featureInfo;
+
+			let firstDate = Date.parse(dataObject[0].time);
+			let lastDate = Date.parse(dataObject[dataObject.length - 1].time);
+			let datapack = dataObject.map((value) => {
+				let dateInCeroOne = (Date.parse(value.time) - firstDate) / (lastDate - firstDate);
+
+				let pointObject = { x: dateInCeroOne, y: value.value };
+				return pointObject;
+			});
+
+			let satResponseDto = [
+				{
+					unit: req.ramaniValueUnit,
+					dates: { start: start, end: end },
+					dataPack: datapack
+				}
+			];
+			res.status(HttpStatus.OK).json(satResponseDto);
 			return;
 		}
 	);
+
+	//	ramani.getPointProfile()
 };
 
 exports.getStartAndEndDate = async (req, res, next) => {
-	console.log('hey');
 	let minimunStartTime = req.ramaniMinimunStartTime;
 	let maximunEndTime = req.ramaniMaximunEndTime;
 
@@ -81,7 +107,6 @@ exports.handleLayerCall = async (req, res, next) => {
 			time['raw'] = [ parsedStart, parsedEnd ];
 		}
 	} catch (err) {
-		console.log(err);
 		next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'date format incorrect'));
 		return;
 	}
@@ -105,7 +130,6 @@ exports.handleLayerCall = async (req, res, next) => {
 
 	//results
 
-	console.log(layerobj);
 	ramani.getPointProfile(layerobj, function(err, ret) {
 		if (err) {
 			//error handling
@@ -116,9 +140,6 @@ exports.handleLayerCall = async (req, res, next) => {
 		ret.data.forEach(function(obj) {
 			//process results
 			if (!obj.value) {
-				//console.log(obj);
-				res.json(obj);
-				return;
 				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
 				return;
 			}
