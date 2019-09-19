@@ -23,7 +23,7 @@
     </div>
 
     <div class="comments">
-        <ion-card class="commentPost" *ngFor="let post of thread.initialPost.comments">
+        <ion-card class="commentPost" *ngFor="let post of this.thread.initialPost.comments">
             <ion-card-header>
                 <ion-card-subtitle>@{{post.user.nickName}}</ion-card-subtitle>
             </ion-card-header>
