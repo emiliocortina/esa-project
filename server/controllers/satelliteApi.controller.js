@@ -5,8 +5,31 @@ const errorServ = require('../services/error.service');
 const ramani = require('ramani');
 
 exports.handleDatasetCall = async (req, res, next) => {
-	res.json({ message: 'Handle dataset call' });
-	return;
+	let url = 'https://analytics.ramani.ujuizi.com/goto/ad5264c63c4bf97e4bf8d68e010b3b24';
+	var layerobj = [];
+	layerobj.push({
+		point: [ 52.338, 6.332 ],
+		layers: [ 'air_temperature_2m' ],
+		dataset: url,
+		params: {
+			//TIME: '2010-11-29T00%3A00%3A00.000Z'
+		}
+	});
+	var getPointProfile = ramani.getPoint(
+		[ 6.332, 52.338 ],
+		{
+			layer: 'air_temperature_2m',
+			dataset: url,
+			info_format: 'text/json'
+		},
+		function(err, ret) {
+			console.log(err);
+			console.log(ret);
+
+			res.json(ret);
+			return;
+		}
+	);
 };
 
 exports.getStartAndEndDate = async (req, res, next) => {
@@ -76,9 +99,13 @@ exports.handleLayerCall = async (req, res, next) => {
 			params: params
 		}
 	];
+	if (req.ramaniDataset) {
+		layerobj[0].dataset = req.ramaniDataset;
+	}
 
 	//results
 
+	console.log(layerobj);
 	ramani.getPointProfile(layerobj, function(err, ret) {
 		if (err) {
 			//error handling
@@ -89,6 +116,9 @@ exports.handleLayerCall = async (req, res, next) => {
 		ret.data.forEach(function(obj) {
 			//process results
 			if (!obj.value) {
+				//console.log(obj);
+				res.json(obj);
+				return;
 				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
 				return;
 			}
