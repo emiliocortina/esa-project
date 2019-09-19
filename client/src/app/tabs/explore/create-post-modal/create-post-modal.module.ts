@@ -5,12 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AgenciesPage } from './agencies.page';
+import { CreatePostModalPage } from './create-post-modal.page';
 
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './esa/esa.module#EsaPageModule'
+    component: CreatePostModalPage
   }
 ];
 
@@ -21,6 +21,8 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AgenciesPage]
+  declarations: [CreatePostModalPage]
 })
-export class AgenciesPageModule {}
+export class CreatePostModalPageModule {
+  
+}

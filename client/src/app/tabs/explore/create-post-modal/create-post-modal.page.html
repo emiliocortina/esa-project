@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title color="dark">New Coop</ion-title>
+    <ion-buttons slot="start">
+      <ion-button (click)="dismissModal()">
+        <ion-icon slot="icon-only" name="arrow-back" color="dark"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="welcome-card">
+    <ion-card-header>
+      <ion-item>
+        <ion-label>Category</ion-label>
+        <ion-select [(ngModel)]="selectedCategory">
+          <ion-item>
+            <ion-select-option *ngFor="let category of categories" 
+              value="{{category.id}}">{{category.name}}
+            </ion-select-option>
+          </ion-item>
+        </ion-select>
+      </ion-item>
+      <ion-card-title>
+        <ion-input placeholder="Enter title" [(ngModel)]="postTitle"></ion-input>
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-textarea placeholder="Write your post" rows="5" [(ngModel)]="postBody"></ion-textarea>
+    </ion-card-content>
+  </ion-card>
+  <ion-row justify-content-center align-items-center>
+      <ion-button id="publishBtn" fill="solid" color="secondary" (click)="publishPost()">Publish</ion-button>
+  </ion-row>
+</ion-content>

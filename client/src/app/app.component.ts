@@ -39,6 +39,7 @@ export class AppComponent {
     initializeApp() {
         this.platform.ready().then(() => {
 
+            this.statusBar.styleDefault();
             if(this.platform.is('android'))
             {
                 console.log("Cooper running on Android");

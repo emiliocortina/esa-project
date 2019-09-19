@@ -1,6 +1,5 @@
 const Thread = require('../models/Thread');
 
-
 const HttpStatus = require('../constants/HttpStatus');
 const tokenServ = require('../services/token.service');
 const sortAndFilterService = require('../services/SortAndFilter.service');
@@ -35,6 +34,7 @@ exports.findThreadById = async (req, res, next) => {
 		return;
 	}
 };
+
 
 exports.modifyThread = async (req, res, next) => {
 	const id = req.params.id;
@@ -108,22 +108,31 @@ exports.deleteThread = async (req, res, next) => {
 exports.findThreadsPaginatedByDateDescending = async (req, res, next) => {
 	const sortAndFilterInfo = sortAndFilterService.parseHeader(req.query);
 
-	var key = sortAndFilterInfo.sortFields[0].key;
-	var order = sortAndFilterInfo.sortFields[0].order == PaginationModule.ASC ? 1 : -1;
-
 	const sort = {};
-	sort[key] = order;
+	if(sortAndFilterInfo.sortFields[0]) {
+		var key = sortAndFilterInfo.sortFields[0].key;
+		var order = sortAndFilterInfo.sortFields[0].order == PaginationModule.ASC ? 1 : -1;
+		sort[key] = order;
+	}
 
-	const threads = await Thread.find()
+	let filter = {};
+	if(sortAndFilterInfo.filterFields) {
+		filter = sortAndFilterInfo.filterFields;
+	}
+
+	const threads = await Thread.find(filter)
 		.sort(sort)
 		.skip((sortAndFilterInfo.page_number - 1) * sortAndFilterInfo.page_elements)
 		.limit(sortAndFilterInfo.page_elements)
 		.exec()
-		.catch(() => {
-			next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Bad data for the filter'));
-			return;
-		});
-
-	res.status(HttpStatus.CREATED).json(threads);
-	return;
+		.then(
+			(threads) => {
+				res.status(HttpStatus.CREATED).json(threads);
+				return;
+			},
+			(err) => {
+				next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Bad data for the filter'));
+				return;
+			}
+		);
 };

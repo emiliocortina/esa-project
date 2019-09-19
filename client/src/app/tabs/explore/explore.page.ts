@@ -1,13 +1,14 @@
-import {Component, OnInit} from '@angular/core';
-import {ThreadsService} from '../../services/threads.service';
-import {Thread} from '../../services/models/threads/thread.model';
-import {CategoriesService} from '../../services/categories.service';
-import {Category} from '../../services/models/category.model';
-import {Router} from '@angular/router';
-import {ModalController, PopoverController} from '@ionic/angular';
-import {SettingsModal} from 'src/app/components/settings-modal/settings-modal.component';
-import {CategoriesPopover} from './categories-popover/categories-popover.component';
+import { Component, OnInit } from '@angular/core';
+import { ThreadsService } from '../../services/threads/threads.service';
+import { Thread } from '../../services/models/threads/thread.model';
+import { CategoriesService } from '../../services/categories.service';
+import { Category } from '../../services/models/category.model';
+import { Router } from '@angular/router';
+import { ModalController, PopoverController, ToastController } from '@ionic/angular';
+import { SettingsModal } from 'src/app/components/settings-modal/settings-modal.component';
+import { CategoriesPopover } from './categories-popover/categories-popover.component';
 import { StorageService } from 'src/app/services/authentication/storage.service';
+import { CreatePostModalPage } from './create-post-modal/create-post-modal.page';
 
 @Component({
     selector: 'app-tab1',
@@ -23,6 +24,7 @@ export class ExplorePage implements OnInit {
     categoriesToggle: boolean;
     avatarId: string;
 
+    elements = 10;
 
     constructor(
         private threadsService: ThreadsService,
@@ -30,7 +32,8 @@ export class ExplorePage implements OnInit {
         private router: Router,
         private modalController: ModalController,
         private popoverController: PopoverController,
-        private userService: StorageService
+        private userService: StorageService,
+        private toastController: ToastController
     ) {
 
         this.currentCategory = this.categoriesService.getDefaultCategory();
@@ -38,12 +41,36 @@ export class ExplorePage implements OnInit {
 
     ngOnInit(): void {
         this.threads = [];
-        //this.threadsService.loadPopularThreads(this.threads);
-        //this.loadPosts();
+        // this.threadsService.loadPopularThreads(this.threads);
+        // this.loadPosts();
         this.loadThreads();
         this.avatarId = this.userService.getAvatarId();
+        this.userService.onUserChange.push(user => {
+            if (user && user.avatarId) {
+                this.avatarId = user.avatarId;
+            } else {
+                this.avatarId = null;
+            }
+        });
     }
 
+    async createCooper() {
+        if (!this.userService.isAuthenticated()) {
+            const toast = await this.toastController.create({
+                message: 'You need to be logged in to submit a post.',
+                color: 'dark',
+                showCloseButton: true,
+                duration: 3000
+            });
+            toast.present();
+            this.router.navigate(['/profile/login']);
+        } else {
+            const modal = await this.modalController.create({
+                component: CreatePostModalPage
+            });
+            return await modal.present();
+        }
+    }
 
     // = = = = = = = = = = = = CATEGORIES = = = = = = = = = = = = //
 
@@ -79,9 +106,10 @@ export class ExplorePage implements OnInit {
 
     loadThreads(infiniteScroll?) {
         this.threadsService
-            .loadPopularThreads(this.threads, this.page, res => {
-                if (infiniteScroll)
+            .loadPopularThreads(this.threads, this.elements, this.page, res => {
+                if (infiniteScroll) {
                     infiniteScroll.complete();
+                }
             });
     }
 

@@ -5,14 +5,12 @@
         <ion-icon slot="icon-only" name="home" color="dark"></ion-icon>
       </ion-button>
     </ion-buttons>
-    <ion-title>Profile</ion-title>
+    <ion-title>Sign up</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-grid>
-    <ion-row justify-content-center align-items-center>
-        <img src="/assets/icon/logo_color.svg" alt="" />
+        <img id="logoImage" src="/assets/icon/logo_color.svg" alt="" />
         <ion-card-content>
           <form id="signup-form" [formGroup]="signupForm" (ngSubmit)="signUp()">
 
@@ -95,7 +93,5 @@
             </ion-row>
           </form>
         </ion-card-content>
-    </ion-row>
-  </ion-grid>
 
 </ion-content>
