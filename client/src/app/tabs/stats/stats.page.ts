@@ -157,7 +157,8 @@ export class StatsPage implements OnInit {
                     new Date("2006-07-31"),
                     categories[i]
                 );
-            this.collectedData.push(data);
+            if (data)
+                this.collectedData.push(data);
         }
 
         this.loadingController.dismiss();

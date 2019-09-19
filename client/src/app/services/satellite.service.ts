@@ -47,8 +47,14 @@ export class SatelliteService {
             .set("end", end.toISOString());
         
         // TODO call to api/satellite/"category", instead of "ozone"
-        var promise = this.apiService.request("api/satellite/layer/ozone", "get", params).toPromise();
-        var res = await promise;
+        try {
+            var promise = this.apiService.request("api/satellite/" + category.apiRoute, "get", params).toPromise();
+            var res = await promise;
+        }
+        catch (err)
+        {
+            return undefined;
+        }
 
         // TODO error handling
 

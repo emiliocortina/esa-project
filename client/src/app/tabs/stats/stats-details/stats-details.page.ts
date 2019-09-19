@@ -197,6 +197,7 @@ export class StatsDetailsPage implements OnInit {
         console.log("Opening start date picker");
 
         this.datePicker.show({
+            titleText: "Start date",
             date: this.startDate,
             minDate: this.limitStartDate,
             maxDate: this.limitEndDate,
@@ -218,6 +219,7 @@ export class StatsDetailsPage implements OnInit {
         console.log("Opening end date picker");
 
         this.datePicker.show({
+            titleText: "End date",
             date: this.endDate,
             minDate: this.startDate,
             maxDate: this.limitEndDate,
