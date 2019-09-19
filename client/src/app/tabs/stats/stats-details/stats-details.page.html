@@ -15,10 +15,11 @@
 
         <ion-row class="dateSelectionRow">
             
-            <div>
+            <ion-item-group class="datePickersDiv">
                 
-                <ion-item style="width: 50%;">
-                    <ion-icon slot="end" name="calendar" (click)="updateStartDate()"></ion-icon>
+                <ion-item class="datePicker">
+                    <ion-icon slot="end" name="calendar" (click)="pickStartDate()"></ion-icon>
+                    <ion-label>Start date:</ion-label>
                     <ion-input 
                         placeholder="dd-mm-yyyy" 
                         debounce="2000" 
@@ -30,8 +31,9 @@
                     </ion-input>
                 </ion-item>
 
-                <ion-item style="width: 50%;">
-                    <ion-icon slot="end" name="calendar" (click)="updateEndDate()"></ion-icon>
+                <ion-item class="datePicker">
+                    <ion-icon slot="end" name="calendar" (click)="pickEndDate()"></ion-icon>
+                    <ion-label>End date:</ion-label>
                     <ion-input 
                         placeholder="dd-mm-yyyy" 
                         debounce="2000" 
@@ -43,10 +45,15 @@
                     </ion-input>
                 </ion-item>
             
-            </div>
+            </ion-item-group>
 
-            <ion-icon name="search"></ion-icon>
-                
+            <div class="dateButtonDiv">
+                <ion-button (click)="updateData()">
+                    <ion-icon name="sync"slot="end"></ion-icon>
+                    <ion-label>Update</ion-label>
+                </ion-button>
+            </div>    
+
         </ion-row>
 
         <ion-row class="displayRow">

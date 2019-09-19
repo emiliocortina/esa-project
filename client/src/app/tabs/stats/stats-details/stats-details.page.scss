@@ -29,20 +29,51 @@ app-satellite-data-display {
 
 
 
+/* * * * * * * * DATE SELECTION * * * * * * * */
+
 .dateSelectionRow {
-  height: 15%;
-  background-color: red;
+  height: 18%;
   display: inline-flex;
   width: 100%;
 }
 
+.datePickersDiv {
+  width: 60%;
+}
 
+.dateButtonDiv {
+  width: 40%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
 
-
-.displayRow {
-  height: 75%;
+.datePicker {
+  height: 50%; 
   width: 100%;
 }
+
+.datePicker ion-label {
+  color: gray;
+  font-size: 0.7em;
+}
+
+
+
+/* * * * * * * * DATA DISPLAY * * * * * * * */
+
+.displayRow {
+  height: 72%;
+  width: 100%;
+}
+
+
+
+
+/* * * * * * * * SENTINEL STUFF * * * * * * * */
 
 .sentinelRow {
   height: 10%;
