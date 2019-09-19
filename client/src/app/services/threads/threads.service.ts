@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
 import { Thread } from '../models/threads/thread.model';
 import { CategoriesService } from '../categories.service';
 import { ThreadObject } from './ThreadObject';
@@ -35,41 +34,28 @@ export class ThreadsService {
     ];
 
 
-    constructor(private http: HttpClient,
-        private categoriesService: CategoriesService,
+    constructor(private categoriesService: CategoriesService,
         private apiService: ApiService) { }
 
 
     public getThread(id: string, res, err): void {
-        // TODO call the backend
-        res(this.dummies[id]);
+        this.apiService.request("api/private/thread/" + id, "get", null, null).subscribe((thread: any) => {
+            let obj = new Thread(thread._id, thread.title, this.categoriesService.getCategory(thread.category), thread.head.text);
+            res(obj);
+        });
     }
 
 
-    public loadPopularThreads(list: Thread[], page: number, callback): void {
-        let params = { page_elements: 10, page_number: page, sort_by: "id(DES)" };
-        this.apiService.request("api/private/threadsByDate", "get", params, null).subscribe((list) => {
-            console.log(list);
+    public loadPopularThreads(list: Thread[], elements: number, page: number, callback): void {
+        let params = { page_elements: elements, page_number: page + 1, sort_by: "id(DES)" };
+        this.apiService.request("api/private/threadsByDate", "get", params, null).subscribe((threads: any[]) => {
+            threads.forEach((t) => {
+                this.apiService.request("api/private/coop/" + t.head, "get", null, null).subscribe((coop: any) => {
+                    let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), coop.text);
+                    list.push(obj);
+                });
+            });
         });
-
-        /*
-        for (let i = 0; i < 3; i++) {
-            this.addAsyncDummy(list, this.dummies[i]);
-            this.addAsyncDummy(list, this.dummies[i + 1]);
-        }
-
-        /*
-        this.http.get('http://192.168.0.11:4567/api/popular')
-            .subscribe(
-                (res) => {
-                    this.processTopics(list, res);
-                    callback(res);
-                },
-                (err) => {
-                    console.log(err);
-                    callback(err);
-                }
-            );*/
     }
 
     /*
@@ -92,9 +78,5 @@ export class ThreadsService {
     createThread(threadObject: ThreadObject) {
         return this.apiService
             .request('api/private/thread', 'post', null, threadObject).subscribe();
-    }
-
-    getThreadsByDate() {
-
     }
 }

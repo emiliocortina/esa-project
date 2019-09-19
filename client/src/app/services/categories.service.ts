@@ -1,11 +1,11 @@
-import {Injectable} from '@angular/core';
-import {Category} from './models/category.model';
+import { Injectable } from '@angular/core';
+import { Category } from './models/category.model';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CategoriesService {
-    
+
     private categories: Category[];
 
     constructor() {
@@ -26,20 +26,15 @@ export class CategoriesService {
         this.categories.push(new Category(id, name, iconUrl, coverImageUrl));
     }
 
-
-
-    getDefaultCategory(): Category
-    {
+    getDefaultCategory(): Category {
         return this.getCategory("temperatures");
     }
 
-    public getCategories(): Category[]
-    {
+    public getCategories(): Category[] {
         return this.categories;
     }
 
-    public getCategory(id: string): Category
-    {
+    public getCategory(id: string): Category {
         return this.categories.find(cat => cat.id == id);
     }
 

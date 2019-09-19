@@ -32,3 +32,32 @@ exports.getCoop = async (req, res, next) => {
 		return;
 	}
 };
+
+exports.createCommentOnCoop = async (req, res, next) => {
+	let coop = new Coop(req.body);
+	coop.author = tokenServ.readTokken(req.token).id;
+	const parentId = req.params.id;
+
+	coop
+		.save()
+		.then(() => {
+			res.status(HttpStatus.CREATED).json({
+				message: 'Coop created',
+				id: coop.id
+			});
+
+			let parent = Coop.findById(parentId);
+
+			if (parent) {
+				parent.children.push(coop.id);
+				return;
+			} else {
+				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'not_found', 'Not coop found'));
+				return;
+			}
+		})
+		.catch((err) => {
+			next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'bad data'));
+			return;
+		});
+};

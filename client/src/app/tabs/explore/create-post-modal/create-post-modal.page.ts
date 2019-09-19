@@ -1,8 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CategoriesService } from 'src/app/services/categories.service';
-import { PostsService } from 'src/app/services/threads/posts.service';
-import { PostObject } from 'src/app/services/threads/PostObject';
+import { CoopsService } from 'src/app/services/threads/coops.service';
+import { CoopObject } from 'src/app/services/threads/CoopObject';
 import { ThreadsService } from 'src/app/services/threads/threads.service';
 import { ThreadObject } from 'src/app/services/threads/ThreadObject';
 import { SatelliteData } from 'src/app/services/models/satellite-data/satellite-data.model';
@@ -24,7 +24,7 @@ export class CreatePostModalPage implements OnInit {
   constructor(public modalController: ModalController,
     private categoriesService: CategoriesService,
     private toastController: ToastController,
-    private postsService: PostsService,
+    private postsService: CoopsService,
     private threadsService: ThreadsService
   ) { }
 
@@ -81,7 +81,7 @@ export class CreatePostModalPage implements OnInit {
     // this.threadsService.submitThread(thread);
     var postBody =
 
-      this.postsService.createPost(new PostObject({
+      this.postsService.createCoop(new CoopObject({
         text: this.postBody
       })).subscribe((res: any) => {
         let id = res.id;

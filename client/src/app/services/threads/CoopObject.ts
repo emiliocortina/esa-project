@@ -1,4 +1,4 @@
-export class PostObject {
+export class CoopObject {
     public text: string;
 
     constructor(object: any) {
