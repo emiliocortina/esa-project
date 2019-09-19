@@ -1,7 +1,7 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Thread} from '../models/threads/thread.model';
-import {CategoriesService} from '../categories.service';
+import { Injectable } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { Thread } from '../models/threads/thread.model';
+import { CategoriesService } from '../categories.service';
 import { ThreadObject } from './ThreadObject';
 import { ApiService } from '../api.service';
 
@@ -16,28 +16,28 @@ export class ThreadsService {
         this.categoriesService.getCategory('temperatures'),
         'Belgium and the Netherlands set national records, and the all-time marks for Germany and Britain\n' +
         '                    could fall on Thursday. Paris will approach 108 degrees.'),
-        new Thread('1',
-            'How to Survive a Tsunami',
-            this.categoriesService.getCategory('tides'),
-            'Get a mile inland or 100 feet above sea level. If in the water, grab something that floats. Don’t give up.'),
-        new Thread('2',
-            'As Cities Limit Traffic Pollution, Madrid Reverses a Driving Ban',
-            this.categoriesService.getCategory('pollution'),
-            'Local governments across Europe have spent more than a decade ' +
-            'introducing laws that restrict vehicle access to the central areas of many' +
-            ' cities in an effort to improve air quality for residents and visitors alike.\n' +
-            'But as of Monday, Madrid is heading in the opposite direction.'),
-        new Thread('3',
-            'Is N.Y.C. Ready for the Next Sandy?',
-            this.categoriesService.getCategory('rain'),
-            'Days after a heat wave revealed the frailty of the city\'s power grid, thunderstorms ' +
-            'overwhelmed parts of the drainage system.'),
+    new Thread('1',
+        'How to Survive a Tsunami',
+        this.categoriesService.getCategory('tides'),
+        'Get a mile inland or 100 feet above sea level. If in the water, grab something that floats. Don’t give up.'),
+    new Thread('2',
+        'As Cities Limit Traffic Pollution, Madrid Reverses a Driving Ban',
+        this.categoriesService.getCategory('pollution'),
+        'Local governments across Europe have spent more than a decade ' +
+        'introducing laws that restrict vehicle access to the central areas of many' +
+        ' cities in an effort to improve air quality for residents and visitors alike.\n' +
+        'But as of Monday, Madrid is heading in the opposite direction.'),
+    new Thread('3',
+        'Is N.Y.C. Ready for the Next Sandy?',
+        this.categoriesService.getCategory('rain'),
+        'Days after a heat wave revealed the frailty of the city\'s power grid, thunderstorms ' +
+        'overwhelmed parts of the drainage system.'),
     ];
 
 
     constructor(private http: HttpClient,
-                private categoriesService: CategoriesService,
-                private apiService: ApiService) { }
+        private categoriesService: CategoriesService,
+        private apiService: ApiService) { }
 
 
     public getThread(id: string, res, err): void {
@@ -47,6 +47,12 @@ export class ThreadsService {
 
 
     public loadPopularThreads(list: Thread[], page: number, callback): void {
+        let params = { page_elements: 10, page_number: page, sort_by: "id(DES)" };
+        this.apiService.request("api/private/threadsByDate", "get", params, null).subscribe((list) => {
+            console.log(list);
+        });
+
+        /*
         for (let i = 0; i < 3; i++) {
             this.addAsyncDummy(list, this.dummies[i]);
             this.addAsyncDummy(list, this.dummies[i + 1]);
@@ -85,6 +91,10 @@ export class ThreadsService {
 
     createThread(threadObject: ThreadObject) {
         return this.apiService
-			.request('api/private/thread', 'post', null, threadObject).subscribe();
+            .request('api/private/thread', 'post', null, threadObject).subscribe();
+    }
+
+    getThreadsByDate() {
+
     }
 }

@@ -43,7 +43,7 @@ app.use('/api/private', require('./routes/comments.routes'));
 app.use('/api/private', require('./routes/satelliteApi.routes'));
 
 //Error manager
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
 	const errorObject = errorServ.parseError(err.message);
 
 	if (typeof errorObject.status == 'undefined') {

@@ -114,16 +114,21 @@ exports.findThreadsPaginatedByDateDescending = async (req, res, next) => {
 	const sort = {};
 	sort[key] = order;
 
-	const threads = await Thread.find()
+	Thread.find()
 		.sort(sort)
 		.skip((sortAndFilterInfo.page_number - 1) * sortAndFilterInfo.page_elements)
 		.limit(sortAndFilterInfo.page_elements)
 		.exec()
 		.catch(() => {
+
 			next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Bad data for the filter'));
 			return;
-		});
+		}).then(
+			(threads) => {
+				res.status(HttpStatus.CREATED).json(threads);
+				return;
+			}
+		);
 
-	res.status(HttpStatus.CREATED).json(threads);
-	return;
+
 };

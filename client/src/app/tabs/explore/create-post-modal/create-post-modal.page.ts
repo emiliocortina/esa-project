@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { ModalController, ToastController } from '@ionic/angular';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { PostsService } from 'src/app/services/threads/posts.service';
 import { PostObject } from 'src/app/services/threads/PostObject';
 import { ThreadsService } from 'src/app/services/threads/threads.service';
 import { ThreadObject } from 'src/app/services/threads/ThreadObject';
+import { SatelliteData } from 'src/app/services/models/satellite-data/satellite-data.model';
 
 @Component({
   selector: 'app-create-post-modal',
@@ -16,6 +17,7 @@ export class CreatePostModalPage implements OnInit {
   postTitle: string;
   postBody: string;
   selectedCategory: string;
+  @Input() data: SatelliteData;
 
   categories = [];
 
@@ -72,7 +74,7 @@ export class CreatePostModalPage implements OnInit {
     }
     return null;
   }
-  
+
   private async submitThread() {
     //const thread = new Thread('0', this.postTitle, this.stats.category, this.postBody);
     // TODO
