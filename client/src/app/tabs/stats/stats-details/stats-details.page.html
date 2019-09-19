@@ -15,22 +15,37 @@
 
         <ion-row class="dateSelectionRow">
             
-            <ion-item>
-                <ion-icon slot="end" name="calendar" (click)="updateStartDate()"></ion-icon>
-                <ion-input 
-                    placeholder="dd-mm-yyyy" 
-                    debounce="2000" 
-                    inputmode="text"
-                    maxlength="10"
-                    minlength="10"
-                    [(ngModel)]="startDateText" 
-                    (ionChange)="onStartDateChange()">
-                </ion-input>
-            </ion-item>
-        
-            <ion-button (click)="updateEndDate()">
-                {{ endDate.toDateString() }}
-            </ion-button>
+            <div>
+                
+                <ion-item style="width: 50%;">
+                    <ion-icon slot="end" name="calendar" (click)="updateStartDate()"></ion-icon>
+                    <ion-input 
+                        placeholder="dd-mm-yyyy" 
+                        debounce="2000" 
+                        inputmode="text"
+                        maxlength="10"
+                        minlength="10"
+                        [(ngModel)]="startDateText" 
+                        (ionChange)="onStartDateChange()">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item style="width: 50%;">
+                    <ion-icon slot="end" name="calendar" (click)="updateEndDate()"></ion-icon>
+                    <ion-input 
+                        placeholder="dd-mm-yyyy" 
+                        debounce="2000" 
+                        inputmode="text"
+                        maxlength="10"
+                        minlength="10"
+                        [(ngModel)]="endDateText" 
+                        (ionChange)="onEndDateChange()">
+                    </ion-input>
+                </ion-item>
+            
+            </div>
+
+            <ion-icon name="search"></ion-icon>
                 
         </ion-row>
 

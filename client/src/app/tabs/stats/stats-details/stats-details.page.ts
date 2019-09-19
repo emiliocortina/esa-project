@@ -68,7 +68,7 @@ export class StatsDetailsPage implements OnInit {
         if (this.startDate.getTime() < this.limitStartDate.getTime())
             this.startDate = new Date(this.limitStartDate);
         
-        this.startDateText = this.startDate.toDateString();
+        this.startDateText = this.formatDate(this.startDate);
     }
 
     private checkCorrectEndDate() : void
@@ -79,25 +79,27 @@ export class StatsDetailsPage implements OnInit {
         if (this.endDate.getTime() < this.limitStartDate.getTime())
             this.endDate = new Date(this.limitStartDate);
         
+        this.endDateText = this.formatDate(this.endDate);
+    }
 
-        var dd = "" + this.endDate.getDay();
-        var mm = "" + this.endDate.getMonth() + 1; //January is 0!
+    private formatDate(date: Date) : string
+    {
+        var dd = "" + date.getDay();
+        var mm = "" + (date.getMonth() + 1); //January is 0!
+        var yyyy = date.getFullYear();
 
-        var yyyy = this.endDate.getFullYear();
-        if (this.endDate.getDay() < 10) {
-            dd = '0' + dd;
-        } 
-        if (this.endDate.getMonth() + 1 < 10) {
-            mm = '0' + mm;
-        } 
+        if (date.getDay() < 10)
+            dd = '0' + dd; 
+        if (date.getMonth() + 1 < 10)
+            mm = '0' + mm; 
         
-        this.endDateText = dd + '/' + mm + '/' + yyyy;
+        return dd + '/' + mm + '/' + yyyy;
     }
 
 
     onStartDateChange()
     {
-        Date.parse
+        //Date.parse
     }
 
 
