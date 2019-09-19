@@ -72,7 +72,7 @@ export class ThreadsService {
 
 
     public loadPopularThreads(list: Thread[], elements: number, page: number, callback): void {
-        const params = {page_elements: elements, page_number: page + 1, sort_by: "id(DES)"};
+        const params = { page_elements: elements, page_number: page + 1, sort_by: "id(DES)" };
         this.apiService.request("api/threadsByDate", "get", params, null).subscribe((threads: any[]) => {
             threads.forEach((t) => {
                 this.apiService.request("auth/user/" + t.author, "get", null, null).subscribe((user: any) => {
@@ -90,12 +90,16 @@ export class ThreadsService {
 
     public loadThreadsByUser(list: Thread[], userEmail: string) {
         // TODO paginar esta llamada
-        const params = {email: userEmail};
+        const params = { email: userEmail };
         this.apiService.request('api/threadsByAuthorEmail', 'get', params, null).subscribe((threads: any[]) => {
             threads.forEach((t) => {
                 this.apiService.request('api/coop/' + t.head, 'get', null, null).subscribe((coop: any) => {
-                    let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), coop.text);
-                    list.push(obj);
+                    this.apiService.request("auth/user/" + t.author, "get", null, null).subscribe((user: any) => {
+                        let u = new User(user.nickName, user.name, user.email);
+                        let post = new Post(coop._id, coop.text, u, coop.timestamp);
+                        let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), post, u);
+                        list.push(obj);
+                    });
                 });
             });
         });
