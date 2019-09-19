@@ -12,10 +12,11 @@
 <ion-content>
   <ion-grid>
     <ion-row justify-content-center align-items-center>
-      <ion-card>
-        <img id="logoImage" src="/assets/icon/logo_color.svg" alt=""/>
-        <ion-card-content>
 
+      <div class="loginWrapper">
+        <img id="logoImage" src="/assets/icon/logo_color.svg" alt=""/>
+
+        <div class="formFields">
           <!-- Login Form -->
           <form id="login-form" [formGroup]="loginForm" (ngSubmit)="submitLogin()">
             <ion-label>Email</ion-label>
@@ -34,9 +35,8 @@
           <ion-row justify-content-center align-items-center>
             <ion-button routerLink="/profile/signup" size="small" color="light">Sign up</ion-button>
           </ion-row>
-
-        </ion-card-content>
-      </ion-card>
+        </div>
+      </div>
     </ion-row>
   </ion-grid>
 

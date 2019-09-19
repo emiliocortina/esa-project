@@ -22,7 +22,7 @@ exports.createCoop = async (req, res, next) => {
 };
 exports.getCoop = async (req, res, next) => {
 	const id = req.params.id;
-	let coop = await Coop.findById(id);
+	let coop = await Coop.findById(id).populate('children');;
 
 	if (coop) {
 		res.status(HttpStatus.OK).json(coop);
@@ -40,23 +40,24 @@ exports.createCommentOnCoop = async (req, res, next) => {
 
 	coop
 		.save()
-		.then(() => {
-			res.status(HttpStatus.CREATED).json({
-				message: 'Coop created',
-				id: coop.id
-			});
-
-			let parent = Coop.findById(parentId);
+		.then(async () => {
+			let parent = await Coop.findById(parentId);
 
 			if (parent) {
 				parent.children.push(coop.id);
-				return;
+				parent.save().then(() => {
+					res.status(HttpStatus.CREATED).json({
+						message: 'Comment created',
+						id: coop.id
+					});
+				});
 			} else {
 				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'not_found', 'Not coop found'));
 				return;
 			}
 		})
 		.catch((err) => {
+			console.log(err)
 			next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'bad data'));
 			return;
 		});

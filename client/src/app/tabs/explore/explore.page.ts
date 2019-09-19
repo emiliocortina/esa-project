@@ -65,9 +65,12 @@ export class ExplorePage implements OnInit {
             toast.present();
             this.router.navigate(['/profile/login']);
         } else {
-            const modal = await this.modalController.create({
-                component: CreatePostModalPage
+            let modal = await this.modalController.create({ component: CreatePostModalPage });
+
+            modal.onDidDismiss().then(() => {
+                this.loadThreads();
             });
+
             return await modal.present();
         }
     }
@@ -117,6 +120,4 @@ export class ExplorePage implements OnInit {
         this.page++;
         this.loadThreads(infiniteScroll);
     }
-
-
 }

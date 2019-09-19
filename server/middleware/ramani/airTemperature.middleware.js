@@ -12,7 +12,8 @@ addLayerId = function(req, res, next) {
 	req.ramaniMaximunEndTime = new Date('2003-03-02T00:00:00.000Z');
 
 	req.ramaniLayerParams = [];
-	req.ramaniValueUnit = 'Kg/mol';
+	req.ramaniValueUnit = 'kelvin';
+
 	next();
 };
 const express = require('express');
