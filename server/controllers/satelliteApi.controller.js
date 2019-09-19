@@ -58,7 +58,7 @@ exports.handleLayerCall = async (req, res, next) => {
 			time['raw'] = [ parsedStart, parsedEnd ];
 		}
 	} catch (err) {
-		//console.log(err);
+		console.log(err);
 		next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'date format incorrect'));
 		return;
 	}

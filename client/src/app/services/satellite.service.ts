@@ -42,11 +42,15 @@ export class SatelliteService {
     {
         var params = new HttpParams()
             .set("latitude", "" + latitude)
-            .set("longitude", "" + longitude);
-
+            .set("longitude", "" + longitude)
+            .set("start", start.toISOString())
+            .set("end", end.toISOString());
+        
         // TODO call to api/satellite/"category", instead of "ozone"
         var promise = this.apiService.request("api/satellite/layer/ozone", "get", params).toPromise();
         var res = await promise;
+
+        // TODO error handling
 
         return this.processSatelliteData(res, latitude, longitude, start, end, category);
         /*  EVERY RES OBJECT FOLLOWS THIS STRUCTURE:

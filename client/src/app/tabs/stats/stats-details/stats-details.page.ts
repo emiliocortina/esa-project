@@ -19,6 +19,8 @@ export class StatsDetailsPage implements OnInit {
     
     startDate: Date;
     endDate: Date;
+    startDateText: string;
+    endDateText: string;
 
     limitStartDate: Date;
     limitEndDate: Date;
@@ -47,14 +49,57 @@ export class StatsDetailsPage implements OnInit {
 
             this.limitStartDate = new Date(res.start);
             this.limitEndDate = new Date(res.end);
-            //this.checkCorrectStartDate();
-            //this.checkCorrectEndDate();
+            this.checkCorrectStartDate();
+            this.checkCorrectEndDate();
         });
     }
 
     async dismissModal() {
         await this.modalController.dismiss();
     }
+
+
+
+
+
+
+    private checkCorrectStartDate() : void
+    {
+        if (this.startDate.getTime() < this.limitStartDate.getTime())
+            this.startDate = new Date(this.limitStartDate);
+        
+        this.startDateText = this.startDate.toDateString();
+    }
+
+    private checkCorrectEndDate() : void
+    {
+        if (this.endDate.getTime() > this.limitEndDate.getTime())
+            this.endDate = new Date(this.limitEndDate);
+
+        if (this.endDate.getTime() < this.limitStartDate.getTime())
+            this.endDate = new Date(this.limitStartDate);
+        
+
+        var dd = "" + this.endDate.getDay();
+        var mm = "" + this.endDate.getMonth() + 1; //January is 0!
+
+        var yyyy = this.endDate.getFullYear();
+        if (this.endDate.getDay() < 10) {
+            dd = '0' + dd;
+        } 
+        if (this.endDate.getMonth() + 1 < 10) {
+            mm = '0' + mm;
+        } 
+        
+        this.endDateText = dd + '/' + mm + '/' + yyyy;
+    }
+
+
+    onStartDateChange()
+    {
+        Date.parse
+    }
+
 
 
     updateStartDate()
@@ -73,6 +118,13 @@ export class StatsDetailsPage implements OnInit {
     {
 
     }
+
+
+
+
+
+
+
 
 
 
