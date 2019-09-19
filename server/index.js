@@ -29,7 +29,8 @@ app.use('/auth', require('./routes/users.routes.js'));
 
 //public api ************************************************
 //           middlewares
-app.use('/api/satellite/layer/ozone', require('./middleware/ramani/ozoneLayer.middleware'));
+app.use('/api/satellite/layer/no2*', require('./middleware/ramani/nitrogenDioxide.middleware'));
+app.use('/api/satellite/layer/ozone*', require('./middleware/ramani/ozoneLayer.middleware'));
 //           routes for the final controllers
 app.use('/api/satellite', require('./routes/satelliteApi.routes'));
 
@@ -43,7 +44,7 @@ app.use('/api/private', require('./routes/comments.routes'));
 app.use('/api/private', require('./routes/satelliteApi.routes'));
 
 //Error manager
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
 	const errorObject = errorServ.parseError(err.message);
 
 	if (typeof errorObject.status == 'undefined') {
