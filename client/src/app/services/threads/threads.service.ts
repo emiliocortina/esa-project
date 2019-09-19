@@ -58,6 +58,10 @@ export class ThreadsService {
         });
     }
 
+    public loadThreadsByUser(list: Thread[]) {
+
+    }
+
     /*
     private processTopics(topics: Topic[], res: any) {
         for (const topic of res.topics) {

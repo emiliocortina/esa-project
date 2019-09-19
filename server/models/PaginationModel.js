@@ -14,9 +14,17 @@ class SortField {
 	}
 }
 
+class FilterField {
+	constructor() {
+		this.key;
+		this.value;
+	}
+}
+
 module.exports = {
 	PaginationInfo: PaginationInfo,
 	SortField: SortField,
+	FilterField: FilterField,
 	ASC: 'ASC',
 	DES: 'DES'
 };
