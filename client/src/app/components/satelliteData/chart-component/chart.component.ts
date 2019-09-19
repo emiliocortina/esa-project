@@ -16,8 +16,10 @@ import { ChartsService } from 'src/app/services/charts.service';
 })
 export class ChartComponent implements OnInit
 {
-  dataValuesArray: SatelliteDataValues[];
+  dataValues: SatelliteDataValues;
   chart: Chart;
+
+  isExtended: boolean;
 
   constructor(private chartsService: ChartsService) 
   {
@@ -27,36 +29,40 @@ export class ChartComponent implements OnInit
   {
   }
 
-  async setDataValues(dataValuesArray: SatelliteDataValues[]) {
-    this.dataValuesArray = dataValuesArray;
+  async setDataValues(dataValues: SatelliteDataValues, isExtended: boolean)
+  {
+    this.dataValues = dataValues;
+    this.isExtended = isExtended;
 
+    // Wait for the component to appear in the DOM
     await this.sleep(100);
 
-    this.buildCharts();
+    this.buildChart();
   }
 
-  sleep(ms) {
+  sleep(ms)
+  {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   
 
 
-  private buildCharts()
+  private buildChart()
   {
-    for (var i = 0; i < this.dataValuesArray.length; i ++)
+    console.log("ChartComponent building chart...");
+
+    var ctx = document.getElementById("chart");
+    console.log(ctx);
+
+    var chartObj;
+    if (this.isExtended)
     {
-      console.log("ChartComponent building chart...");
-
-      var ctx = document.getElementById("chart" + i);
-      console.log(ctx);
-
-      this.chart = new Chart(
-          ctx,
-          this.chartsService.buildChartObject(this.dataValuesArray[i])
-        );
-
-      console.log("ChartComponent chart ready!");
+      chartObj = this.chartsService.buildExtendedChart(this.dataValues);
     }
+
+    this.chart = new Chart(ctx, chartObj);
+
+    console.log("ChartComponent chart ready!");
   }
 
 

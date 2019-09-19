@@ -13,8 +13,36 @@
 
     <ion-grid>
 
+        <ion-row class="dateSelectionRow">
+            <p>Date selection goes here</p>
+        </ion-row>
+
         <ion-row class="displayRow">
-            <app-satellite-data-display #SatelliteDataDisplay></app-satellite-data-display>
+
+            <ion-list>
+
+                <ion-card *ngFor="let values of data.values; let i = index">
+                    <ion-card-header>
+                        <ion-card-title>{{ values.dataCategory.name }}</ion-card-title>
+                        <ion-card-subtitle>Subtitle goes here</ion-card-subtitle>
+                    </ion-card-header>
+        
+                    <ion-card-content>
+                        <app-satellite-data-display 
+                            id="{{'display' + i}}"
+                            [displayType]="'chart'"
+                            [values]="values"
+                            [isExtended]="true">
+                        </app-satellite-data-display>
+                    </ion-card-content>
+                </ion-card>
+
+            </ion-list>
+
+        </ion-row>
+        
+        <ion-row class="sentinelRow">
+            <p>Here comes Sentinel data explanation</p>
         </ion-row>
 
         <!--
@@ -25,12 +53,8 @@
                 </ion-fab-button>
             </ion-fab>
         </ion-row>
+        -->
 
-
-        <ion-row justify-content-center>
-            <ion-button [color]="showCard? 'success' : 'dark'" class="createPost" (click)="createPost()">Create post</ion-button>
-        </ion-row>
-    -->
     </ion-grid>
 
     <!--

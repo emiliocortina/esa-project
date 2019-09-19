@@ -20,17 +20,13 @@ export class StatsDetailsPage implements OnInit {
     postTitle: string;
     postBody: string;
 
-    @ViewChild("SatelliteDataDisplay")
-    dataDisplay: SatelliteDataDisplay;
-
-
     constructor(private modalController: ModalController, private usersService: StorageService,
                 private toastController: ToastController, private threadsService: ThreadsService) {
     }
 
     ngOnInit()
     {
-        this.dataDisplay.displayChart(this.data);
+        
     }
 
     async dismissModal() {

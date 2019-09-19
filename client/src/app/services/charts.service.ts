@@ -12,6 +12,9 @@ export class ChartsService {
         this.setUpMarkersPlugin();
     }
 
+
+
+
     private setUpMarkersPlugin()
     {
         var plugin = {
@@ -20,7 +23,7 @@ export class ChartsService {
                 const data = meta.data;
                 return data[pointIndex]._model.x;
             },
-            renderVerticalLine: function (chartInstance, pointIndex, text) {
+            renderVerticalLine: function (chartInstance, pointIndex, text, isExtended) {
                 const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
                 const scale = chartInstance.scales['y-axis-0'];
                 const context = chartInstance.chart.ctx;
@@ -32,10 +35,13 @@ export class ChartsService {
                 context.lineTo(lineLeftOffset, scale.bottom);
                 context.stroke();
         
-                // write label
-                context.fillStyle = "#000000";
-                context.textAlign = 'left';
-                context.fillText(text, lineLeftOffset + 4, /*(scale.bottom - scale.top) / 2*/ + scale.top + 12);
+                if (isExtended)
+                {
+                    // write label
+                    context.fillStyle = "#000000";
+                    context.textAlign = 'left';
+                    context.fillText(text, lineLeftOffset + 4, /*(scale.bottom - scale.top) / 2*/ + scale.top + 12);
+                }
             },
         
             afterDatasetsDraw: function (chart, easing)
@@ -49,7 +55,7 @@ export class ChartsService {
                         if (chart.config.markerTitles)
                             text = chart.config.markerTitles[i];
 
-                        this.renderVerticalLine(chart, index, text);
+                        this.renderVerticalLine(chart, index, text, chart.config.isExtended);
                     }
                 }
             }
@@ -65,10 +71,49 @@ export class ChartsService {
 
 
 
-    public buildChartObject(dataValues: SatelliteDataValues)
+
+    public buildMinimalChart(dataValues: SatelliteDataValues)
     {
+        console.log("Chats service: minimal chart construction starting...");
         var indices = [];
         var titles = [];
+        this.buildMarkers(dataValues, indices, titles);
+
+        var obj = {
+            type: 'line', // type of chart
+            data: this.buildData(dataValues),
+            options: this.buildMinimalOptions(dataValues),
+            markerIndices: indices,
+            markerTitles: titles,
+            isExtended: false
+          };
+        console.log("Chats service: chart construction completed!");
+        return obj;
+    }
+
+
+    public buildExtendedChart(dataValues: SatelliteDataValues)
+    {
+        console.log("Chats service: extended chart construction starting...");
+        var indices = [];
+        var titles = [];
+        this.buildMarkers(dataValues, indices, titles);
+
+        var obj = {
+            type: 'line', // type of chart
+            data: this.buildData(dataValues),
+            options: this.buildExtendedOptions(dataValues),
+            markerIndices: indices,
+            markerTitles: titles,
+            isExtended: true
+          };
+        console.log("Chats service: chart construction completed!");
+        return obj;
+    }
+
+
+    private buildMarkers(dataValues: SatelliteDataValues, indices, titles)
+    {
         for (var i = 0; i < dataValues.markers.length; i ++)
         {
             var marker = dataValues.markers[i];
@@ -80,17 +125,9 @@ export class ChartsService {
             indices.push(Math.round(percent * dataValues.keyValuePairs.length));
             titles.push(marker.name);
         }
-
-        var obj = {
-            type: 'line', // type of chart
-            data: this.buildData(dataValues),
-            options: this.buildOptions(dataValues),
-            markerIndices: indices,
-            markerTitles: titles
-          };
-        console.log("Chats service: chart construction completed!")
-        return obj;
     }
+
+
 
     private buildData(dataValues: SatelliteDataValues)
     {
@@ -98,7 +135,7 @@ export class ChartsService {
         var keys = []
         var values = [];
     
-        // TODO remove this and fill properly
+        // TODO remove this keyValuePairs and fill properly, with a least squares approximation
         for (var i = 0; i < dataValues.keyValuePairs.length; i ++)
         {
             var keyValuePair = dataValues.keyValuePairs[i];
@@ -128,10 +165,18 @@ export class ChartsService {
 
 
 
-    private buildOptions(dataValues: SatelliteDataValues)
+
+
+
+
+    /**
+     * Builds the display options object for an extended
+     * visualization of a graph.
+     * @param dataValues
+     */
+    private buildExtendedOptions(dataValues: SatelliteDataValues)
     {
         var options = {
-
 
             scales: {
                 xAxes: [{
@@ -169,6 +214,60 @@ export class ChartsService {
 
             tooltips: {
                 enabled: true
+            },
+
+            elements: {
+                point:{
+                    radius: 0
+                }
+            }
+
+        };
+
+        return options;
+    }
+
+
+
+
+
+
+    private buildMinimalOptions(dataValues: SatelliteDataValues)
+    {
+        var options = {
+
+            scales: {
+                xAxes: [{
+                    ticks: {
+                        display:false
+                    },
+                    gridLines: {
+                        display:false
+                    }
+                }],
+                yAxes: [{
+                    display: true,
+                    ticks: {
+                        beginAtZero: true,
+                        display:false
+                    },
+                    gridLines: {
+                        display:false
+                    }
+                }]
+            },
+
+            responsive: true,
+
+            maintainAspectRatio: false,
+
+
+            legend: {
+                display: false
+            },
+
+            tooltips: {
+                enabled: false
             },
 
             elements: {
