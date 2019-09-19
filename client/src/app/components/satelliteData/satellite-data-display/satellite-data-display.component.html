@@ -1,13 +1,4 @@
 <div class="satelliteDataDisplayDiv">
-
-    <!--<div ng-hide="showPlainValues">-->
-        <app-chart-component #Chart></app-chart-component>
-    
-
-    <!--
-    <div ng-hide="showCart">
-        <app-plain-values-component #PlainValues></app-plain-values-component>
-    </div>
-    -->
-
+    <app-chart-component #Chart [hidden]="!showChart"></app-chart-component>
+    <app-plain-values-component #PlainValues [hidden]="!showPlainValues"></app-plain-values-component>
 </div>

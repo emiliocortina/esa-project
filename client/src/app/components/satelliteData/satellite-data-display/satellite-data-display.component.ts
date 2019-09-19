@@ -1,15 +1,10 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, Input } from '@angular/core';
 import { SatelliteData } from 'src/app/services/models/satellite-data/satellite-data.model';
-import { Chart } from 'chart.js';
 import { PlainValuesComponent } from '../plain-values-component/plain-values.component';
 import { ChartComponent } from '../chart-component/chart.component';
+import { SatelliteDataValues } from 'src/app/services/models/satellite-data/satellite-data-values.model';
 
-/**
- * The CartComponent represents in a chart the data
- * stored in a SatelliteStats instance, using Chart.js
- * 
- * https://www.chartjs.org/docs/latest/
- */
+
 @Component({
   selector: 'app-satellite-data-display',
   templateUrl: './satellite-data-display.component.html',
@@ -17,11 +12,15 @@ import { ChartComponent } from '../chart-component/chart.component';
 })
 export class SatelliteDataDisplay implements OnInit
 {
-  @ViewChild("Chart")
-  chart: ChartComponent; // To display in chart, if needed
 
-  //@ViewChild("PlainValuesComponent")
-  plainValues: PlainValuesComponent; // To display in plain values, if needed
+  @Input() isExtended: boolean;
+  @Input() displayType: string;
+  @Input() values: SatelliteDataValues;
+
+
+
+  @ViewChild("Chart") chart: ChartComponent;
+  @ViewChild("PlainValues") plainValues: PlainValuesComponent;
 
   showChart : boolean;
   showPlainValues : boolean;
@@ -32,20 +31,33 @@ export class SatelliteDataDisplay implements OnInit
 
   ngOnInit()
   {
+    console.log(this.displayType);
+    console.log(this.values);
+    console.log(this.chart);
+
+    switch (this.displayType.toLowerCase())
+    {
+      case "chart":
+        this.displayChart(this.values);
+        break;
+
+      default:
+        console.error("CANNOT DISPLAY DATA IN FORMAT: " + this.displayType);
+    }
   }
 
-  public displayChart(data: SatelliteData)
+  public displayChart(values: SatelliteDataValues)
   {
-    console.log("Display chart");
-    this.chart.setDataValues(data.values);
+    console.log("SatelliteDataDisplay with Chart");
+    this.chart.setDataValues(values, this.isExtended);
     this.showChart = true;
     this.showPlainValues= false;
   }
 
-  public displayConstants(data: SatelliteData)
+  public displayConstants(values: SatelliteDataValues)
   {
     console.log("Display Constants");
-    this.plainValues.setData(data);
+    //TODO this.plainValues.setData(values);
     this.showPlainValues= true;
     this.showChart= false;
   }

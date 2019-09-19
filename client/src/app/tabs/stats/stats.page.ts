@@ -45,7 +45,8 @@ export class StatsPage implements OnInit {
         private toastController: ToastController,
         private router: Router,
         private geolocation: Geolocation,
-        private nativeGeocoder: NativeGeocoder
+        private nativeGeocoder: NativeGeocoder,
+        public loadingController: LoadingController
     ) {
 
     }
@@ -137,6 +138,11 @@ export class StatsPage implements OnInit {
     {
         console.log("Calling updateData");
 
+        const loading = await this.loadingController.create({
+            message: 'Getting data near your location...'
+        });
+        loading.present();
+
         while (this.collectedData.length > 0)
             this.collectedData.pop();
 
@@ -147,11 +153,14 @@ export class StatsPage implements OnInit {
             var data = await this.satelliteService.fetchSatelliteData(
                     this.locationLatitude, 
                     this.locationLongitude, 
-                    new Date(),
-                    new Date(),categories[i]
+                    new Date("2006-07-01"), // TODO change!!!!!
+                    new Date("2006-07-31"),
+                    categories[i]
                 );
             this.collectedData.push(data);
         }
+
+        this.loadingController.dismiss();
     }
 
 

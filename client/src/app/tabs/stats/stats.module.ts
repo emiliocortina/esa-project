@@ -10,6 +10,7 @@ import { GeolocationSearchModalModule } from 'src/app/components/geolocation-sea
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SatelliteDataDisplayModule } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.module';
 
+
 @NgModule({
     imports: [
         GeolocationSearchModalModule,
