@@ -6,5 +6,6 @@ router.get('/dataset/*', ctrl.handleDatasetCall);
 router.get('/layer/*/dates*', ctrl.getStartAndEndDate);
 //router.get('/dataset/*', ctrl.handleDatasetCall);
 router.get('/layer/*', ctrl.handleLayerCall);
+router.get('/map', ctrl.getZoneMap);
 
 module.exports = router;
