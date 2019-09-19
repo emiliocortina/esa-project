@@ -24,6 +24,7 @@ export class ExplorePage implements OnInit {
     categoriesToggle: boolean;
     avatarId: string;
 
+    elements = 10;
 
     constructor(
         private threadsService: ThreadsService,
@@ -60,9 +61,9 @@ export class ExplorePage implements OnInit {
                 color: 'dark',
                 showCloseButton: true,
                 duration: 3000
-              });
-              toast.present();
-              this.router.navigate(['/profile/login']);
+            });
+            toast.present();
+            this.router.navigate(['/profile/login']);
         } else {
             const modal = await this.modalController.create({
                 component: CreatePostModalPage
@@ -105,9 +106,10 @@ export class ExplorePage implements OnInit {
 
     loadThreads(infiniteScroll?) {
         this.threadsService
-            .loadPopularThreads(this.threads, this.page, res => {
-                if (infiniteScroll)
+            .loadPopularThreads(this.threads, this.elements, this.page, res => {
+                if (infiniteScroll) {
                     infiniteScroll.complete();
+                }
             });
     }
 

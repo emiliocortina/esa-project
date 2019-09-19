@@ -1,6 +1,6 @@
-import {Category} from '../category.model';
-import {Post} from './post.model';
-import {User} from '../users/user';
+import { Category } from '../category.model';
+import { Post } from './post.model';
+import { User } from '../users/user';
 
 export class Thread {
 
@@ -16,7 +16,7 @@ export class Thread {
         // TODO Cambiar esto q es pa los dummies
         this.initialPost = new Post('0', textContent,
             new User('emiliocortina', 'Emilio', 'emilio@email.com'), new Date());
-        
+
         // TODO remove dummy comments
         for (let i = 0; i < 10; i++) {
             this.initialPost.comments.push(new Post('0',

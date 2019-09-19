@@ -2,7 +2,8 @@
     <ion-toolbar>
         <ion-buttons slot="start">
             <ion-button routerLink="/profile">
-                <ion-icon *ngIf="avatarId" id="userAvatar" slot="icon-only" src="assets/avatar/{{avatarId}}.svg"></ion-icon>
+                <ion-icon *ngIf="avatarId" id="userAvatar" slot="icon-only" src="assets/avatar/{{avatarId}}.svg">
+                </ion-icon>
                 <ion-icon *ngIf="!avatarId" slot="icon-only" name="contact"></ion-icon>
             </ion-button>
         </ion-buttons>
@@ -37,9 +38,9 @@
         <div class="threads">
 
             <ion-card *ngFor="let thread of threads" class="welcome-card" color="red">
-                <div (click)="readThread(thread.id)">
+                <div (click)="readThread(thread.id)" *ngIf="thread != null">
 
-                    <img src="{{thread.getCoverImage()}}" alt=""/>
+                    <img src="{{thread.getCoverImage()}}" alt="" />
                     <ion-card-header>
                         <ion-card-subtitle>{{thread.category.name}}</ion-card-subtitle>
                         <ion-card-title>{{thread.title}}</ion-card-title>
