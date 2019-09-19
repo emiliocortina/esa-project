@@ -169,3 +169,34 @@ exports.handleLayerCall = async (req, res, next) => {
 
 	return;
 };
+
+exports.getZoneMap = async (req, res, next) => {
+	let satRequestDto = SatelliteRequestDto.parseRequest(req.query);
+	let lon = satRequestDto.longitude;
+	let lat = satRequestDto.latitude;
+	let halfSide = 0.03;
+	ramani.getArea(
+		// [
+		// 	[ lon - halfSide, lat + halfSide ],
+		// 	[ lon + halfSide, lat + halfSide ],
+		// 	[ lon - halfSide, lat - halfSide ],
+		// 	[ lon + halfSide, lat - halfSide ]
+		// ],
+		[
+			[ 52.382305628707854, 6.25396728515625 ],
+			[ 52.424196211696774, 6.372899355829467 ],
+			[ 52.30345857599569, 6.257838787287611 ],
+			[ 52.309025707071214, 6.638463891157568 ]
+		],
+		{
+			layer: 'ddl.GLOBALS2TRUECOLOR',
+			info_format: 'text/json',
+			return: 'aggregate'
+		},
+		function(error, result) {
+			console.log(error);
+			res.json(result);
+			return;
+		}
+	);
+};
