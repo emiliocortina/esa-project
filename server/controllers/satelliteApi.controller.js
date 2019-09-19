@@ -82,14 +82,19 @@ exports.handleLayerCall = async (req, res, next) => {
 	ramani.getPointProfile(layerobj, function(err, ret) {
 		if (err) {
 			//error handling
-			console.log('hey');
+
 			next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
 			return;
 		}
 		ret.data.forEach(function(obj) {
 			//process results
+			if (!obj.value) {
+				next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'no_data', 'No data for this params'));
+				return;
+			}
+
 			let dataObject = obj.value.features[0].featureInfo;
-			//console.log(dataObject);
+
 			let firstDate = Date.parse(dataObject[0].time);
 			let lastDate = Date.parse(dataObject[dataObject.length - 1].time);
 			let datapack = dataObject.map((value) => {
