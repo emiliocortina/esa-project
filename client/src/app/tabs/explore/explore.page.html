@@ -39,8 +39,7 @@
 
             <ion-card *ngFor="let thread of threads" class="welcome-card" color="red">
                 <div (click)="readThread(thread.id)" *ngIf="thread != null">
-
-                    <img src="{{thread.getCoverImage()}}" alt="" />
+                    <img src="{{thread.category.coverImageUrl}}" alt="" />
                     <ion-card-header>
                         <ion-card-subtitle>{{thread.category.name}}</ion-card-subtitle>
                         <ion-card-title>{{thread.title}}</ion-card-title>

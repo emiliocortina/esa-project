@@ -74,7 +74,7 @@ export class ThreadsService {
     public async loadPopularThreads(list: Thread[], elements: number, page: number, callback) {
         const params = { page_elements: elements, page_number: page + 1, sort_by: "id(DES)" };
         this.apiService.request("api/threadsByDate", "get", params, null).subscribe(async (threads: any[]) => {
-            let temp = threads.map((th) => {
+            /* let temp = threads.map((th) => {
                 return new Thread(th._id, th.title, this.categoriesService.getCategory(th.category))
             })
             for (let i = 0; i < threads.length; i++) {
@@ -87,7 +87,36 @@ export class ThreadsService {
                 temp[i].initialPost = post;
                 temp[i].author = u;
                 list.push(temp[i]);
-            };
+            }; */
+
+            let remaining = threads.length;
+            console.log(remaining)
+            let temp: any = []
+            for (let i = 0; i < threads.length; i++) {
+                let t = threads[i]
+                this.apiService.request("auth/user/" + t.author, "get", null, null).subscribe(
+                    (user: any) => {
+                        let u = new User(user.nickName, user.name, user.email);
+                        this.apiService.request("api/coop/" + t.head, "get", null, null).subscribe((coop: any) => {
+                            let post = new Post(coop._id, coop.text, u, coop.timestamp)
+                            let thread = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), post, u)
+                            temp[i] = thread;
+                            remaining--;
+                            //console.log(list)
+                            if (remaining == 0) {
+                                list.push(temp);
+                                return list;
+                                //console.log(list)
+                            }
+                        })
+                    }
+                )
+            }
+
+
+
+
+
         });
     }
 

@@ -15,8 +15,6 @@ import { Post } from 'src/app/services/models/threads/post.model';
     styleUrls: ['./thread-page.page.scss'],
 })
 export class ThreadPage implements OnInit, OnChanges, OnDestroy {
-
-
     threadId: string;
     private routerSubscription: any;
     private thread: Thread;
