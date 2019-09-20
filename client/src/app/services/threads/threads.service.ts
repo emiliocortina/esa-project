@@ -60,16 +60,22 @@ export class ThreadsService {
     }
 
     private populateCoop(comentarios: any[], coop: Post) {
-        comentarios.forEach((c) => {
+        let temp: Post[] = [];
+        let remaining = comentarios.length;
+        for (let i = 0; i < comentarios.length; i++) {
+            let c = comentarios[i];
             this.apiService.request("api/coop/" + c, "get", null, null).subscribe((comment: any) => {
                 this.apiService.request("auth/user/" + comment.author, "get", null, null).subscribe((childUser: any) => {
                     let user = new User(childUser.nickName, childUser.name, childUser.email);
-                    coop.addComment(new Post(comment._id, comment.text, user, new Date(comment.timestamp)));
+                    temp[i] = new Post(comment._id, comment.text, user, new Date(comment.timestamp));
+                    remaining--;
+                    if (remaining == 0) {
+                        coop.addComments(temp);
+                    }
                 });
             });
-        });
+        }
     }
-
 
     public async loadPopularThreads(list: Thread[], elements: number, page: number, callback) {
         const params = { page_elements: elements, page_number: page + 1, sort_by: "id(DES)" };
