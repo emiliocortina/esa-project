@@ -106,7 +106,7 @@ exports.deleteThread = async (req, res, next) => {
     }
 };
 
-exports.findThreadsPaginatedByDateDescending = async (req, res, next) => {
+exports.findThreadsPaginated = async (req, res, next) => {
     const sortAndFilterInfo = sortAndFilterService.parseHeader(req.query);
 
     const sort = {};

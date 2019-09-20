@@ -17,7 +17,7 @@
             </ion-card-subtitle>
         </ion-card-header>
         <ion-card-content>
-            <p>{{thread.getPreview()}}</p>
+            <p style="white-space: pre-wrap;">{{thread.getPreview()}}</p>
             <p class="postDate">{{thread.initialPost.created.toLocaleTimeString()}}</p>
         </ion-card-content>
     </div>
@@ -28,7 +28,7 @@
                 <ion-card-subtitle>@{{post.user.nickName}}</ion-card-subtitle>
             </ion-card-header>
             <ion-card-content>
-                <p class="postText">{{post.textContent}}</p>
+                <p style="white-space: pre-wrap;" class="postText">{{post.textContent}}</p>
                 <p class="postDate">{{post.created.toLocaleString()}}</p>
             </ion-card-content>
         </ion-card>
