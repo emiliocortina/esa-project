@@ -14,6 +14,7 @@ exports.handleDatasetCall = async (req, res, next) => {
 	let satRequestDto = SatelliteRequestDto.parseRequest(req.query);
 	let start = new Date(satRequestDto.start);
 	let end = new Date(satRequestDto.end);
+
 	ramani.getPoint(
 		[ satRequestDto.latitude, satRequestDto.longitude ],
 		{

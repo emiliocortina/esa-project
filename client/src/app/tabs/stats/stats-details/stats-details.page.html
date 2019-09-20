@@ -1,6 +1,6 @@
 <ion-header no-border>
     <ion-toolbar>
-        <ion-title color="dark">{{ data.title }}</ion-title>
+        <ion-title color="dark">{{ data.title }} <b>in {{ locationName }}</b></ion-title>
         <ion-buttons slot="end">
             <ion-button (click)="dismissModal()">
                 <ion-icon slot="icon-only" name="close" color="dark"></ion-icon>
@@ -15,28 +15,50 @@
 
         <ion-row class="dateSelectionRow">
             
-            <ion-item>
-                <ion-icon slot="end" name="calendar" (click)="updateStartDate()"></ion-icon>
-                <ion-input 
-                    placeholder="dd-mm-yyyy" 
-                    debounce="2000" 
-                    inputmode="text"
-                    maxlength="10"
-                    minlength="10"
-                    [(ngModel)]="startDateText" 
-                    (ionChange)="onStartDateChange()">
-                </ion-input>
-            </ion-item>
-        
-            <ion-button (click)="updateEndDate()">
-                {{ endDate.toDateString() }}
-            </ion-button>
+            <ion-item-group class="datePickersDiv">
                 
+                <ion-item class="datePicker">
+                    <ion-icon slot="end" name="calendar" (click)="pickStartDate()" style="margin-left: 8px;"></ion-icon>
+                    <ion-label>Start date:</ion-label>
+                    <ion-input 
+                        placeholder="dd-mm-yyyy" 
+                        debounce="500"
+                        inputmode="text"
+                        maxlength="10"
+                        minlength="10"
+                        [(ngModel)]="startDateText" 
+                        (ionChange)="onStartDateChange()">
+                    </ion-input>
+                </ion-item>
+
+                <ion-item class="datePicker">
+                    <ion-icon slot="end" name="calendar" (click)="pickEndDate()" style="margin-left: 8px;"></ion-icon>
+                    <ion-label>End date:</ion-label>
+                    <ion-input
+                        placeholder="dd-mm-yyyy" 
+                        debounce="500"
+                        inputmode="text"
+                        maxlength="10"
+                        minlength="10"
+                        [(ngModel)]="endDateText" 
+                        (ionChange)="onEndDateChange()">
+                    </ion-input>
+                </ion-item>
+            
+            </ion-item-group>
+
+            <div class="dateButtonDiv">
+                <ion-button color="secondary" fill="outline" (click)="updateData()">
+                    <ion-icon name="sync"slot="end"></ion-icon>
+                    <ion-label>Update</ion-label>
+                </ion-button>
+            </div>    
+
         </ion-row>
 
         <ion-row class="displayRow">
 
-            <ion-list>
+            <ion-list style="width: 100%;">
 
                 <ion-card *ngFor="let values of data.values; let i = index">
                     <ion-card-header>
@@ -49,7 +71,7 @@
                             id="{{'display' + i}}"
                             [displayType]="'chart'"
                             [values]="values"
-                            [isExtended]="true">
+                            [isExtended]="false">
                         </app-satellite-data-display>
                     </ion-card-content>
                 </ion-card>

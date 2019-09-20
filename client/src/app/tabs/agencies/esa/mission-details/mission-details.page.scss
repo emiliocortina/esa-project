@@ -1,0 +1,42 @@
+.headerContent {
+  margin: 2rem 1.6rem;
+}
+
+
+ion-list p {
+  margin-left: 1.6rem;
+  margin-right: 1.6rem;
+  padding-bottom: 1rem;
+}
+
+ion-card-content {
+  padding-top: 0;
+
+  ion-label {
+    margin-bottom: 1rem;
+  }
+}
+
+a {
+  color: var(--color);
+}
+
+#headerImage {
+  width: 102vw;
+}
+
+#missionIcon {
+  width: 4rem;
+  margin-right: 1rem;
+}
+
+.titleAndIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  justify-items: flex-start;
+}
+
+ion-card-subtitle.contentSubtitle {
+  margin-top: 2rem;
+}

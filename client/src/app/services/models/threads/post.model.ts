@@ -22,8 +22,10 @@ export class Post {
         this.comments = [];
     }
 
-    addComment(comment: Post) {
-        this.comments.push(comment);
+    addComments(list: Post[]) {
+        list.forEach(c => {
+            this.comments.push(c);
+        });
     }
 
 }

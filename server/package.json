@@ -7,7 +7,12 @@
 		"test": "echo \"Error: no test specified\" && exit 1",
 		"dev": "nodemon index.js  ",
 		"installDoc": "npm install apidoc -g",
-		"doc": "apidoc -i routes/* -o apidoc/"
+		"doc": "apidoc -i routes/* -o apidoc/",
+
+
+		"start": "npm run deploy-setup ; npm run deploy-folders ; node index.js",
+		"deploy-setup": "npm install ",
+		"deploy-folders": " mkdir images ;  mkdir images/satellite ;  mkdir images/satellite/optic ;"
 	},
 	"dependencies": {
 		"bcrypt": "^3.0.6",

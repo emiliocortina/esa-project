@@ -3,34 +3,15 @@
   overflow: hidden;
 }
 
-.ios ion-card:hover {
-  animation-name: hoverCard;
-  animation-duration: 0.7s;
-}
+
 
 ion-content {
   padding-top: 0;
 }
 
-.md ion-card {
-  transition: 0.2s;
 
-  &:hover {
-    transform: scale(0.96);
-  }
-}
 
-@keyframes hoverCard {
-  0% {
-    transform: scale(1);
-  }
-  50% {
-    transform: scale(0.96);
-  }
-  100% {
-    transform: scale(1);
-  }
-}
+
 
 ion-header::after {
   background-image: none;
@@ -80,6 +61,10 @@ ion-buttons ion-button ion-icon {
 #userAvatar {
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
   border-radius: 999px;
+}
+
+#patreonBtn ion-label {
+  color:white;
 }
 
 

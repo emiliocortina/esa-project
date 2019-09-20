@@ -1,3 +1,11 @@
+
+ion-title b {
+  font-size: 0.6em;
+  color: var(--ion-color-secondary);
+  font-style: italic;
+}
+
+
 ion-card-header {
   padding-bottom: 0;
 }
@@ -29,18 +37,60 @@ app-satellite-data-display {
 
 
 
+/* * * * * * * * DATE SELECTION * * * * * * * */
+
 .dateSelectionRow {
-  height: 15%;
-  background-color: red;
-}
-
-
-
-
-.displayRow {
-  height: 75%;
+  height: 18%;
+  display: inline-flex;
   width: 100%;
 }
+
+.datePickersDiv {
+  width: 60%;
+}
+
+.dateButtonDiv {
+  width: 40%;
+  display: inline-flex;
+  flex-direction: column;
+  justify-items: center;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+}
+
+.datePicker {
+  height: 50%; 
+  width: 100%;
+}
+
+.datePicker ion-label {
+  color: gray;
+  font-size: 0.7em;
+  margin-right: 4px;
+}
+
+.datePicker ion-input {
+  background-color: rgb(235, 235, 235);
+  align-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
+
+
+
+/* * * * * * * * DATA DISPLAY * * * * * * * */
+
+.displayRow {
+  height: 72%;
+  width: 100%;
+}
+
+
+
+
+/* * * * * * * * SENTINEL STUFF * * * * * * * */
 
 .sentinelRow {
   height: 10%;

@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, ViewChild} from '@angular/core';
 import {SatelliteData} from '../../../services/models/satellite-data/satellite-data.model';
-import {ModalController, ToastController} from '@ionic/angular';
+import {ModalController, ToastController, LoadingController} from '@ionic/angular';
 import {StorageService} from '../../../services/authentication/storage.service';
 import { SatelliteService } from 'src/app/services/satellite.service';
 import { Category } from 'src/app/services/models/category.model';
@@ -15,6 +15,7 @@ export class StatsDetailsPage implements OnInit {
 
     showCard = false;
 
+    @Input() locationName: string;
     @Input() data: SatelliteData;
     
     startDate: Date;
@@ -34,7 +35,8 @@ export class StatsDetailsPage implements OnInit {
             private usersService: StorageService,
             private toastController: ToastController, 
             private satelliteService: SatelliteService,
-            private datePicker: DatePicker)
+            private datePicker: DatePicker,
+            public loadingController: LoadingController)
     {
 
     }
@@ -47,16 +49,73 @@ export class StatsDetailsPage implements OnInit {
         var cat : Category = this.data.values[0].dataCategory.threadCategory;
         this.satelliteService.getAvailableDates(cat, res =>{
 
+            console.log("Dates fetched:");
+            console.log(res);
+
             this.limitStartDate = new Date(res.start);
             this.limitEndDate = new Date(res.end);
+            this.startDate = this.limitStartDate;
+            this.endDate = this.limitEndDate;
             this.checkCorrectStartDate();
             this.checkCorrectEndDate();
+        },
+        async err => {
+            console.error(err);
+
+            const toast = await this.toastController.create({
+                color: 'danger',
+                message: "Could not update the stats for the wished time range.",
+                showCloseButton: true,
+                duration: 3000
+            });
+            toast.present();
         });
     }
 
     async dismissModal() {
         await this.modalController.dismiss();
     }
+
+
+
+    /**
+     * Updates the data, putting it inside the chosen
+     * date range.
+     */
+    async updateData()
+    {
+        console.log("Updating data based on date range...");
+
+        const loading = await this.loadingController.create({
+            message: 'Updating values...'
+        });
+        loading.present();
+
+        var data = await this.satelliteService.fetchSatelliteData(
+            this.data.latitude, 
+            this.data.longitude, 
+            this.startDate,
+            this.endDate,
+            this.data.values[0].dataCategory.threadCategory
+        );
+
+        if (data) {
+            this.data = data;
+        }
+        else {
+            const toast = await this.toastController.create({
+                color: 'danger',
+                message: "Could not update the stats for the wished time range.",
+                showCloseButton: true,
+                duration: 3000
+            });
+            toast.present();
+        }
+
+        this.loadingController.dismiss();
+    }
+
+
 
 
 
@@ -68,7 +127,10 @@ export class StatsDetailsPage implements OnInit {
         if (this.startDate.getTime() < this.limitStartDate.getTime())
             this.startDate = new Date(this.limitStartDate);
         
-        this.startDateText = this.startDate.toDateString();
+        if (this.startDate.getTime() > this.limitEndDate.getTime())
+            this.startDate = new Date(this.limitStartDate);
+
+        this.startDateText = this.formatDate(this.startDate);
     }
 
     private checkCorrectEndDate() : void
@@ -77,46 +139,125 @@ export class StatsDetailsPage implements OnInit {
             this.endDate = new Date(this.limitEndDate);
 
         if (this.endDate.getTime() < this.limitStartDate.getTime())
-            this.endDate = new Date(this.limitStartDate);
+            this.endDate = new Date(this.limitEndDate);
         
+        this.endDateText = this.formatDate(this.endDate);
+    }
 
-        var dd = "" + this.endDate.getDay();
-        var mm = "" + this.endDate.getMonth() + 1; //January is 0!
+    private formatDate(date: Date) : string
+    {
+        var dd = "" + date.getDate();
+        var mm = "" + (date.getMonth() + 1); //January is 0!
+        var yyyy = date.getFullYear();
 
-        var yyyy = this.endDate.getFullYear();
-        if (this.endDate.getDay() < 10) {
-            dd = '0' + dd;
-        } 
-        if (this.endDate.getMonth() + 1 < 10) {
-            mm = '0' + mm;
-        } 
+        if (date.getDate() < 10)
+            dd = '0' + dd; 
+        if (date.getMonth() + 1 < 10)
+            mm = '0' + mm; 
         
-        this.endDateText = dd + '/' + mm + '/' + yyyy;
+        return dd + '/' + mm + '/' + yyyy;
     }
 
 
     onStartDateChange()
     {
-        Date.parse
+        console.log("On Start Date Change");
+
+        var date : Date = this.getParsedDate(this.startDateText);
+        if (date == null)
+        {
+            console.log("Invalid date");
+            return;
+        }
+        console.log("Parsed date: " + date.toDateString());
+
+        this.startDate = date;
+        this.checkCorrectStartDate();
+        this.checkCorrectEndDate();
+    }
+
+    onEndDateChange()
+    {
+        console.log("On Start Date Change");
+
+        var date : Date = this.getParsedDate(this.endDateText);
+        if (date == null)
+        {
+            console.log("Invalid date");
+            return;
+        }
+        console.log("Parsed date: " + date.toDateString());
+
+        this.endDate = date;
+        this.checkCorrectEndDate();
+    }
+
+    private getParsedDate(str: string)
+    {
+        var split = str.split("/");
+        if (split.length != 3)
+            return null;
+
+        if (split[0].length != 2)
+            return null;
+           
+        if (split[1].length != 2)
+            return null;
+
+        if (split[2].length != 4)
+            return null;
+
+        var date = Date.parse(split[2] + "-" + split[1] + "-" + split[0]);
+
+        if (isNaN(date))
+            return null;
+
+        return new Date(date);
     }
 
 
 
-    updateStartDate()
+    pickStartDate()
     {
+        console.log("Opening start date picker");
+
         this.datePicker.show({
-            date: new Date(),
+            titleText: "Start date",
+            date: this.startDate,
+            minDate: this.limitStartDate,
+            maxDate: this.limitEndDate,
             mode: 'date',
             androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
           }).then(
-            date => console.log('Got date: ', date),
+            date => {
+                console.log('Got date: ', date);
+                this.startDate = date;
+                this.checkCorrectStartDate();
+                this.checkCorrectEndDate();
+            },
             err => console.log('Error occurred while getting date: ', err)
           );
     }
 
-    updateEndDate()
+    pickEndDate()
     {
+        console.log("Opening end date picker");
 
+        this.datePicker.show({
+            titleText: "End date",
+            date: this.endDate,
+            minDate: this.startDate,
+            maxDate: this.limitEndDate,
+            mode: 'date',
+            androidTheme: this.datePicker.ANDROID_THEMES.THEME_HOLO_DARK
+          }).then(
+            date => {
+                console.log('Got date: ', date);
+                this.endDate = date;
+                this.checkCorrectEndDate();
+            },
+            err => console.log('Error occurred while getting date: ', err)
+          );
     }
 
 

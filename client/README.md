@@ -31,6 +31,8 @@ Parece bastante facil de usar :l
 
 ## Color palette
 Primary (azul): #06336B
-Secondary (rosa): #FC637A
+
+Secondary (rosa): #FC637A #D44963 
+
 Tertiary (amarillo): #FEDE49
 
