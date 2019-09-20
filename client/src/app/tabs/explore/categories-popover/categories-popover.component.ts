@@ -9,34 +9,36 @@ import { CategoriesService } from 'src/app/services/categories.service';
   templateUrl: './categories-popover.component.html',
   styleUrls: ['./categories-popover.component.scss'],
 })
-export class CategoriesPopover implements OnInit
-{
+export class CategoriesPopover implements OnInit {
 
   explorePage: ExplorePage;
 
   cooperCategories: Category[];
 
   constructor(
-      public popoverController: PopoverController,
-      private categoriesService : CategoriesService
-    ) 
-  {
+    public popoverController: PopoverController,
+    private categoriesService: CategoriesService
+  ) {
     this.cooperCategories = this.categoriesService.getCategories();
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
 
-  async close()
-  {
+  async close() {
     await this.popoverController.dismiss();
   }
 
-  selectCategory(category: Category)
-  {
-    this.explorePage.currentCategory = category;
+  selectCategory(category: Category) {
+    this.explorePage.currentCategory = { iconUrl: category.iconUrl, name: category.name };
+    this.explorePage.changeFilter(category.id);
     this.close();
   }
 
-  
+  noFilter() {
+    this.explorePage.currentCategory = { iconUrl: "", name: "Featured" };
+    this.explorePage.deleteFilter();
+    this.close();
+  }
+
 }

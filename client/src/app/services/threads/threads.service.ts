@@ -51,9 +51,9 @@ export class ThreadsService {
         }
     }
 
-    public async loadPopularThreads(list: Thread[], elements: number, page: number, callback) {
-        const params = { page_elements: elements, page_number: page + 1, sort_by: 'timestamp(DES)' };
-        this.apiService.request('api/threadsByDate', 'get', params, null).subscribe(async (threads: any[]) => {
+    public async loadThreads(filter, list: Thread[], elements: number, page: number, callback) {
+        const params = { page_elements: elements, page_number: page + 1, sort_by: 'timestamp(DES)', filter_by: filter };
+        this.apiService.request('api/threads', 'get', params, null).subscribe(async (threads: any[]) => {
             let remaining = threads.length;
             let temp: Thread[] = [];
             for (let i = 0; i < threads.length; i++) {
@@ -104,35 +104,7 @@ export class ThreadsService {
                     }
                 );
             }
-
-            /* threads.forEach((t) => {
-                this.apiService.request('api/coop/' + t.head, 'get', null, null).subscribe((coop: any) => {
-                    this.apiService.request('auth/user/' + t.author, 'get', null, null).subscribe((user: any) => {
-                        let u = new User(user.nickName, user.name, user.email);
-                        let post = new Post(coop._id, coop.text, u, coop.timestamp);
-                        let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), post, u);
-                        list.push(obj);
-                    });
-                });
-            }); */
         });
-    }
-
-	/*
-    private processTopics(topics: Topic[], res: any) {
-        for (const topic of res.topics) {
-            topics.push(new Topic(topic.title, topic.category.name, topic.teaser.content));
-        }
-    }*/
-
-    // TODO Remove dummies
-    private async addAsyncDummy(list: Thread[], topic: Thread) {
-        await this.timeout(1000);
-        list.push(topic);
-    }
-
-    private timeout(ms) {
-        return new Promise(resolve => setTimeout(resolve, ms));
     }
 
     createThread(threadObject: ThreadObject) {
