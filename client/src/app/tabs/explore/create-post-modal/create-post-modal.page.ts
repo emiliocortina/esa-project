@@ -48,13 +48,7 @@ export class CreatePostModalPage implements OnInit {
   async publishPost() {
     const isPostEmpty = this.isPostEmpty();
     if (isPostEmpty) {
-      const toast = await this.toastController.create({
-        message: isPostEmpty,
-        color: 'dark',
-        showCloseButton: true,
-        duration: 3000
-      });
-      toast.present();
+      this.generateToast(isPostEmpty, 'danger');
     } else {
       this.submitThread();
     }
@@ -76,22 +70,30 @@ export class CreatePostModalPage implements OnInit {
   }
 
   private async submitThread() {
-    //const thread = new Thread('0', this.postTitle, this.stats.category, this.postBody);
-    // TODO
-    // this.threadsService.submitThread(thread);
-    var postBody =
+    this.postsService.createCoop(new CoopObject({
+      text: this.postBody
+    })).subscribe(async (res: any) => {
+      let id = res.id;
+      console.log(this.threadsService.createThread(new ThreadObject({
+        title: this.postTitle,
+        category: this.selectedCategory,
+        head: id
+      })));
 
-      this.postsService.createCoop(new CoopObject({
-        text: this.postBody
-      })).subscribe((res: any) => {
-        let id = res.id;
-        console.log(this.threadsService.createThread(new ThreadObject({
-          title: this.postTitle,
-          category: this.selectedCategory,
-          head: id
-        })));
+      this.generateToast("Thread successfully created!", 'success');
 
-        this.modalController.dismiss({ success: 'Thread successfully created!' });
-      });
+      this.modalController.dismiss();
+    });
+
+  }
+
+  async generateToast(msg: string, col: string) {
+    const toast = await this.toastController.create({
+      message: msg,
+      color: col,
+      showCloseButton: true,
+      duration: 3000
+    });
+    toast.present();
   }
 }

@@ -8,11 +8,15 @@ export class Thread {
     title: string;
     category: Category;
     initialPost: Post;
+    author: User;
 
-    constructor(id: string, title: string, category: Category, textContent: string) {
+    constructor(id: string, title: string, category: Category, initialCoop: Post = null, author: User = null) {
         this.id = id;
         this.title = title;
         this.category = category;
+        this.initialPost = initialCoop;
+        this.author = author;
+        /*
         // TODO Cambiar esto q es pa los dummies
         this.initialPost = new Post('0', textContent,
             new User('emiliocortina', 'Emilio', 'emilio@email.com'), new Date());
@@ -23,7 +27,7 @@ export class Thread {
                 'Qué bacaneria es estar en el campo disfrutando y coriando con un corito sano.',
                 new User('emiliocortina' + i, 'Emilio' + i, 'emilio' + i + '@email.com'),
                 new Date()));
-        }
+        }*/
     }
 
     public getCoverImage(): string {

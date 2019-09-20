@@ -4,6 +4,10 @@ import { ThreadsService } from '../../../services/threads/threads.service';
 import { Thread } from '../../../services/models/threads/thread.model';
 import { CoopsService } from 'src/app/services/threads/coops.service';
 import { CoopObject } from 'src/app/services/threads/CoopObject';
+import { ToastController } from '@ionic/angular';
+import { StorageService } from 'src/app/services/authentication/storage.service';
+import { Router } from '@angular/router';
+import { Post } from 'src/app/services/models/threads/post.model';
 
 @Component({
     selector: 'app-post-page',
@@ -20,7 +24,10 @@ export class ThreadPage implements OnInit, OnChanges, OnDestroy {
 
     constructor(private route: ActivatedRoute,
         private threadService: ThreadsService,
-        private coopsService: CoopsService) {
+        private coopsService: CoopsService,
+        private toastController: ToastController,
+        private usersService: StorageService,
+        private router: Router) {
     }
 
     ngOnInit() {
@@ -47,13 +54,34 @@ export class ThreadPage implements OnInit, OnChanges, OnDestroy {
         };
 
         this.threadService.getThread(id, callback, () => {
-            // TODO log or whatever
         });
     }
 
-    sendComment() {
-        let coopBody = { text: this.commentText };
-        this.coopsService.createComment(new CoopObject(coopBody), this.thread.initialPost.id);
+    async sendComment() {
+        if (!this.usersService.isAuthenticated()) {
+            this.generateToast("You need to be logged in to write a comment", 'danger');
+            this.router.navigate(['/profile/login']);
+        } else {
+            if (!this.commentText || this.commentText.trim().length === 0) {
+                this.generateToast("You cannot write an empty comment", 'danger');
+            } else {
+                let coopBody = { text: this.commentText };
+                await this.coopsService.createComment(new CoopObject(coopBody), this.thread.initialPost.id).subscribe(() => {
+                    this.generateToast("Your comment has been published", 'success');
+                    this.commentText = "";
+                    this.setThreadId(this.threadId);
+                });
+            }
+        }
     }
 
+    async generateToast(msg: string, col: string) {
+        const toast = await this.toastController.create({
+            message: msg,
+            color: col,
+            showCloseButton: true,
+            duration: 3000
+        });
+        toast.present();
+    }
 }
