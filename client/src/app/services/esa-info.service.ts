@@ -88,7 +88,7 @@ export class EsaInfoService {
             ' and it will study sea-surface topography, sea and land surface temperature, ocean and land colour.');
         sentinel3.previewLabels.push('Composed of three satellites, the mission\'s primary instrument is a radar ' +
             'altimeter, but the polar-orbiting satellites will carry multiple instruments, including optical imagers.');
-        sentinel3.previewLabels.push('This Copernicus Sentinel-3 image features Hurricane Dorian ' +
+        sentinel3.contentParagraphs.push('This Copernicus Sentinel-3 image features Hurricane Dorian ' +
             'as it pummels the Bahamas on 2 September 2019 at 15:16 GMT (11:16 EDT). This mighty ' +
             'storm has been parked over the northwest Bahamas for more than 24 hours unleashing a ' +
             'siege of devastation. Storm surges, wind and rain have claimed at least five lives and ' +
