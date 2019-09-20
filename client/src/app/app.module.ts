@@ -11,7 +11,11 @@ import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ApiService } from './services/api.service';
 import { IonicStorageModule } from '@ionic/storage';
+
 import { WelcomeSlidesModule } from './components/welcome-slides-modal/welcome-slides-modal.module';
+
+import { DatePicker } from '@ionic-native/date-picker/ngx';
+
 
 @NgModule({
     declarations: [
@@ -30,6 +34,7 @@ import { WelcomeSlidesModule } from './components/welcome-slides-modal/welcome-s
         ApiService,
         StatusBar,
         SplashScreen,
+        DatePicker,
         { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
     ],
     bootstrap: [AppComponent]

@@ -109,7 +109,7 @@ export class ExplorePage implements OnInit {
 
     loadThreads(infiniteScroll?) {
         this.threadsService
-            .loadPopularThreads(this.threads, this.elements, this.page, res => {
+            .loadPopularThreads(this.threads, this.elements, this.page, (res) => {
                 if (infiniteScroll) {
                     infiniteScroll.complete();
                 }

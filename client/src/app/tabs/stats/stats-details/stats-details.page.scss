@@ -18,6 +18,8 @@ ion-button.createPost {
 ion-grid {
   height: 100%;
   width: 100%;
+  align-items: center;
+  align-content: center;
 }
 
 app-satellite-data-display {
@@ -25,7 +27,22 @@ app-satellite-data-display {
   height: 100%;
 }
 
+
+
+.dateSelectionRow {
+  height: 15%;
+  background-color: red;
+}
+
+
+
+
 .displayRow {
-  height: 85%;
+  height: 75%;
   width: 100%;
+}
+
+.sentinelRow {
+  height: 10%;
+  background-color: red;
 }

@@ -15,13 +15,10 @@ import { Post } from 'src/app/services/models/threads/post.model';
     styleUrls: ['./thread-page.page.scss'],
 })
 export class ThreadPage implements OnInit, OnChanges, OnDestroy {
-
-
     threadId: string;
     private routerSubscription: any;
     private thread: Thread;
     commentText: string;
-    comments: Post[];
 
     constructor(private route: ActivatedRoute,
         private threadService: ThreadsService,
@@ -60,15 +57,15 @@ export class ThreadPage implements OnInit, OnChanges, OnDestroy {
 
     async sendComment() {
         if (!this.usersService.isAuthenticated()) {
-            this.generateToast("You need to be logged in to write a comment");
+            this.generateToast("You need to be logged in to write a comment", 'danger');
             this.router.navigate(['/profile/login']);
         } else {
             if (!this.commentText || this.commentText.trim().length === 0) {
-                this.generateToast("You cannot write an empty comment");
+                this.generateToast("You cannot write an empty comment", 'danger');
             } else {
                 let coopBody = { text: this.commentText };
                 await this.coopsService.createComment(new CoopObject(coopBody), this.thread.initialPost.id).subscribe(() => {
-                    this.generateToast("Your comment has been published");
+                    this.generateToast("Your comment has been published", 'success');
                     this.commentText = "";
                     this.setThreadId(this.threadId);
                 });
@@ -76,10 +73,10 @@ export class ThreadPage implements OnInit, OnChanges, OnDestroy {
         }
     }
 
-    async generateToast(msg: string) {
+    async generateToast(msg: string, col: string) {
         const toast = await this.toastController.create({
             message: msg,
-            color: 'dark',
+            color: col,
             showCloseButton: true,
             duration: 3000
         });

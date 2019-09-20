@@ -43,7 +43,7 @@ export class ThreadsService {
 
 
     public getThread(id: string, res, err): void {
-        this.apiService.request("api/private/thread/" + id, "get", null, null).subscribe((t: any) => {
+        this.apiService.request("api/thread/" + id, "get", null, null).subscribe((t: any) => {
             this.apiService.request("auth/user/" + t.author, "get", null, null).subscribe(async (user: any) => {
                 let coop = t.head;
                 let u = new User(user.nickName, user.name, user.email);
@@ -61,7 +61,7 @@ export class ThreadsService {
 
     private populateCoop(comentarios: any[], coop: Post) {
         comentarios.forEach((c) => {
-            this.apiService.request("api/private/coop/" + c, "get", null, null).subscribe((comment: any) => {
+            this.apiService.request("api/coop/" + c, "get", null, null).subscribe((comment: any) => {
                 this.apiService.request("auth/user/" + comment.author, "get", null, null).subscribe((childUser: any) => {
                     let user = new User(childUser.nickName, childUser.name, childUser.email);
                     coop.addComment(new Post(comment._id, comment.text, user, new Date(comment.timestamp)));
@@ -71,25 +71,48 @@ export class ThreadsService {
     }
 
 
-    public loadPopularThreads(list: Thread[], elements: number, page: number, callback): void {
-        let params = { page_elements: elements, page_number: page + 1, sort_by: "id(DES)" };
-        this.apiService.request("api/private/threadsByDate", "get", params, null).subscribe((threads: any[]) => {
-            threads.forEach((t) => {
-                this.apiService.request("auth/user/" + t.author, "get", null, null).subscribe((user: any) => {
-                    this.apiService.request("api/private/coop/" + t.head, "get", null, null).subscribe((coop: any) => {
+    public async loadPopularThreads(list: Thread[], elements: number, page: number, callback) {
+        const params = { page_elements: elements, page_number: page + 1, sort_by: "id(DES)" };
+        this.apiService.request("api/threadsByDate", "get", params, null).subscribe(async (threads: any[]) => {
+            let remaining = threads.length;
+            let temp: Thread[] = []
+            for (let i = 0; i < threads.length; i++) {
+                let t = threads[i]
+                this.apiService.request("auth/user/" + t.author, "get", null, null).subscribe(
+                    (user: any) => {
                         let u = new User(user.nickName, user.name, user.email);
-                        let post = new Post(coop._id, coop.text, u, coop.timestamp)
-                        let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category),
-                            post, u);
+                        this.apiService.request("api/coop/" + t.head, "get", null, null).subscribe((coop: any) => {
+                            let post = new Post(coop._id, coop.text, u, coop.timestamp)
+                            let thread = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), post, u)
+                            temp[i] = thread;
+                            remaining--;
+                            if (remaining == 0) {
+                                temp.forEach(t => {
+                                    list.push(t)
+                                })
+                            }
+                        })
+                    }
+                )
+            }
+        });
+    }
+
+    public loadThreadsByUser(list: Thread[], userEmail: string) {
+        // TODO paginar esta llamada
+        const params = { email: userEmail };
+        this.apiService.request('api/threadsByAuthorEmail', 'get', params, null).subscribe((threads: any[]) => {
+            threads.forEach((t) => {
+                this.apiService.request('api/coop/' + t.head, 'get', null, null).subscribe((coop: any) => {
+                    this.apiService.request("auth/user/" + t.author, "get", null, null).subscribe((user: any) => {
+                        let u = new User(user.nickName, user.name, user.email);
+                        let post = new Post(coop._id, coop.text, u, coop.timestamp);
+                        let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), post, u);
                         list.push(obj);
                     });
                 });
             });
         });
-    }
-
-    public loadThreadsByUser(list: Thread[]) {
-
     }
 
     /*
