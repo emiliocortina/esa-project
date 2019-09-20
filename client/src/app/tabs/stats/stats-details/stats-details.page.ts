@@ -15,6 +15,7 @@ export class StatsDetailsPage implements OnInit {
 
     showCard = false;
 
+    @Input() locationName: string;
     @Input() data: SatelliteData;
     
     startDate: Date;
@@ -57,6 +58,17 @@ export class StatsDetailsPage implements OnInit {
             this.endDate = this.limitEndDate;
             this.checkCorrectStartDate();
             this.checkCorrectEndDate();
+        },
+        async err => {
+            console.error(err);
+
+            const toast = await this.toastController.create({
+                color: 'danger',
+                message: "Could not update the stats for the wished time range.",
+                showCloseButton: true,
+                duration: 3000
+            });
+            toast.present();
         });
     }
 
@@ -79,13 +91,26 @@ export class StatsDetailsPage implements OnInit {
         });
         loading.present();
 
-        this.data = await this.satelliteService.fetchSatelliteData(
+        var data = await this.satelliteService.fetchSatelliteData(
             this.data.latitude, 
             this.data.longitude, 
             this.startDate,
             this.endDate,
             this.data.values[0].dataCategory.threadCategory
         );
+
+        if (data) {
+            this.data = data;
+        }
+        else {
+            const toast = await this.toastController.create({
+                color: 'danger',
+                message: "Could not update the stats for the wished time range.",
+                showCloseButton: true,
+                duration: 3000
+            });
+            toast.present();
+        }
 
         this.loadingController.dismiss();
     }

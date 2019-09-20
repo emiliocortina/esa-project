@@ -6,13 +6,14 @@ import { Category } from './models/category.model';
 import { ApiService } from './api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataMarker } from './models/satellite-data/data-marker.model';
+import { MarkersService } from './markers.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class SatelliteService {
 
-    constructor(private apiService: ApiService)
+    constructor(private apiService: ApiService, private markersService: MarkersService)
     {
     }
 
@@ -23,13 +24,10 @@ export class SatelliteService {
      * @param category 
      * @param callback Callback to an object with start and end dates.
      */
-    public async getAvailableDates(category: Category, callback)
+    public async getAvailableDates(category: Category, callback, error)
     {
-        // TODO get all subcategories
-
-        // TODO call to api/satellite/"category", instead of "ozone"
-        this.apiService.request("api/satellite/layer/ozone/dates", "get")
-            .subscribe(res => callback(res));
+        this.apiService.request("api/satellite/" + category.apiRoute + "/dates", "get")
+            .subscribe(res => callback(res), err => error(err));
     }
     
 
@@ -40,6 +38,8 @@ export class SatelliteService {
     public async fetchSatelliteData(latitude: number, longitude: number, 
             start: Date, end: Date, category: Category) : Promise<SatelliteData>
     {
+        console.log("Fetching satellite data");
+
         var params = new HttpParams()
             .set("latitude", "" + latitude)
             .set("longitude", "" + longitude)
@@ -53,30 +53,29 @@ export class SatelliteService {
         }
         catch (err)
         {
+            console.error(err.error);
             return undefined;
         }
 
-        // TODO error handling
-
         return this.processSatelliteData(res, latitude, longitude, start, end, category);
-        /*  EVERY RES OBJECT FOLLOWS THIS STRUCTURE:
-
-            var resObj = {
-                unit, //which will be transformed into DataCategory
-                
-                // Collection of key-value pairs
-                [
-                    [x0, y0],
-                    [x1, y1],
-                    ...
-                    [xn, yn]
-                ]
-            }
-        */
-
-        
     }
 
+
+
+    /*  EVERY RES OBJECT FOLLOWS THIS STRUCTURE:
+
+        var resObj = {
+            unit, //which will be transformed into DataCategory
+            
+            // Collection of key-value pairs
+            [
+                [x0, y0],
+                [x1, y1],
+                ...
+                [xn, yn]
+            ]
+        }
+    */
     private processSatelliteData(res, latitude: number, longitude: number, 
             start: Date, end: Date, category: Category)
     {
@@ -85,10 +84,7 @@ export class SatelliteService {
         for (var i = 0; i < res.length; i ++)
         {
             var cat = new DataCategory(res[i].unit, category);
-
-            // TODO get the markers from the server
-            var markers: DataMarker[] = [];
-            markers.push(new DataMarker("Law was approved", new Date("2006-07-12"), ""));
+            var markers: DataMarker[] = this.markersService.getInRange(start, end);
 
             // TODO !!!!!! SQUARE REGRESSION!!!!!
             var func = (x) => { return Math.random() * Math.pow(x, 2) + Math.random() * x + Math.random() };

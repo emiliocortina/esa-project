@@ -1,3 +1,11 @@
+
+ion-title b {
+  font-size: 0.6em;
+  color: var(--ion-color-secondary);
+  font-style: italic;
+}
+
+
 ion-card-header {
   padding-bottom: 0;
 }
@@ -59,7 +67,16 @@ app-satellite-data-display {
 .datePicker ion-label {
   color: gray;
   font-size: 0.7em;
+  margin-right: 4px;
 }
+
+.datePicker ion-input {
+  background-color: rgb(235, 235, 235);
+  align-content: center;
+  align-items: center;
+  border-radius: 3px;
+}
+
 
 
 

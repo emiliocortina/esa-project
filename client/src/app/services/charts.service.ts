@@ -21,7 +21,10 @@ export class ChartsService {
             getLinePosition: function (chart, pointIndex) {
                 const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
                 const data = meta.data;
-                return data[pointIndex]._model.x;
+                var pointData = data[pointIndex];
+                if (pointData)
+                    return data[pointIndex]._model.x;
+                return 0;
             },
             renderVerticalLine: function (chartInstance, pointIndex, text, isExtended) {
                 const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
@@ -29,18 +32,36 @@ export class ChartsService {
                 const context = chartInstance.chart.ctx;
         
                 // render vertical line
+                context.strokeStyle = '#FDDE49';
+
                 context.beginPath();
-                context.strokeStyle = '#FFD03E';
                 context.moveTo(lineLeftOffset, scale.top);
                 context.lineTo(lineLeftOffset, scale.bottom);
                 context.stroke();
+
+                context.beginPath();
+                context.moveTo(lineLeftOffset+1, scale.top);
+                context.lineTo(lineLeftOffset+1, scale.bottom);
+                context.stroke();
         
+                // write label
                 if (isExtended)
                 {
-                    // write label
+                    var textX = lineLeftOffset + 6;
+                    var textY = /*(scale.bottom - scale.top) / 2*/ + scale.top + 12;
+
+                    /*
+                    context.save();
+                    context.translate(textX, textY);
+                    context.rotate(-Math.PI/2);
+                    context.fillStyle = "#000000";
+                    context.textAlign = "center";
+                    context.fillText(text, 0, 0);
+                    context.restore();
+                    */
                     context.fillStyle = "#000000";
                     context.textAlign = 'left';
-                    context.fillText(text, lineLeftOffset + 4, /*(scale.bottom - scale.top) / 2*/ + scale.top + 12);
+                    context.fillText(text, textX, textY);
                 }
             },
         
@@ -72,7 +93,7 @@ export class ChartsService {
 
 
 
-    public buildMinimalChart(dataValues: SatelliteDataValues)
+    public buildMinimalChart(dataValues: SatelliteDataValues, ctx)
     {
         console.log("Chats service: minimal chart construction starting...");
         var indices = [];
@@ -81,7 +102,7 @@ export class ChartsService {
 
         var obj = {
             type: 'line', // type of chart
-            data: this.buildData(dataValues),
+            data: this.buildData(dataValues, ctx),
             options: this.buildMinimalOptions(dataValues),
             markerIndices: indices,
             markerTitles: titles,
@@ -92,7 +113,7 @@ export class ChartsService {
     }
 
 
-    public buildExtendedChart(dataValues: SatelliteDataValues)
+    public buildExtendedChart(dataValues: SatelliteDataValues, ctx)
     {
         console.log("Chats service: extended chart construction starting...");
         var indices = [];
@@ -101,7 +122,7 @@ export class ChartsService {
 
         var obj = {
             type: 'line', // type of chart
-            data: this.buildData(dataValues),
+            data: this.buildData(dataValues, ctx),
             options: this.buildExtendedOptions(dataValues),
             markerIndices: indices,
             markerTitles: titles,
@@ -129,7 +150,7 @@ export class ChartsService {
 
 
 
-    private buildData(dataValues: SatelliteDataValues)
+    private buildData(dataValues: SatelliteDataValues, ctx)
     {
         console.log("Chats service building data...");
         var keys = []
@@ -149,14 +170,18 @@ export class ChartsService {
             keys.push(date.toDateString());
             values.push(keyValuePair.y);
         }
+
+        var gradient = ctx.createLinearGradient(0, 0, 0, 400);
+        gradient.addColorStop(0, 'rgba(252, 99, 122, 0.4)');
+        gradient.addColorStop(1, 'rgba(255, 255, 255, 0.2)');
     
         var data = {
             labels: keys,
             datasets: [{ // We can have several data sets for the same chart x axis
                 label: dataValues.dataCategory.name,
                 data: values,
-                backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: 'rgba(255, 99, 132, 1)',
+                backgroundColor: gradient, //'rgba(252, 99, 122, 0.4)', 
+                borderColor: 'rgba(255, 99, 122, 1)',
                 borderWidth: 2
             }]
         };
@@ -183,23 +208,23 @@ export class ChartsService {
                     ticks: {
                         autoSkip: true,
                         maxTicksLimit: 4
-                    },
-                    gridLines: {
-                        display:false
-                    }
+                    }//,
+                    //gridLines: {
+                        //display:false
+                    //}
                 }],
                 yAxes: [{
                     display: true,
                     scaleLabel: {
-                        display: true,
-                        labelString: dataValues.dataCategory.name
+                        display: true//,
+                        //labelString: dataValues.dataCategory.name
                     },
                     ticks: {
                         beginAtZero: true
-                    },
-                    gridLines: {
-                        display:false
-                    }
+                    }//,
+                    //gridLines: {
+                    //    display:false
+                    //}
                 }]
             },
 
@@ -248,8 +273,8 @@ export class ChartsService {
                 yAxes: [{
                     display: true,
                     ticks: {
-                        beginAtZero: true,
-                        display:false
+                        beginAtZero: true//,
+                    //    //display:false
                     },
                     gridLines: {
                         display:false
