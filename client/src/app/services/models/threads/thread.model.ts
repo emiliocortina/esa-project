@@ -16,18 +16,6 @@ export class Thread {
         this.category = category;
         this.initialPost = initialCoop;
         this.author = author;
-        /*
-        // TODO Cambiar esto q es pa los dummies
-        this.initialPost = new Post('0', textContent,
-            new User('emiliocortina', 'Emilio', 'emilio@email.com'), new Date());
-
-        // TODO remove dummy comments
-        for (let i = 0; i < 10; i++) {
-            this.initialPost.comments.push(new Post('0',
-                'Qué bacaneria es estar en el campo disfrutando y coriando con un corito sano.',
-                new User('emiliocortina' + i, 'Emilio' + i, 'emilio' + i + '@email.com'),
-                new Date()));
-        }*/
     }
 
     public getCoverImage(): string {

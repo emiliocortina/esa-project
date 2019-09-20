@@ -139,14 +139,27 @@ exports.findThreadsPaginatedByDateDescending = async (req, res, next) => {
 };
 
 
-exports.findThreadsByAuthorEmail = async (req, res, next) => {
-    // TODO paginar esta llamada
+exports.findThreadsPaginatedByAuthorEmail = async (req, res, next) => {
     const userEmail = req.query.email;
-    if(userEmail) {
-        const user = await User.findOne({email: userEmail}).exec();
+
+    if (userEmail) {
+        const user = await User.findOne({ email: userEmail }).exec();
         if (user) {
+            const sortAndFilterInfo = sortAndFilterService.parseHeader(req.query);
+
+            const sort = {};
+            if (sortAndFilterInfo.sortFields[0]) {
+                var key = sortAndFilterInfo.sortFields[0].key;
+                var order = sortAndFilterInfo.sortFields[0].order == PaginationModule.ASC ? 1 : -1;
+                sort[key] = order;
+            }
+
             const userId = user.id;
-            const threads = await Thread.find({author: userId})
+
+            const threads = await Thread.find({ author: userId })
+                .sort(sort)
+                .skip((sortAndFilterInfo.page_number - 1) * sortAndFilterInfo.page_elements)
+                .limit(sortAndFilterInfo.page_elements)
                 .exec()
                 .then(
                     (threads) => {
@@ -154,7 +167,7 @@ exports.findThreadsByAuthorEmail = async (req, res, next) => {
                         return;
                     },
                     (err) => {
-                        next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Bad data for the filter' + err));
+                        next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'Bad data for the filter'));
                         return;
                     }
                 );
@@ -163,5 +176,4 @@ exports.findThreadsByAuthorEmail = async (req, res, next) => {
         next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'No email specified'));
         return;
     }
-
 }
