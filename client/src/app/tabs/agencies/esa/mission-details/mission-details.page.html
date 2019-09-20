@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title *ngIf="mission">{{mission.name}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="mission">
+  <ion-img id="headerImage" src="{{mission.getCoverImageURL()}}"></ion-img>
+  <div class="headerContent">
+    <div class="titleAndIcon">
+      <ion-img id="missionIcon" src="{{mission.getIconURL()}}"></ion-img>
+      <div class="titleAndSubtitle">
+        <ion-card-title>{{mission.name}}</ion-card-title>
+        <ion-card-subtitle>Copernicus Program</ion-card-subtitle>
+      </div>
+    </div>
+
+    <ion-card-subtitle class="contentSubtitle">Satellite Overview</ion-card-subtitle>
+    <p *ngFor="let paragraph of mission.previewLabels">
+      {{paragraph}}
+    </p>
+
+    <ion-card-subtitle class="contentSubtitle">About the image</ion-card-subtitle>
+    <p *ngFor="let paragraph of mission.contentParagraphs">
+      {{paragraph}}
+    </p>
+
+  </div>
+
+</ion-content>
