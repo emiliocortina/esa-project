@@ -11,6 +11,10 @@ const routes: Routes = [
   {
     path: '',
     component: EsaPage
+  },
+  {
+    path: 'mission/:id',
+    loadChildren: './mission-details/mission-details.module#MissionDetailsPageModule'
   }
 ];
 

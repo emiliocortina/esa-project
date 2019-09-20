@@ -5,16 +5,12 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AgenciesPage } from './agencies.page';
+import { MissionDetailsPage } from './mission-details.page';
 
 const routes: Routes = [
   {
     path: '',
-    redirectTo: 'esa'
-  },
-  {
-    path: 'esa',
-    loadChildren: './esa/esa.module#EsaPageModule'
+    component: MissionDetailsPage
   }
 ];
 
@@ -25,6 +21,6 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes)
   ],
-  declarations: [AgenciesPage]
+  declarations: [MissionDetailsPage]
 })
-export class AgenciesPageModule {}
+export class MissionDetailsPageModule {}
