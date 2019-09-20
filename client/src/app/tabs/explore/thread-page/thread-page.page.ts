@@ -1,4 +1,4 @@
-import { Component, OnInit, OnChanges, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnChanges, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ThreadsService } from '../../../services/threads/threads.service';
 import { Thread } from '../../../services/models/threads/thread.model';
@@ -36,13 +36,11 @@ export class ThreadPage implements OnInit, OnChanges, OnDestroy {
             });
     }
 
-    ngOnChanges() {
-    }
+    ngOnChanges() { }
 
     ngOnDestroy() {
         this.routerSubscription.unsubscribe();
     }
-
 
     setThreadId(id: string) {
         this.threadId = id;

@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ThreadsService } from '../../services/threads/threads.service';
 import { Thread } from '../../services/models/threads/thread.model';
 import { CategoriesService } from '../../services/categories.service';
 import { Category } from '../../services/models/category.model';
 import { Router } from '@angular/router';
-import { ModalController, PopoverController, ToastController } from '@ionic/angular';
+import { ModalController, PopoverController, ToastController, IonInfiniteScroll } from '@ionic/angular';
 import { SettingsModal } from 'src/app/components/settings-modal/settings-modal.component';
 import { CategoriesPopover } from './categories-popover/categories-popover.component';
 import { StorageService } from 'src/app/services/authentication/storage.service';
@@ -16,6 +16,7 @@ import { CreatePostModalPage } from './create-post-modal/create-post-modal.page'
     styleUrls: ['explore.page.scss']
 })
 export class ExplorePage implements OnInit {
+    @ViewChild(IonInfiniteScroll) infiniteScroll: IonInfiniteScroll;
 
     page: number = 0;
     threads: Thread[];
@@ -25,6 +26,7 @@ export class ExplorePage implements OnInit {
     avatarId: string;
 
     elements = 10;
+    returned: number;
 
     constructor(
         private threadsService: ThreadsService,
@@ -109,7 +111,8 @@ export class ExplorePage implements OnInit {
 
     loadThreads(infiniteScroll?) {
         this.threadsService
-            .loadPopularThreads(this.threads, this.elements, this.page, (res) => {
+            .loadPopularThreads(this.threads, this.elements, this.page, (res: number) => {
+                this.returned = res;
                 if (infiniteScroll) {
                     infiniteScroll.complete();
                 }
@@ -117,7 +120,16 @@ export class ExplorePage implements OnInit {
     }
 
     loadMorePosts(infiniteScroll) {
-        this.page++;
-        this.loadThreads(infiniteScroll);
+        setTimeout(() => {
+            infiniteScroll.target.complete();
+
+            if (this.returned < this.elements) {
+                infiniteScroll.target.disabled = true;
+            } else {
+                this.page++;
+                this.loadThreads(infiniteScroll);
+            }
+
+        }, 500);
     }
 }
