@@ -36,7 +36,6 @@
             Featured
         </ion-list-header>
         <div class="threads">
-
             <ion-card *ngFor="let thread of threads" class="welcome-card" color="red">
                 <div (click)="readThread(thread.id)" *ngIf="thread != null">
                     <img src="{{thread.category.coverImageUrl}}" alt="" />
@@ -47,9 +46,7 @@
                     <ion-card-content>
                         <p>{{thread.getPreview()}}</p>
                     </ion-card-content>
-
                 </div>
-
             </ion-card>
 
             <ion-infinite-scroll (ionInfinite)="loadMorePosts($event)" loadingSpinner="bubbles">
