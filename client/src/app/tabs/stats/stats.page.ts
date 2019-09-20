@@ -141,7 +141,6 @@ export class StatsPage implements OnInit {
     private async updateData()
     {
         console.log("Calling updateData");
-        this.updateDataCount = 0;
 
         const loading = await this.loadingController.create({
             message: 'Getting data near your location...'
@@ -152,18 +151,21 @@ export class StatsPage implements OnInit {
             this.collectedData.pop();
 
         var categories = this.categoriesService.getCategories();
+        this.updateDataCount = categories.length;
 
         for (var i = 0; i < categories.length; i ++)
         {
             this.updateCategory(categories[i]);            
         }
-
-        // Wait for everything to load
-        while (this.updateDataCount < categories.length)
-            { /* Wait */ }
-
-        this.loadingController.dismiss();
     }
+
+    private requestLoadingDimiss()
+    {
+        this.updateDataCount --;
+        if (this.updateDataCount <= 0)
+            this.loadingController.dismiss();
+    }
+
 
     private async updateCategory(category: Category)
     {
@@ -175,7 +177,7 @@ export class StatsPage implements OnInit {
 
                 if (!res)
                 {
-                    this.updateDataCount ++;
+                    this.requestLoadingDimiss();
                     return;
                 }
 
@@ -201,11 +203,11 @@ export class StatsPage implements OnInit {
                 else {
                     console.error("Could not fetch data for category: " + category.name);
                 }
-                this.updateDataCount ++;
+                this.requestLoadingDimiss();
             },
             err => {
                 console.error(err);
-                this.updateDataCount ++;
+                this.requestLoadingDimiss();
             });
     }
 
