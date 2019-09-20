@@ -6,6 +6,7 @@ const morgan = require('morgan');
 const cors = require('cors');
 const errorServ = require('./services/error.service');
 const ramaniConfiguration = require('./config/ramaniConfig');
+const googleEarth = require('./config/googleEarthEngineConfig');
 
 const { mongoose } = require('./database');
 

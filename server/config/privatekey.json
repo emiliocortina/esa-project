@@ -1,0 +1,12 @@
+{
+	"type": "service_account",
+	"project_id": "ionic-esa-app",
+	"private_key_id": "52edee3a61f348a04cd5fef57800c495ce16a686",
+	"private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDxpJFp5BSoACRR\nmntEA0wVIbYvKDnqhFiDMvAzUTmjOZ/6vNEpe7fJTYNg16HVw0rD0kUjx7iOoEhj\nLZbFUq39K+JnexEtzodXOhIl5uUpITlmX2d4j92UK5UcXgZ6MOV01PxP3J5MdijK\nzgjzjBDUpqmEVHHRS3Y8JmnzXcctyBa3OHWcubGI1vIwTkW3zN1npZp0ojSTNp/K\nh3A2E5ZHGz4Cf6dbPP0qhU4uL+Z6O2XnuJW4knECnhGn0jobnf8fXMP5RY/LtJrR\nPAnCuuk+fQeDL/GiAYmtA8M6X8CtyadrDnw846tEh2SBW53h3fqAaugCqJndyYh2\ndN8ihGJlAgMBAAECgf9TED7sJ3ryRRo28uNsfbWpje0SSMGf296ROvFWspUdhrF3\nf3Bm0iBbEkoXAAihcoBA0Ab0RbMrU+2OKh2ptsIYRP2OlL9S/6uGUG/sl3IusT0J\n88Gdr9Z7GIApQCj519UIVC5nRW8k2XksPabWEU+3yZJ76os1Zrs98fZ5scLF+VbV\nqEFWG+Ycqarw0Or4OQw2brAi8Cl3TZctXMTRukk1dUJY/SZ2RwN55mAGnKu8xKKt\n1A9XtMm4azgb0ICt1NxBUVOxrboZtuR/88rEE1oD5fFX8H2h5CYtm7DfRJaP+7uy\nalt0c4sUKzB6+HXZRgOYH3SjYUb2OeYy4OYjIgECgYEA+uIMe9Ku6pqV8BeCiUwe\n+ByUDn+OrPomyvup52qEFyThG4X6NCk8rNcE6fp+YbweUSbJpSSfz8AbHgBE8H8q\noT18yYohU9JTG70isLNDOK3IzpROXDV2W7QHcvg3OpI8RKRMRPyricgVIhnTHNys\n8WPcu/zW1qKDdzWNDGqas/ECgYEA9pJF5XG1uqbNSRGR9znQwR4JG8HM1+Bvqq8A\nmbipX1GEaN61dMrwYn9ju7DSZqKnof+VhHG4EXkuw5MXJUQ0tOcs1JTxjhJHVbpe\nUScgEzXLngxQnHzjFn+CgzmNAMhvb1fH4Fr1OiAxerK0UBdrndwoNXHvGYKJYXjT\nLNq6ubUCgYEA7H49qlNV04zZHjPrNyVsZBH8dxZDFkfQXbOR27WKwo5fLKTE0Hq2\n2W7vEOiyTcsZAQKBPo0hoKLEbSlv0wzs0IW3pfvxoqQ294T4uHyjN0CKdEFVBJLY\n+WThSL02wp2q9kGyK63KvdzAHx8c5K4Y0IuEPij/E+Cp8KuoRDYRkuECgYAQmHnB\n3qxnmrB4eYlEhYyqYtYkGyApa364kzzMG+SyeK8by9mUudACISbaTCVtKQd1XNl4\nZ5sG+gwOt8i4BmYxwtl+mWPEtzA78eZFOgfroxRIV/XZAoLaUcy7/lSiN9tgOB1I\n2XZl6iLKalq+hUUGA/pk1n1MTz/l4pb8DuDAfQKBgQCubySJGowBJ/uiu4s2uf6Q\nuR0RFulx/3WHkCNha4Fx1Tqi5cvSPEaSJWt7Y/isUbnLbSCFqgFgOovxuFFeV44O\n7Tp7Q9dNvIDBbgXbT+HbAWZeyomdNSSmUGuBdW1utRRCYPZ9VH6Kwp7Aeq00bqFy\nw8ehU9j0Ez4yfbQY9EiUAQ==\n-----END PRIVATE KEY-----\n",
+	"client_email": "esa-gogle-maps@ionic-esa-app.iam.gserviceaccount.com",
+	"client_id": "101904624759945822480",
+	"auth_uri": "https://accounts.google.com/o/oauth2/auth",
+	"token_uri": "https://oauth2.googleapis.com/token",
+	"auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+	"client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/esa-gogle-maps%40ionic-esa-app.iam.gserviceaccount.com"
+}
