@@ -114,7 +114,7 @@ export class ExplorePage implements OnInit {
             .loadPopularThreads(this.threads, this.elements, this.page, (res: number) => {
                 this.returned = res;
                 if (infiniteScroll) {
-                    infiniteScroll.complete();
+                    infiniteScroll.target.complete();
                 }
             });
     }
@@ -129,7 +129,6 @@ export class ExplorePage implements OnInit {
                 this.page++;
                 this.loadThreads(infiniteScroll);
             }
-
         }, 500);
     }
 }
