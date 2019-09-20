@@ -12,6 +12,7 @@
 	"dependencies": {
 		"bcrypt": "^3.0.6",
 		"cors": "^2.8.5",
+		"date-and-time": "^0.10.0",
 		"express": "^4.17.1",
 		"express-bearer-token": "^2.4.0",
 		"jwt-simple": "^0.5.6",
@@ -20,6 +21,8 @@
 		"mongoose-dateonly": "^1.0.6",
 		"morgan": "^1.9.1",
 		"node-color-log": "^2.2.0",
-		"ramani": "^1.0.18"
+		"ramani": "^1.0.18",
+		"random-id": "^1.0.3",
+		"tiff-to-png": "^2.0.1"
 	}
 }
