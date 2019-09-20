@@ -45,18 +45,21 @@
             Featured
         </ion-list-header>
         <div class="threads">
-            <ion-card *ngFor="let thread of threads" class="welcome-card" color="red">
-                <div (click)="readThread(thread.id)" *ngIf="thread != null">
-                    <img src="{{thread.category.coverImageUrl}}" alt="" />
-                    <ion-card-header>
-                        <ion-card-subtitle>{{thread.category.name}}</ion-card-subtitle>
-                        <ion-card-title>{{thread.title}}</ion-card-title>
-                    </ion-card-header>
-                    <ion-card-content>
-                        <p>{{thread.getPreview()}}</p>
-                    </ion-card-content>
-                </div>
-            </ion-card>
+            <div class="thread" *ngFor="let thread of threads">
+                <ion-card class="welcome-card" routerLink="{{'/thread/' + thread.id}}">
+                    <div *ngIf="thread != null">
+                        <img src="{{thread.category.coverImageUrl}}" alt="" />
+                        <ion-card-header>
+                            <ion-card-subtitle>{{thread.category.name}}</ion-card-subtitle>
+                            <ion-card-title>{{thread.title}}</ion-card-title>
+                        </ion-card-header>
+                        <ion-card-content>
+                            <p>{{thread.getPreview()}}</p>
+                        </ion-card-content>
+                    </div>
+                </ion-card>
+            </div>
+
 
             <ion-infinite-scroll (ionInfinite)="loadMorePosts($event)" loadingSpinner="bubbles">
                 <ion-infinite-scroll-content></ion-infinite-scroll-content>

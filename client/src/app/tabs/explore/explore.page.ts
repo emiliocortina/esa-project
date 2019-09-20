@@ -105,10 +105,6 @@ export class ExplorePage implements OnInit {
         this.router.navigate(['/search']);
     }
 
-    readThread(id: string) {
-        this.router.navigate(['/thread', id]);
-    }
-
     loadThreads(infiniteScroll?) {
         this.threadsService
             .loadPopularThreads(this.threads, this.elements, this.page, (res: number) => {

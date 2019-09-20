@@ -13,7 +13,7 @@ import { StorageService } from './authentication/storage.service';
 	providedIn: 'root'
 })
 export class ApiService {
-	urlLit = 'http://localhost:3000/';
+	urlLit = 'http://172.20.10.2:3000/';
 	serverError: string;
 
 	public expired = new BehaviorSubject<boolean>(false); // observable para en caso de error de sesion
