@@ -3,7 +3,12 @@ const tokenServ = require('../services/token.service');
 const SatelliteRequestDto = require('./../models/rawSatelliteDataRequestObject').SatelliteRequestDto;
 const errorServ = require('../services/error.service');
 const ramani = require('ramani');
-
+const https = require('https');
+const date = require('date-and-time');
+var fs = require('fs');
+request = require('request');
+var randomId = require('random-id');
+var path = require('path');
 exports.handleDatasetCall = async (req, res, next) => {
 	let url = req.ramaniDataset;
 	let satRequestDto = SatelliteRequestDto.parseRequest(req.query);
@@ -171,6 +176,7 @@ exports.handleLayerCall = async (req, res, next) => {
 	return;
 };
 
+<<<<<<< HEAD
 exports.getZoneMap = async (req, res, next) => {
 	let satRequestDto = SatelliteRequestDto.parseRequest(req.query);
 	let lon = satRequestDto.longitude;
@@ -200,4 +206,56 @@ exports.getZoneMap = async (req, res, next) => {
 			return;
 		}
 	);
+=======
+exports.generateMap = async (req, res, next) => {
+	const len = 30;
+	const pattern = 'aA0';
+
+	const id = randomId(len, pattern);
+
+	var download = function(uri, filename, callback) {
+		request.head(uri, function(err, res, body) {
+			request(uri).pipe(fs.createWriteStream(filename)).on('close', callback);
+		});
+	};
+
+	let centerLongitude = parseFloat(req.query.longitude);
+	let centerLatitude = parseFloat(req.query.latitude);
+	let endDate = new Date();
+	let startDate = date.addDays(endDate, -8);
+
+	let bboxString = `${centerLongitude - 0.2},${centerLatitude - 0.07},${centerLongitude + 0.2},${centerLatitude +
+		0.07}`;
+	try {
+		download(
+			`https://ramani.ujuizi.com/cloud/getimage?token=bun99q5ti8js3m7aptmnckcrg4&user=emiliocortina2&WIDTH=540&HEIGHT=304&BBOX=${bboxString}&FILENAME=image.tiff&TIME=${startDate.toISOString()}/${endDate.toISOString()}/P1D&cloudinnes=80&FORMAT=image/png`,
+			`./images/satellite/optic/${id}.png`,
+			function() {
+				let pathResolved = path.resolve(__dirname, `../images/satellite/optic/${id}.png`);
+				res.setHeader('attachment', `${id}.png`);
+				res.sendFile(pathResolved);
+				return;
+			}
+		);
+	} catch (err) {
+		next(
+			errorServ.buildError(
+				req.url,
+				HttpStatus.BAD_REQUEST,
+				'bad_data',
+				'Error obtaining the map for the location'
+			)
+		);
+		return;
+	}
+};
+exports.getMap = async (req, res, next) => {
+	let id = req.params.image;
+	let pathResolved = path.resolve(__dirname, `../images/satellite/optic/${id}`);
+	res.sendFile(pathResolved, null, function(err) {
+		next(errorServ.buildError(req.url, HttpStatus.NOT_FOUND, 'map_not_found', "The map doesn't exist"));
+		return;
+	});
+	return;
+>>>>>>> 7b181b080493edc80fd086c4a4bab358ef5689e2
 };

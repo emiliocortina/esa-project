@@ -20,6 +20,7 @@ exports.createCoop = async (req, res, next) => {
 			return;
 		});
 };
+
 exports.getCoop = async (req, res, next) => {
 	const id = req.params.id;
 	let coop = await Coop.findById(id).populate('children');;

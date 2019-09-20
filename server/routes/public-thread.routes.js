@@ -20,6 +20,6 @@ const ctrl = require('../controllers/thread.controller');
  */
 router.get('/thread/:id', ctrl.findThreadById);
 router.get('/threadsByDate', ctrl.findThreadsPaginatedByDateDescending);
-router.get('/threadsByAuthorEmail', ctrl.findThreadsByAuthorEmail);
+router.get('/threadsByAuthorEmail', ctrl.findThreadsPaginatedByAuthorEmail);
 
 module.exports = router;

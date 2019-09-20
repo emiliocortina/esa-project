@@ -21,7 +21,14 @@
 
 <ion-content fullscreen="true">
 
-
+    <ion-row justify-content-center align-items-center>
+        <ion-button shape="round" id="patreonBtn" fill="solid" color="secondary"
+            href="https://www.patreon.com/bePatron?u=24674213" data-patreon-widget-type="become-patron-button">
+            <ion-label>
+                Please donate!
+            </ion-label>
+        </ion-button>
+    </ion-row>
 
     <ion-list>
         <ion-list-header>
@@ -32,15 +39,15 @@
             <ion-icon slot="start" color="medium" src="{{ currentCategory.iconUrl }}"></ion-icon>
             <ion-label>{{ currentCategory.name }}</ion-label>
         </ion-item>
+
+        <!--<script async src="https://c6.patreon.com/becomePatronButton.bundle.js"></script>-->
         <ion-list-header>
             Featured
         </ion-list-header>
         <div class="threads">
-
             <ion-card *ngFor="let thread of threads" class="welcome-card" color="red">
                 <div (click)="readThread(thread.id)" *ngIf="thread != null">
-
-                    <img src="{{thread.getCoverImage()}}" alt="" />
+                    <img src="{{thread.category.coverImageUrl}}" alt="" />
                     <ion-card-header>
                         <ion-card-subtitle>{{thread.category.name}}</ion-card-subtitle>
                         <ion-card-title>{{thread.title}}</ion-card-title>
@@ -48,9 +55,7 @@
                     <ion-card-content>
                         <p>{{thread.getPreview()}}</p>
                     </ion-card-content>
-
                 </div>
-
             </ion-card>
 
             <ion-infinite-scroll (ionInfinite)="loadMorePosts($event)" loadingSpinner="bubbles">
