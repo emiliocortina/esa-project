@@ -53,7 +53,7 @@ export class ThreadsService {
 
     public async loadThreads(filter, list: Thread[], elements: number, page: number, callback) {
         const params = { page_elements: elements, page_number: page + 1, sort_by: 'timestamp(DES)', filter_by: filter };
-        this.apiService.request('api/threads', 'get', params, null).subscribe(async (threads: any[]) => {
+        this.apiService.request('api/threadsByDate', 'get', params, null).subscribe(async (threads: any[]) => {
             let remaining = threads.length;
             let temp: Thread[] = [];
             for (let i = 0; i < threads.length; i++) {

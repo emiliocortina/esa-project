@@ -1,5 +1,5 @@
-import {Injectable} from '@angular/core';
-import {SatelliteData} from './models/satellite-data/satellite-data.model';
+import { Injectable } from '@angular/core';
+import { SatelliteData } from './models/satellite-data/satellite-data.model';
 import { DataCategory } from './models/satellite-data/data-category.model';
 import { SatelliteDataValues } from './models/satellite-data/satellite-data-values.model';
 import { Category } from './models/category.model';
@@ -13,8 +13,7 @@ import { MarkersService } from './markers.service';
 })
 export class SatelliteService {
 
-    constructor(private apiService: ApiService, private markersService: MarkersService)
-    {
+    constructor(private apiService: ApiService, private markersService: MarkersService) {
     }
 
 
@@ -24,20 +23,13 @@ export class SatelliteService {
      * @param category 
      * @param callback Callback to an object with start and end dates.
      */
-    public async getAvailableDates(category: Category, callback, error)
-    {
+    public async getAvailableDates(category: Category, callback, error) {
         this.apiService.request("api/satellite/" + category.apiRoute + "/dates", "get")
             .subscribe(res => callback(res), err => error(err));
     }
-    
 
-
-
-
-
-    public async fetchSatelliteData(latitude: number, longitude: number, 
-            start: Date, end: Date, category: Category) : Promise<SatelliteData>
-    {
+    public async fetchSatelliteData(latitude: number, longitude: number,
+        start: Date, end: Date, category: Category): Promise<SatelliteData> {
         console.log("Fetching satellite data");
 
         var params = new HttpParams()
@@ -45,14 +37,13 @@ export class SatelliteService {
             .set("longitude", "" + longitude)
             .set("start", start.toISOString())
             .set("end", end.toISOString());
-        
+
         // TODO call to api/satellite/"category", instead of "ozone"
         try {
             var promise = this.apiService.request("api/satellite/" + category.apiRoute, "get", params).toPromise();
             var res = await promise;
         }
-        catch (err)
-        {
+        catch (err) {
             console.error(err.error);
             return undefined;
         }
@@ -76,13 +67,11 @@ export class SatelliteService {
             ]
         }
     */
-    private processSatelliteData(res, latitude: number, longitude: number, 
-            start: Date, end: Date, category: Category)
-    {
-        var valuesArray : SatelliteDataValues[] = [];
+    private processSatelliteData(res, latitude: number, longitude: number,
+        start: Date, end: Date, category: Category) {
+        var valuesArray: SatelliteDataValues[] = [];
 
-        for (var i = 0; i < res.length; i ++)
-        {
+        for (var i = 0; i < res.length; i++) {
             var cat = new DataCategory(res[i].unit, category);
             var markers: DataMarker[] = this.markersService.getInRange(start, end);
 
@@ -91,11 +80,11 @@ export class SatelliteService {
             var values = new SatelliteDataValues(start, end, func, cat, markers, res[i].dataPack);
             valuesArray.push(values);
         }
-        
+
         var data = new SatelliteData(category.name, latitude, longitude, start, end, valuesArray);
         return data;
     }
 
 
-    
+
 }
