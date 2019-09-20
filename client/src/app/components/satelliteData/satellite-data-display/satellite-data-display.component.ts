@@ -48,7 +48,7 @@ export class SatelliteDataDisplay implements OnInit
 
   public displayChart(values: SatelliteDataValues)
   {
-    console.log("SatelliteDataDisplay with Chart");
+    console.log("SatelliteDataDisplay with Chart. Extended = " + this.isExtended);
     this.chart.setDataValues(values, this.isExtended);
     this.showChart = true;
     this.showPlainValues= false;

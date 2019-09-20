@@ -37,6 +37,10 @@ export class StatsPage implements OnInit {
     endDate: Date;
 
 
+    // Used to keep the percentage of data loaded
+    private updateDataCount = 0;
+
+
 
     constructor(
         private categoriesService: CategoriesService,
@@ -147,21 +151,69 @@ export class StatsPage implements OnInit {
             this.collectedData.pop();
 
         var categories = this.categoriesService.getCategories();
+        this.updateDataCount = categories.length;
 
         for (var i = 0; i < categories.length; i ++)
         {
-            var data = await this.satelliteService.fetchSatelliteData(
-                    this.locationLatitude, 
-                    this.locationLongitude, 
-                    new Date("2006-07-01"), // TODO change!!!!!
-                    new Date("2006-07-31"),
-                    categories[i]
-                );
-            this.collectedData.push(data);
+            this.updateCategory(categories[i]);            
         }
-
-        this.loadingController.dismiss();
     }
+
+    private requestLoadingDimiss()
+    {
+        this.updateDataCount --;
+        if (this.updateDataCount <= 0)
+            this.loadingController.dismiss();
+    }
+
+
+    private async updateCategory(category: Category)
+    {
+        this.satelliteService.getAvailableDates(category, 
+            async res => {
+
+                console.log("DATES FETCHED FOR " + category.name);
+                console.log(res);
+
+                if (!res)
+                {
+                    this.requestLoadingDimiss();
+                    return;
+                }
+
+                console.log("Now let's fetch satellite data");
+
+                //var dateOffset = (24*60*60*1000) * 20; //5 days
+                var start = new Date(res.start);
+                var end = new Date(res.end);
+
+                //if (end.getTime() - start.getTime() > dateOffset)
+                //    start.setTime( end.getTime() - dateOffset);
+
+                var data = await this.satelliteService.fetchSatelliteData(
+                        this.locationLatitude, 
+                        this.locationLongitude, 
+                        start,
+                        end,
+                        category
+                    );
+                if (data) {
+                    this.collectedData.push(data);
+                }
+                else {
+                    console.error("Could not fetch data for category: " + category.name);
+                }
+                this.requestLoadingDimiss();
+            },
+            err => {
+                console.error(err);
+                this.requestLoadingDimiss();
+            });
+    }
+
+
+
+
 
 
     /**
@@ -196,7 +248,8 @@ export class StatsPage implements OnInit {
         const modal = await this.modalController.create({
             component: StatsDetailsPage,
             componentProps: {
-                data: data
+                data: data,
+                locationName: this.locationName
             }
         });
         modal.onDidDismiss().then((detail) => {

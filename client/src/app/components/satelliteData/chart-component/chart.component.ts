@@ -52,12 +52,20 @@ export class ChartComponent implements OnInit
     console.log("ChartComponent building chart...");
 
     var ctx = document.getElementById("chart");
+    
+    var canvas : any = document.getElementById("chart");
+    var ctx2d = canvas.getContext("2d");
+
     console.log(ctx);
 
     var chartObj;
     if (this.isExtended)
     {
-      chartObj = this.chartsService.buildExtendedChart(this.dataValues);
+      chartObj = this.chartsService.buildExtendedChart(this.dataValues, ctx2d);
+    }
+    else 
+    {
+      chartObj = this.chartsService.buildMinimalChart(this.dataValues, ctx2d);
     }
 
     this.chart = new Chart(ctx, chartObj);
