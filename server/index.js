@@ -24,7 +24,7 @@ app.use(
 );
 
 //Routes
-
+app.use('/feedback', require('./routes/feedback.routes'));
 app.use('/auth', require('./routes/users.routes.js'));
 
 //public api ************************************************

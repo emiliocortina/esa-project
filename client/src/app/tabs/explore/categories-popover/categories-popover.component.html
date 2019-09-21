@@ -1,21 +1,27 @@
 <ion-item-group>
 
-    <ion-list class="categoriesList" lines="none">
-      <ion-list-header class="unselectableText">
-        <ion-list-header>All categories</ion-list-header>
-      </ion-list-header>
+  <ion-list class="categoriesList" lines="none">
+    <ion-list-header class="unselectableText">
+      <ion-list-header>All categories</ion-list-header>
+    </ion-list-header>
 
-      <ion-item *ngFor="let cat of cooperCategories" (click)="selectCategory(cat)" button>
-        <ion-icon slot="start" color="medium" src="{{ cat.iconUrl }}"></ion-icon>
-        <ion-label>{{ cat.name }}</ion-label>
-      </ion-item>
-    </ion-list>
+    <ion-item (click)="noFilter()" button>
+      <ion-icon slot="start" color="medium" name="star"></ion-icon>
+      <ion-label>Featured</ion-label>
+    </ion-item>
+    <ion-item *ngFor="let cat of cooperCategories" (click)="selectCategory(cat)" button>
+      <ion-icon slot="start" color="medium" src="{{ cat.iconUrl }}"></ion-icon>
+      <ion-label>{{ cat.name }}</ion-label>
+    </ion-item>
+  </ion-list>
 
-    <ion-list class="categoriesList" lines="none">
-      <ion-list-header class="unselectableText">
-          <ion-list-header>Followed Categories</ion-list-header>
-      </ion-list-header>
-      <ion-item button><ion-label>TBD</ion-label></ion-item>
-    </ion-list>
+  <ion-list class="categoriesList" lines="none">
+    <ion-list-header class="unselectableText">
+      <ion-list-header>Followed Categories</ion-list-header>
+    </ion-list-header>
+    <ion-item button>
+      <ion-label>TBD</ion-label>
+    </ion-item>
+  </ion-list>
 
 </ion-item-group>

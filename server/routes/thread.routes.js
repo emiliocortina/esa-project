@@ -22,6 +22,6 @@ router.post('/thread', ctrl.createThread);
 router.get('/thread/:id', ctrl.findThreadById);
 router.patch('/thread/:id', ctrl.modifyThread);
 router.delete('/thread/:id', ctrl.deleteThread);
-router.get('/threadsByDate', ctrl.findThreadsPaginatedByDateDescending);
+router.get('/threadsByDate', ctrl.findThreadsPaginated);
 
 module.exports = router;

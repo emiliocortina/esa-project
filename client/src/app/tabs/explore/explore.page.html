@@ -36,7 +36,9 @@
         </ion-list-header>
         <ion-item *ngIf="currentCategory" (click)="openCategoryPopup()" class="categoriesList" lines="none" button>
             <ion-ripple-effect></ion-ripple-effect>
-            <ion-icon slot="start" color="medium" src="{{ currentCategory.iconUrl }}"></ion-icon>
+            <ion-icon *ngIf="currentCategory.iconUrl===''" slot="start" color="medium" name="star"></ion-icon>
+            <ion-icon *ngIf="currentCategory.iconUrl!=''" slot="start" color="medium"
+                src="{{ currentCategory.iconUrl }}"></ion-icon>
             <ion-label>{{ currentCategory.name }}</ion-label>
         </ion-item>
 
@@ -54,7 +56,7 @@
                             <ion-card-title>{{thread.title}}</ion-card-title>
                         </ion-card-header>
                         <ion-card-content>
-                            <p>{{thread.getPreview()}}</p>
+                            <p style="white-space: pre-wrap;">{{thread.getPreview()}}</p>
                         </ion-card-content>
                     </div>
                 </ion-card>
