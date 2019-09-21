@@ -35,21 +35,21 @@ exports.parseHeader = function (params) {
     }
 
     const filter_by_raw = params.filter_by;
-    if(filter_by_raw) {
+    console.log(filter_by_raw);
+    if (filter_by_raw) {
         var filterFieldsObject = {};
         const filterByFieldsRaw = filter_by_raw.split(',');
         filterByFieldsRaw.forEach((field) => {
-                const splitted = field.split(/[()]/);
-                console.log('Filtersss splitted\n');
-                console.log(splitted);
-                if (splitted.length == 1) {
-                    //no viene valor del filtro, skip
-                } else {
-                    const key = splitted[0];
-                    const value = splitted[1];
-                    filterFieldsObject[key] = value;
-                }
+            const splitted = field.split(/[()]/);
+            //Format nombre(valor)
+            if (splitted.length == 1) {
+                //no viene valor del filtro, skip
+            } else {
+                const key = splitted[0];
+                const value = splitted[1];
+                filterFieldsObject[key] = value;
             }
+        }
         );
     }
 

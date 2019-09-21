@@ -18,16 +18,18 @@ export class ChartsService {
     private setUpMarkersPlugin()
     {
         var plugin = {
-            getLinePosition: function (chart, pointIndex) {
+            getLinePosition: function (chart, pointPercent) {
                 const meta = chart.getDatasetMeta(0); // first dataset is used to discover X coordinate of a point
                 const data = meta.data;
-                var pointData = data[pointIndex];
-                if (pointData)
-                    return data[pointIndex]._model.x;
-                return 0;
+
+                var start = data[0]._model.x;
+                var end = data[data.length-1]._model.x;
+                var value = start + (end - start) * pointPercent;
+
+                return value;
             },
-            renderVerticalLine: function (chartInstance, pointIndex, text, isExtended) {
-                const lineLeftOffset = this.getLinePosition(chartInstance, pointIndex);
+            renderVerticalLine: function (chartInstance, pointPercent, text, isExtended) {
+                const lineLeftOffset = this.getLinePosition(chartInstance, pointPercent);
                 const scale = chartInstance.scales['y-axis-0'];
                 const context = chartInstance.chart.ctx;
         
@@ -67,16 +69,16 @@ export class ChartsService {
         
             afterDatasetsDraw: function (chart, easing)
             {
-                if (chart.config.markerIndices)
+                if (chart.config.markerPercents)
                 {
-                    for (var i = 0; i < chart.config.markerIndices.length; i ++)
+                    for (var i = 0; i < chart.config.markerPercents.length; i ++)
                     {
-                        var index = chart.config.markerIndices[i];
+                        var percent = chart.config.markerPercents[i];
                         var text = "";
                         if (chart.config.markerTitles)
                             text = chart.config.markerTitles[i];
 
-                        this.renderVerticalLine(chart, index, text, chart.config.isExtended);
+                        this.renderVerticalLine(chart, percent, text, chart.config.isExtended);
                     }
                 }
             }
@@ -96,15 +98,15 @@ export class ChartsService {
     public buildMinimalChart(dataValues: SatelliteDataValues, ctx)
     {
         console.log("Chats service: minimal chart construction starting...");
-        var indices = [];
+        var percents = [];
         var titles = [];
-        this.buildMarkers(dataValues, indices, titles);
+        this.buildMarkers(dataValues, percents, titles);
 
         var obj = {
             type: 'line', // type of chart
             data: this.buildData(dataValues, ctx),
             options: this.buildMinimalOptions(dataValues),
-            markerIndices: indices,
+            markerPercents: percents,
             markerTitles: titles,
             isExtended: false
           };
@@ -116,15 +118,15 @@ export class ChartsService {
     public buildExtendedChart(dataValues: SatelliteDataValues, ctx)
     {
         console.log("Chats service: extended chart construction starting...");
-        var indices = [];
+        var percents = [];
         var titles = [];
-        this.buildMarkers(dataValues, indices, titles);
+        this.buildMarkers(dataValues, percents, titles);
 
         var obj = {
             type: 'line', // type of chart
             data: this.buildData(dataValues, ctx),
             options: this.buildExtendedOptions(dataValues),
-            markerIndices: indices,
+            markerPercents: percents,
             markerTitles: titles,
             isExtended: true
           };
@@ -133,17 +135,17 @@ export class ChartsService {
     }
 
 
-    private buildMarkers(dataValues: SatelliteDataValues, indices, titles)
+    private buildMarkers(dataValues: SatelliteDataValues, percents, titles)
     {
         for (var i = 0; i < dataValues.markers.length; i ++)
         {
             var marker = dataValues.markers[i];
             var percent = (marker.date.getTime() - dataValues.start.getTime()) / (dataValues.end.getTime() - dataValues.start.getTime());
 
-            if (percent < 0 || percent >= 1)
+            if (percent < 0 || percent > 1)
                 continue;
 
-            indices.push(Math.round(percent * dataValues.keyValuePairs.length));
+            percents.push(percent);
             titles.push(marker.name);
         }
     }

@@ -21,12 +21,14 @@ export class ExplorePage implements OnInit {
     page: number = 0;
     threads: Thread[];
 
-    currentCategory: Category;
+    currentCategory: any;
     categoriesToggle: boolean;
     avatarId: string;
 
     elements = 10;
     returned: number;
+
+    filter = {};
 
     constructor(
         private threadsService: ThreadsService,
@@ -37,8 +39,7 @@ export class ExplorePage implements OnInit {
         private userService: StorageService,
         private toastController: ToastController
     ) {
-
-        this.currentCategory = this.categoriesService.getDefaultCategory();
+        this.currentCategory = { iconUrl: "", name: "Featured" };
     }
 
     ngOnInit(): void {
@@ -98,6 +99,17 @@ export class ExplorePage implements OnInit {
         return this.categoriesToggle;
     }
 
+    changeFilter(categoryName) {
+        this.filter = 'category(' + categoryName + ')';
+        this.threads = [];
+        this.loadThreads();
+    }
+
+    deleteFilter() {
+        this.filter = {};
+        this.threads = [];
+        this.loadThreads();
+    }
 
     // = = = = = = = = = = = = THREADS = = = = = = = = = = = = //
 
@@ -107,7 +119,7 @@ export class ExplorePage implements OnInit {
 
     loadThreads(infiniteScroll?) {
         this.threadsService
-            .loadPopularThreads(this.threads, this.elements, this.page, (res: number) => {
+            .loadThreads(this.filter, this.threads, this.elements, this.page, (res: number) => {
                 this.returned = res;
                 if (infiniteScroll) {
                     infiniteScroll.target.complete();

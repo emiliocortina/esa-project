@@ -74,11 +74,11 @@ export class CreatePostModalPage implements OnInit {
       text: this.postBody
     })).subscribe(async (res: any) => {
       let id = res.id;
-      console.log(this.threadsService.createThread(new ThreadObject({
+      this.threadsService.createThread(new ThreadObject({
         title: this.postTitle,
         category: this.selectedCategory,
         head: id
-      })));
+      }));
 
       this.generateToast("Thread successfully created!", 'success');
 

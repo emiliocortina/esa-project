@@ -12,21 +12,21 @@ import { User } from '../models/users/user';
 })
 export class ThreadsService {
 	constructor(private categoriesService: CategoriesService,
-		private apiService: ApiService,
-		private userService: StorageService) { }
+		           private apiService: ApiService,
+		           private userService: StorageService) { }
 
 
 	public getThread(id: string, res, err): void {
 		this.apiService.request('api/thread/' + id, 'get', null, null).subscribe((t: any) => {
 			this.apiService.request('auth/user/' + t.author, 'get', null, null).subscribe(async (user: any) => {
-				let coop = t.head;
-				let u = new User(user.nickName, user.name, user.email);
-				let post = new Post(coop._id, coop.text, u, new Date(coop.timestamp));
+				const coop = t.head;
+				const u = new User(user.nickName, user.name, user.email);
+				const post = new Post(coop._id, coop.text, u, new Date(coop.timestamp));
 
-				let comentarios: any[] = coop.children;
+				const comentarios: any[] = coop.children;
 				await this.populateCoop(comentarios, post);
 
-				let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category),
+				const obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category),
 					post, u);
 				res(obj);
 			});
@@ -34,13 +34,13 @@ export class ThreadsService {
 	}
 
 	private populateCoop(comentarios: any[], coop: Post) {
-		let temp: Post[] = [];
+		const temp: Post[] = [];
 		let remaining = comentarios.length;
 		for (let i = 0; i < comentarios.length; i++) {
-			let c = comentarios[i];
+			const c = comentarios[i];
 			this.apiService.request('api/coop/' + c, 'get', null, null).subscribe((comment: any) => {
 				this.apiService.request('auth/user/' + comment.author, 'get', null, null).subscribe((childUser: any) => {
-					let user = new User(childUser.nickName, childUser.name, childUser.email);
+					const user = new User(childUser.nickName, childUser.name, childUser.email);
 					temp[i] = new Post(comment._id, comment.text, user, new Date(comment.timestamp));
 					remaining--;
 					if (remaining == 0) {
@@ -51,8 +51,8 @@ export class ThreadsService {
 		}
 	}
 
-	public async loadPopularThreads(list: Thread[], elements: number, page: number, callback) {
-		const params = { page_elements: elements, page_number: page + 1, sort_by: 'timestamp(DES)' };
+	public async loadThreads(filter, list: Thread[], elements: number, page: number, callback) {
+		const params = { page_elements: elements, page_number: page + 1, sort_by: 'timestamp(DES)', filter_by: filter };
 		this.apiService.request('api/threadsByDate', 'get', params, null).subscribe(async (threads: any[]) => {
 			let remaining = threads.length;
 			let temp: Thread[] = [];
@@ -104,35 +104,7 @@ export class ThreadsService {
 					}
 				);
 			}
-
-			/* threads.forEach((t) => {
-                this.apiService.request('api/coop/' + t.head, 'get', null, null).subscribe((coop: any) => {
-                    this.apiService.request('auth/user/' + t.author, 'get', null, null).subscribe((user: any) => {
-                        let u = new User(user.nickName, user.name, user.email);
-                        let post = new Post(coop._id, coop.text, u, coop.timestamp);
-                        let obj = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), post, u);
-                        list.push(obj);
-                    });
-                });
-            }); */
 		});
-	}
-
-	/*
-    private processTopics(topics: Topic[], res: any) {
-        for (const topic of res.topics) {
-            topics.push(new Topic(topic.title, topic.category.name, topic.teaser.content));
-        }
-    }*/
-
-	// TODO Remove dummies
-	private async addAsyncDummy(list: Thread[], topic: Thread) {
-		await this.timeout(1000);
-		list.push(topic);
-	}
-
-	private timeout(ms) {
-		return new Promise(resolve => setTimeout(resolve, ms));
 	}
 
 	createThread(threadObject: ThreadObject) {
