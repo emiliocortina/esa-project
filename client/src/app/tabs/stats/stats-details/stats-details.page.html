@@ -10,24 +10,21 @@
 </ion-header>
 
 <ion-content>
-
-    <ion-grid>
-
         <ion-row class="dateSelectionRow">
-            
+
             <ion-item-group class="datePickersDiv">
-                
+
                 <ion-item class="datePicker">
                     <ion-icon slot="end" name="calendar" (click)="pickStartDate()" style="margin-left: 8px;"></ion-icon>
                     <ion-label>Start date:</ion-label>
-                    <ion-input 
-                        placeholder="dd-mm-yyyy" 
-                        debounce="500"
-                        inputmode="text"
-                        maxlength="10"
-                        minlength="10"
-                        [(ngModel)]="startDateText" 
-                        (ionChange)="onStartDateChange()">
+                    <ion-input
+                            placeholder="dd-mm-yyyy"
+                            debounce="500"
+                            inputmode="text"
+                            maxlength="10"
+                            minlength="10"
+                            [(ngModel)]="startDateText"
+                            (ionChange)="onStartDateChange()">
                     </ion-input>
                 </ion-item>
 
@@ -35,24 +32,24 @@
                     <ion-icon slot="end" name="calendar" (click)="pickEndDate()" style="margin-left: 8px;"></ion-icon>
                     <ion-label>End date:</ion-label>
                     <ion-input
-                        placeholder="dd-mm-yyyy" 
-                        debounce="500"
-                        inputmode="text"
-                        maxlength="10"
-                        minlength="10"
-                        [(ngModel)]="endDateText" 
-                        (ionChange)="onEndDateChange()">
+                            placeholder="dd-mm-yyyy"
+                            debounce="500"
+                            inputmode="text"
+                            maxlength="10"
+                            minlength="10"
+                            [(ngModel)]="endDateText"
+                            (ionChange)="onEndDateChange()">
                     </ion-input>
                 </ion-item>
-            
+
             </ion-item-group>
 
             <div class="dateButtonDiv">
                 <ion-button color="secondary" fill="outline" (click)="updateData()">
-                    <ion-icon name="sync"slot="end"></ion-icon>
+                    <ion-icon name="sync" slot="end"></ion-icon>
                     <ion-label>Update</ion-label>
                 </ion-button>
-            </div>    
+            </div>
 
         </ion-row>
 
@@ -65,13 +62,13 @@
                         <ion-card-title>{{ values.dataCategory.name }}</ion-card-title>
                         <ion-card-subtitle>Subtitle goes here</ion-card-subtitle>
                     </ion-card-header>
-        
+
                     <ion-card-content>
-                        <app-satellite-data-display 
-                            id="{{'display' + i}}"
-                            [displayType]="'chart'"
-                            [values]="values"
-                            [isExtended]="false">
+                        <app-satellite-data-display
+                                id="{{'display' + i}}"
+                                [displayType]="'chart'"
+                                [values]="values"
+                                [isExtended]="false">
                         </app-satellite-data-display>
                     </ion-card-content>
                 </ion-card>
@@ -79,42 +76,24 @@
             </ion-list>
 
         </ion-row>
-        
-        <ion-row class="sentinelRow">
-            <p>Here comes Sentinel data explanation</p>
-        </ion-row>
 
-        <!--
-        <ion-row>
-            <ion-fab vertical="bottom" horizontal="end" slot="fixed">
-                <ion-fab-button color="secondary" (click)="showInfo()" href="https://google.com">
-                    <ion-icon name="information"></ion-icon>
-                </ion-fab-button>
-            </ion-fab>
-        </ion-row>
-        -->
 
-    </ion-grid>
+        <ion-list-header>Data Sources</ion-list-header>
+        <div class="satelliteMission" *ngIf="data.values[0]">
+            <ion-card (click)="dismissModal()" routerLink="{{'/tabs/agencies/esa/mission/' + data.values[0].dataCategory.esaMission.id}}">
+                <ion-card-header>
+                    <div class="titleAndIcon">
+                        <ion-img id="missionIcon" src="{{data.values[0].dataCategory.esaMission.getIconURL()}}"></ion-img>
+                        <div class="titleAndSubtitle">
+                            <ion-card-title>{{data.values[0].dataCategory.esaMission.name}}</ion-card-title>
+                            <ion-card-subtitle>Copernicus Program</ion-card-subtitle>
+                        </div>
+                    </div>
+                </ion-card-header>
+                <ion-card-content>
+                    <p *ngFor="let paragraph of data.values[0].dataCategory.esaMission.previewLabels">{{paragraph}}</p>
+                </ion-card-content>
+            </ion-card>
+        </div>
 
-    <!--
-    <ion-card class="welcome-card" *ngIf="showCard">
-        <ion-card-header>
-            <ion-card-subtitle>{{ data.title }}</ion-card-subtitle>
-            <ion-card-title>
-                <ion-input placeholder="Enter title" [(ngModel)]="postTitle"></ion-input>
-            </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-            <ion-textarea placeholder="Write your post" rows="5" [(ngModel)]="postBody"></ion-textarea>
-            <div class="chip" *ngFor="let field of stats.fields">
-                <ion-chip outline color="{{field.color}}" (click)="field.isChecked=false" *ngIf="field.isChecked">
-                    <ion-label>{{field.name}}</ion-label>
-                    <ion-icon name="close"></ion-icon>
-                </ion-chip>
-            </div>
-        </ion-card-content>
-    </ion-card>
-    -->
-
-    
 </ion-content>

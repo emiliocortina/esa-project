@@ -83,16 +83,28 @@ app-satellite-data-display {
 /* * * * * * * * DATA DISPLAY * * * * * * * */
 
 .displayRow {
-  height: 72%;
   width: 100%;
 }
 
-
+ion-list {
+  margin-bottom: 0;
+}
 
 
 /* * * * * * * * SENTINEL STUFF * * * * * * * */
 
-.sentinelRow {
-  height: 10%;
-  background-color: red;
+#missionIcon {
+  width: 4rem;
+  margin-right: 1rem;
+}
+
+.titleAndIcon {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  justify-items: flex-start;
+}
+
+ion-card.satelliteMission {
+  margin-bottom: 4rem;
 }

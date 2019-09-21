@@ -7,13 +7,14 @@ import { ApiService } from './api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataMarker } from './models/satellite-data/data-marker.model';
 import { MarkersService } from './markers.service';
+import {EsaInfoService} from "./esa-info.service";
 
 @Injectable({
     providedIn: 'root'
 })
 export class SatelliteService {
 
-    constructor(private apiService: ApiService, private markersService: MarkersService)
+    constructor(private apiService: ApiService, private markersService: MarkersService, private esaService: EsaInfoService)
     {
     }
 
@@ -26,7 +27,7 @@ export class SatelliteService {
      */
     public async getAvailableDates(category: Category, callback, error)
     {
-        this.apiService.request("api/satellite/" + category.apiRoute + "/dates", "get")
+        this.apiService.request('api/satellite/' + category.apiRoute + "/dates", "get")
             .subscribe(res => callback(res), err => error(err));
     }
     
@@ -83,7 +84,7 @@ export class SatelliteService {
 
         for (var i = 0; i < res.length; i ++)
         {
-            var cat = new DataCategory(res[i].unit, category);
+            var cat = new DataCategory(res[i].unit, category, this.esaService);
             var markers: DataMarker[] = this.markersService.getInRange(start, end);
 
             // TODO !!!!!! SQUARE REGRESSION!!!!!
