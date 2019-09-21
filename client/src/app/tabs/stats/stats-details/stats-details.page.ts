@@ -61,19 +61,23 @@ export class StatsDetailsPage implements OnInit {
         },
         async err => {
             console.error(err);
-
-            const toast = await this.toastController.create({
-                color: 'danger',
-                message: "Could not update the stats for the wished time range.",
-                showCloseButton: true,
-                duration: 3000
-            });
-            toast.present();
+            this.showDangerToast("Could not update the stats for the wished time range.");
         });
     }
 
     async dismissModal() {
         await this.modalController.dismiss();
+    }
+
+    async showDangerToast(msg: string)
+    {
+        const toast = await this.toastController.create({
+            color: 'danger',
+            message: msg,
+            showCloseButton: true,
+            duration: 3000
+        });
+        toast.present();
     }
 
 
@@ -103,13 +107,7 @@ export class StatsDetailsPage implements OnInit {
             this.data = data;
         }
         else {
-            const toast = await this.toastController.create({
-                color: 'danger',
-                message: "Could not update the stats for the wished time range.",
-                showCloseButton: true,
-                duration: 3000
-            });
-            toast.present();
+            this.showDangerToast("Could not update the stats for the wished time range.");
         }
 
         this.loadingController.dismiss();
@@ -122,13 +120,20 @@ export class StatsDetailsPage implements OnInit {
 
 
 
-    private checkCorrectStartDate() : void
+    private async checkCorrectStartDate()
     {
         if (this.startDate.getTime() < this.limitStartDate.getTime())
+        {
             this.startDate = new Date(this.limitStartDate);
-        
-        if (this.startDate.getTime() > this.limitEndDate.getTime())
+            this.showDangerToast("The start date is out of range. Minimum date: "
+                    + this.limitStartDate.toDateString());
+        }
+        else if (this.startDate.getTime() > this.limitEndDate.getTime())
+        {
             this.startDate = new Date(this.limitStartDate);
+            this.showDangerToast("The start date is out of range. Maximum date: "
+                    + this.limitEndDate.toDateString());
+        }
 
         this.startDateText = this.formatDate(this.startDate);
     }
@@ -136,11 +141,17 @@ export class StatsDetailsPage implements OnInit {
     private checkCorrectEndDate() : void
     {
         if (this.endDate.getTime() > this.limitEndDate.getTime())
+        {
             this.endDate = new Date(this.limitEndDate);
+            this.showDangerToast("The end date must be greater than start date");
+        }
+        else if (this.endDate.getTime() < this.limitStartDate.getTime())
+        {
+            this.endDate = new Date(this.limitEndDate);
+            this.showDangerToast("The end date is out of range. Maximum date: "
+                    + this.limitEndDate.toDateString());
+        }
 
-        if (this.endDate.getTime() < this.limitStartDate.getTime())
-            this.endDate = new Date(this.limitEndDate);
-        
         this.endDateText = this.formatDate(this.endDate);
     }
 
