@@ -1,11 +1,14 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { ModalController, ToastController } from '@ionic/angular';
+import { ModalController, ToastController, LoadingController } from '@ionic/angular';
 import { CategoriesService } from 'src/app/services/categories.service';
 import { CoopsService } from 'src/app/services/threads/coops.service';
 import { CoopObject } from 'src/app/services/threads/CoopObject';
 import { ThreadsService } from 'src/app/services/threads/threads.service';
 import { ThreadObject } from 'src/app/services/threads/ThreadObject';
 import { SatelliteData } from 'src/app/services/models/satellite-data/satellite-data.model';
+import { SatelliteService } from 'src/app/services/satellite/satellite.service';
+import { SatelliteDataValuesObject } from 'src/app/services/satellite/SatelliteDataValuesObject';
+import { SatelliteDataObject } from 'src/app/services/satellite/SatelliteDataObject';
 
 @Component({
   selector: 'app-create-post-modal',
@@ -25,7 +28,9 @@ export class CreatePostModalPage implements OnInit {
     private categoriesService: CategoriesService,
     private toastController: ToastController,
     private postsService: CoopsService,
-    private threadsService: ThreadsService
+    private threadsService: ThreadsService,
+    private satelliteService: SatelliteService,
+    public loadingController: LoadingController
   ) { }
 
   ngOnInit() {
@@ -69,21 +74,52 @@ export class CreatePostModalPage implements OnInit {
     return null;
   }
 
-  private async submitThread() {
-    this.postsService.createCoop(new CoopObject({
-      text: this.postBody
-    })).subscribe(async (res: any) => {
-      let id = res.id;
-      this.threadsService.createThread(new ThreadObject({
-        title: this.postTitle,
-        category: this.selectedCategory,
-        head: id
-      }));
 
-      this.generateToast("Thread successfully created!", 'success');
 
-      this.modalController.dismiss();
+  private async submitThread()
+  {
+    // Create loading dialog
+    const loading = await this.loadingController.create({
+        message: 'Getting data near your location...'
     });
+    loading.present();
+
+    var ids = [];
+    for (var i = 0; i < this.data.values.length; i ++)
+    {
+      var valDto = new SatelliteDataValuesObject(this.data.values[i]);
+      try {
+        var id = await this.satelliteService.createSatelliteDataValues(valDto).toPromise();
+      }
+      catch (err)
+      {
+        console.log(err);
+        this.loadingController.dismiss();
+        return;
+      }
+      console.log("Satellite data values id = " + id);
+      ids.push(id);
+    }
+
+    var dto = new SatelliteDataObject(this.data, ids);
+    this.satelliteService.createSatelliteData(dto)
+      .subscribe(dataId => {
+
+        this.postsService.createCoop(new CoopObject({text: this.postBody }, [dataId]))
+          .subscribe(async (res: any) => {
+            let id = res.id;
+            this.threadsService.createThread(new ThreadObject({
+                title: this.postTitle,
+                category: this.selectedCategory,
+                head: id
+              }));
+    
+            this.loadingController.dismiss();
+            this.generateToast("Thread successfully created!", 'success');
+            this.modalController.dismiss();
+          });
+
+      });
 
   }
 

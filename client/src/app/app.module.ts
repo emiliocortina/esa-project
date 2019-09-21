@@ -15,6 +15,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { WelcomeSlidesModule } from './components/welcome-slides-modal/welcome-slides-modal.module';
 
 import { DatePicker } from '@ionic-native/date-picker/ngx';
+import { ExpandableComponent } from './components/expandable/expandable.component';
+import { ExpandableComponentModule } from './components/expandable/expandable.module';
 
 
 @NgModule({

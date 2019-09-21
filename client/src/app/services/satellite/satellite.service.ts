@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
-import { SatelliteData } from './models/satellite-data/satellite-data.model';
-import { DataCategory } from './models/satellite-data/data-category.model';
-import { SatelliteDataValues } from './models/satellite-data/satellite-data-values.model';
-import { Category } from './models/category.model';
-import { ApiService } from './api.service';
+import { SatelliteData } from '../models/satellite-data/satellite-data.model';
+import { DataCategory } from '../models/satellite-data/data-category.model';
+import { SatelliteDataValues } from '../models/satellite-data/satellite-data-values.model';
+import { Category } from '../models/category.model';
+import { ApiService } from '../api.service';
 import { HttpParams } from '@angular/common/http';
-import { DataMarker } from './models/satellite-data/data-marker.model';
-import { MarkersService } from './markers.service';
-import {EsaInfoService} from './esa-info.service';
+import { DataMarker } from '../models/satellite-data/data-marker.model';
+import { MarkersService } from '../markers.service';
+import {EsaInfoService} from '../esa-info.service';
+import { SatelliteDataValuesObject } from './SatelliteDataValuesObject';
+import { SatelliteDataObject } from './SatelliteDataObject';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,6 +17,17 @@ import {EsaInfoService} from './esa-info.service';
 export class SatelliteService {
 
 	constructor(private apiService: ApiService, private markersService: MarkersService, private esaService: EsaInfoService) {
+	}
+
+
+	createSatelliteDataValues(values: SatelliteDataValuesObject) {
+		return this.apiService
+			.request('api/private/satelliteDataValue', 'post', null, values);
+	}
+
+	createSatelliteData(data: SatelliteDataObject) {
+		return this.apiService
+			.request('api/private/satelliteData', 'post', null, data);
 	}
 
 
