@@ -117,7 +117,7 @@ export class CreatePostModalPage implements OnInit {
 
 		// Create loading dialog
 		const loading = await this.loadingController.create({
-			message: 'Getting data near your location...'
+			message: 'Publishing...'
 		});
 		loading.present();
 
