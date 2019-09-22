@@ -3,13 +3,19 @@ import { HttpClient } from '@angular/common/http';
 import { ApiService } from '../api.service';
 import { CoopObject } from './CoopObject';
 import { Post } from '../models/threads/post.model';
+import { User } from '../models/users/user';
+import { SatelliteData } from '../models/satellite-data/satellite-data.model';
+import { SatelliteService } from '../satellite/satellite.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class CoopsService {
 
-    constructor(private http: HttpClient, private apiService: ApiService) {
+    constructor(
+        private http: HttpClient, 
+        private apiService: ApiService,
+        private satelliteService: SatelliteService) {
     }
 
     createCoop(coopObject: CoopObject) {
@@ -23,33 +29,71 @@ export class CoopsService {
     }
 
 
-    /*
-    public async loadCoop(coopId: string, callback) {
-		const params = { page_elements: elements, page_number: page + 1, sort_by: 'timestamp(DES)', filter_by: filter };
-		this.apiService.request('api/threadsByDate', 'get', params, null).subscribe(async (threads: any[]) => {
-			let remaining = threads.length;
-			let temp: Thread[] = [];
-			for (let i = 0; i < threads.length; i++) {
-				let t = threads[i];
-				this.apiService.request('auth/user/' + t.author, 'get', null, null).subscribe(
-					(user: any) => {
-						let u = new User(user.nickName, user.name, user.email);
-						this.apiService.request('api/coop/' + t.head, 'get', null, null).subscribe((coop: any) => {
-							let post = new Post(coop._id, coop.text, u, coop.timestamp);
-							let thread = new Thread(t._id, t.title, this.categoriesService.getCategory(t.category), post, u);
-							temp[i] = thread;
-							remaining--;
-							if (remaining == 0) {
-								temp.forEach(t => {
-									list.push(t);
-								});
-								callback(threads.length);
-							}
-						});
-					}
-				);
-			}
-		});
+    
+    public async loadCoop(coopId: string, user: User, callback)
+    {		
+        this.apiService.request('api/coop/' + coopId, 'get', null, null).subscribe((coop: any) => {
+            this.loadCoopFromObject(coop, user, callback);            
+        });
     }
-    */
+
+    public async loadCoopFromObject(coopObj, user: User, callback)
+    {
+        var dataArray : SatelliteData[] = [];
+        this.loadCoopData(0, coopObj.data, dataArray, () => {
+
+            let post = new Post(coopObj._id, coopObj.text, user, new Date(coopObj.timestamp), dataArray);
+            this.loadCoopComments(0, coopObj.children, [], post, () => {
+                callback(post);
+            });
+        });
+    }
+
+
+    private loadCoopData(count: number, ids: string[], dataArray: SatelliteData[], callback)
+    {
+        if (ids == undefined) {
+            callback();
+            return;
+        }
+        if (count >= ids.length) {
+            callback();
+            return;
+        }
+        this.satelliteService.loadSatelliteData(ids[count], data => {
+            dataArray.push(data);
+            this.loadCoopData(count+1, ids, dataArray, callback);
+        });
+    }
+
+    
+    
+    
+    private loadCoopComments(count: number, ids: string[], commentArray: Post[], parent: Post, callback)
+    {
+        if (ids == undefined) {
+            callback();
+            return;
+        }
+        if (count >= ids.length) {
+            parent.addComments(commentArray);
+            callback();
+            return;
+        }
+
+        this.apiService.request('api/coop/' + ids[count], 'get', null, null)
+            .subscribe((comment: any) => {
+                this.apiService.request('auth/user/' + comment.author, 'get', null, null)
+                .subscribe((childUser: any) => {
+                    const user = new User(childUser.nickName, childUser.name, childUser.email);
+                    var res = new Post(comment._id, comment.text, user, new Date(comment.timestamp), []);
+                    commentArray.push(res);
+                    this.loadCoopComments(count+1, ids, commentArray, parent, callback);
+                });
+            });
+    }
+
+
+
+
 }

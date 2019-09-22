@@ -11,13 +11,19 @@ import {EsaInfoService} from '../esa-info.service';
 import { SatelliteDataValuesObject } from './SatelliteDataValuesObject';
 import { SatelliteDataObject } from './SatelliteDataObject';
 import { Subscription, Observable } from 'rxjs';
+import { CategoriesService } from '../categories.service';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class SatelliteService {
+    
 
-	constructor(private apiService: ApiService, private markersService: MarkersService, private esaService: EsaInfoService) {
+	constructor(
+		private apiService: ApiService, 
+		private markersService: MarkersService, 
+		private esaService: EsaInfoService,
+		private categoriesService: CategoriesService) {
 	}
 
 
@@ -30,6 +36,48 @@ export class SatelliteService {
 		return this.apiService
 			.request('api/private/satelliteData', 'post', null, data);
 	}
+
+	loadSatelliteData(id: string, callback) : void {
+		this.apiService
+			.request('api/private/satelliteData/' + id, 'get', null, null)
+			.subscribe(async (res : any) => {		
+
+				var start = new Date(res.start);
+				var end = new Date(res.end);
+
+				// TODO get all data values
+				var markers: DataMarker[] = this.markersService.getInRange(start, end);
+
+				var dataValues: SatelliteDataValues[] = [];
+				for (var i = 0; i < res.satelliteDataValues.length; i ++)
+				{
+					var dv = res.satelliteDataValues[i];
+					var category = this.categoriesService.getCategory(dv.dataCategory.threadCategory);
+					var dataCat = new DataCategory(dv.dataCategory.unit, category, this.esaService);
+		
+					var values = new SatelliteDataValues(
+						start,
+						end, 
+						dv.leastSquares, 
+						dataCat, 
+						markers, 
+						[] /* TODO keyvaluepairs */);
+					dataValues.push(values)
+				}
+
+
+				var result = new SatelliteData(
+					category.name, 
+					res.latitude, 
+					res.longitude, 
+					res.start,
+					res.end, 
+					dataValues);
+				callback(result);
+			});
+    }
+
+
 
 
 

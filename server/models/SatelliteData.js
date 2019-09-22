@@ -4,6 +4,8 @@ const { Schema } = mongoose;
 let SatelliteDataSchema = new Schema({
 	start: { type: Date, require: true },
 	end: { type: Date, required: true },
+	latitude: { type: Number, required: true },
+	longitude: { type: Number, required: true },
 	annotations: [
 		{
 			x: { type: Number, required: true },
