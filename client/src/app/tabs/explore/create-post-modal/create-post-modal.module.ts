@@ -7,21 +7,25 @@ import { IonicModule } from '@ionic/angular';
 
 import { CreatePostModalPage } from './create-post-modal.page';
 
+/*
 const routes: Routes = [
   {
     path: '',
     component: CreatePostModalPage
   }
 ];
+*/
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
-    RouterModule.forChild(routes)
+    IonicModule//,
+    //RouterModule.forChild(routes)
   ],
-  declarations: [CreatePostModalPage]
+  entryComponents: [CreatePostModalPage],
+  declarations: [CreatePostModalPage],
+  exports: [CreatePostModalPage]
 })
 export class CreatePostModalPageModule {
   

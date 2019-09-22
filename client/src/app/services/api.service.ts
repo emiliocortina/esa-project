@@ -13,12 +13,13 @@ import { StorageService } from './authentication/storage.service';
 	providedIn: 'root'
 })
 export class ApiService {
+	//urlLit = 'http://localhost:3000/'; 
 	urlLit = 'http://cooper-app.herokuapp.com/';
 	serverError: string;
 
 	public expired = new BehaviorSubject<boolean>(false); // observable para en caso de error de sesion
 
-	constructor(private httpClient: HttpClient, private router: Router, private storageService: StorageService) {}
+	constructor(private httpClient: HttpClient, private router: Router, private storageService: StorageService) { }
 
 	// DEPRECATED puede ser util en algun momento
 	// private handleError(error: any): Promise<any> {
@@ -120,7 +121,7 @@ export class ApiService {
 		options?: RequestOptions
 	): Observable<R> {
 		const url = this.urlLit + service;
-		const complete = () => {};
+		const complete = () => { };
 
 		return this.direct<R>(method, url, params, body, options).pipe(
 			tap(
@@ -133,6 +134,15 @@ export class ApiService {
 				}
 			)
 		);
+	}
+
+	public getOpticMapImage(latitude: number, longitude: number): Observable<Blob> {
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Accept: 'application/json'
+		});
+		return this.httpClient.get<Blob>(this.urlLit + `api/satellite/createMap?latitude=${latitude}&longitude=${longitude}`,
+			{ headers, responseType: 'blob' as 'json' });
 	}
 
 	private direct<R>(method: string, url: string, params: {}, body: {}, options: RequestOptions): Observable<R> {

@@ -11,6 +11,13 @@
 
 <ion-content>
   <ion-card class="welcome-card">
+    <img *ngIf="imageBlobUrl" [src]="imageBlobUrl" alt="" />
+    <div *ngIf="!imageBlobUrl" class="loading-image">
+      Loading satellite image
+      <ion-spinner name="crescent"></ion-spinner>
+    </div>
+
+
     <ion-card-header>
       <ion-item>
         <ion-label>Category</ion-label>

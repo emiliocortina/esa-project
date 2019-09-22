@@ -15,6 +15,7 @@ exports.createSatelliteDataValue = async (req, res, next) => {
 			return;
 		})
 		.catch((err) => {
+			console.log(err)
 			next(errorServ.buildError(req.url, HttpStatus.BAD_REQUEST, 'bad_data', 'bad data'));
 			return;
 		});

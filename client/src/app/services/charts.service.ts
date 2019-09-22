@@ -266,7 +266,8 @@ export class ChartsService {
             scales: {
                 xAxes: [{
                     ticks: {
-                        display:false
+                        //display:false
+                        autoSkip: true
                     },
                     gridLines: {
                         display:false

@@ -8,6 +8,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { SettingsModalModule } from 'src/app/components/settings-modal/settings-modal.module';
 import { CategoriesPopoverModule } from './categories-popover/categories-popover.module';
 import { CreatePostModalPage } from './create-post-modal/create-post-modal.page';
+import { CreatePostModalPageModule } from './create-post-modal/create-post-modal.module';
 
 @NgModule({
     imports: [
@@ -16,12 +17,12 @@ import { CreatePostModalPage } from './create-post-modal/create-post-modal.page'
         IonicModule,
         CommonModule,
         FormsModule,
+        CreatePostModalPageModule,
         RouterModule.forChild([{path: '', component: ExplorePage}])
     ],
-    entryComponents: [CreatePostModalPage],
-    providers: [
-        HttpClientModule],
-    declarations: [ExplorePage, CreatePostModalPage]
+    providers: [HttpClientModule],
+    declarations: [ExplorePage],
+    entryComponents: [ExplorePage]
 })
 export class ExplorePageModule {
 }

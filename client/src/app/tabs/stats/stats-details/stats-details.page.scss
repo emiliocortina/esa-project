@@ -40,6 +40,7 @@ app-satellite-data-display {
 /* * * * * * * * DATE SELECTION * * * * * * * */
 
 .dateSelectionRow {
+  margin-top: 8px;
   height: 18%;
   display: inline-flex;
   width: 100%;
@@ -88,6 +89,15 @@ app-satellite-data-display {
 
 ion-list {
   margin-bottom: 0;
+}
+
+
+.postButtonDiv {
+  margin-top: 16px;
+  margin-bottom: 16px;
+  display: flex; 
+  align-content: center; 
+  justify-content: center;
 }
 
 

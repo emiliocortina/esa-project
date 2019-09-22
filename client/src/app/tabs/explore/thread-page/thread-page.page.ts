@@ -8,6 +8,7 @@ import { ToastController } from '@ionic/angular';
 import { StorageService } from 'src/app/services/authentication/storage.service';
 import { Router } from '@angular/router';
 import { Post } from 'src/app/services/models/threads/post.model';
+import { SatelliteData } from 'src/app/services/models/satellite-data/satellite-data.model';
 
 @Component({
     selector: 'app-post-page',
@@ -15,6 +16,10 @@ import { Post } from 'src/app/services/models/threads/post.model';
     styleUrls: ['./thread-page.page.scss'],
 })
 export class ThreadPage implements OnInit, OnChanges, OnDestroy {
+    
+    isDataDisplayExpanded: boolean;
+    data: SatelliteData;
+
     threadId: string;
     private routerSubscription: any;
     private thread: Thread;
@@ -42,11 +47,23 @@ export class ThreadPage implements OnInit, OnChanges, OnDestroy {
         this.routerSubscription.unsubscribe();
     }
 
+    toggleDataDisplayExpand()
+    {
+        this.isDataDisplayExpanded = !this.isDataDisplayExpanded;
+    }
+
     setThreadId(id: string) {
         this.threadId = id;
 
         const callback = res => {
             this.thread = res;
+
+            if (this.thread.initialPost.satelliteData)
+                if (this.thread.initialPost.satelliteData.length > 0)
+                    this.data = this.thread.initialPost.satelliteData[0];
+
+            console.log("Thread page displaying data: ")
+            console.log(this.data);
         };
 
         this.threadService.getThread(id, callback, () => {
@@ -62,7 +79,7 @@ export class ThreadPage implements OnInit, OnChanges, OnDestroy {
                 this.generateToast("You cannot write an empty comment", 'danger');
             } else {
                 let coopBody = { text: this.commentText };
-                await this.coopsService.createComment(new CoopObject(coopBody), this.thread.initialPost.id).subscribe(() => {
+                await this.coopsService.createComment(new CoopObject(coopBody, []), this.thread.initialPost.id).subscribe(() => {
                     this.generateToast("Your comment has been published", 'success');
                     this.commentText = "";
                     this.setThreadId(this.threadId);

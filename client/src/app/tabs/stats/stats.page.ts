@@ -1,5 +1,5 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
-import {SatelliteService} from '../../services/satellite.service';
+import {SatelliteService} from '../../services/satellite/satellite.service';
 import {SatelliteData} from '../../services/models/satellite-data/satellite-data.model';
 import {ModalController, ToastController, LoadingController} from '@ionic/angular';
 import {StatsDetailsPage} from './stats-details/stats-details.page';

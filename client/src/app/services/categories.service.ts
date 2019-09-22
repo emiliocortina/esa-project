@@ -35,6 +35,7 @@ export class CategoriesService {
     }
 
     public getCategory(id: string): Category {
+        id = id.toLowerCase();
         return this.categories.find(cat => cat.id == id);
     }
 
