@@ -43,7 +43,7 @@ export class SatelliteService {
 
 	loadSatelliteData(id: string, threadCategory: string, callback): void {
 		this.apiService
-			.request('api/private/satelliteData/' + id, 'get', null, null)
+			.request('api/satelliteData/' + id, 'get', null, null)
 			.subscribe(async (res: any) => {
 
 				var start = new Date(res.start);
