@@ -11,14 +11,15 @@ export class Post {
     satelliteData: SatelliteData[];
     comments: Post[];
 
-    constructor(id: string, textContent: string, user: User, created: Date, satelliteData?: SatelliteData[]) {
+    constructor(id: string, textContent: string, user: User, created: Date, satelliteData?: SatelliteData) {
         this.id = id;
         this.textContent = textContent;
         this.user = user;
         this.created = created;
         if (satelliteData) {
-            this.satelliteData = satelliteData;
+            this.satelliteData = [satelliteData];
         }
+        else this.satelliteData = [];
         this.comments = [];
     }
 

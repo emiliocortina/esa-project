@@ -9,6 +9,9 @@ import { Geolocation } from '@ionic-native/geolocation/ngx';
 import { GeolocationSearchModalModule } from 'src/app/components/geolocation-search-modal/geolocation-search-modal.module';
 import { NativeGeocoder } from '@ionic-native/native-geocoder/ngx';
 import { SatelliteDataDisplayModule } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.module';
+import { ExpandableComponentModule } from 'src/app/components/expandable/expandable.module';
+import { CreatePostModalPage } from '../explore/create-post-modal/create-post-modal.page';
+import { CreatePostModalPageModule } from '../explore/create-post-modal/create-post-modal.module';
 
 
 @NgModule({
@@ -18,13 +21,18 @@ import { SatelliteDataDisplayModule } from 'src/app/components/satelliteData/sat
         CommonModule,
         FormsModule,
         SatelliteDataDisplayModule,
+        ExpandableComponentModule,
+        CreatePostModalPageModule,
         RouterModule.forChild([{path: '', component: StatsPage}])
     ],
     providers: [
         Geolocation,
         NativeGeocoder
     ],
-    declarations: [StatsPage, StatsDetailsPage],
+    declarations: [
+        StatsPage, 
+        StatsDetailsPage
+    ],
     entryComponents: [StatsDetailsPage]
 })
 export class StatsPageModule {
