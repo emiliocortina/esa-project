@@ -34,13 +34,4 @@ export class CoopsService {
 	}
 
 
-	createImageFromBlob(image: Blob, result: any) {
-		const reader = new FileReader();
-		reader.readAsDataURL(image);
-		const sanitizer = this.sanitizer;
-		reader.onloadend = function () {
-			console.log(reader.result);
-			result = sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + reader.result);
-		};
-	}
 }
