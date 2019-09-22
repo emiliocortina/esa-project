@@ -6,8 +6,6 @@ import { Post } from '../models/threads/post.model';
 import { User } from '../models/users/user';
 import { SatelliteData } from '../models/satellite-data/satellite-data.model';
 import { SatelliteService } from '../satellite/satellite.service';
-import { Observable } from 'rxjs';
-import { read } from 'fs';
 import { DomSanitizer } from '@angular/platform-browser';
 
 @Injectable({
@@ -107,14 +105,4 @@ export class CoopsService {
 		);
 	}
 
-
-	createImageFromBlob(image: Blob, result: any) {
-		const reader = new FileReader();
-		reader.readAsDataURL(image);
-		const sanitizer = this.sanitizer;
-		reader.onloadend = function () {
-			console.log(reader.result);
-			result = sanitizer.bypassSecurityTrustUrl('data:image/png;base64,' + reader.result);
-		};
-	}
 }
