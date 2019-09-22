@@ -33,13 +33,7 @@ export class CoopsService {
 		);
 	}
 
-	getImage(): Observable<File> {
 
-		const latitude = 41.808521;
-		const longitude = 41.808521;
-		return this.apiService.getOpticMapImage(latitude, longitude);
-
-	}
 	createImageFromBlob(image: Blob, result: any) {
 		const reader = new FileReader();
 		reader.readAsDataURL(image);
