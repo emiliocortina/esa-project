@@ -61,7 +61,7 @@ export class SatelliteService {
 						dv.leastSquares, 
 						dataCat, 
 						markers, 
-						[] /* TODO keyvaluepairs */);
+						dv.keyValuePairs);
 					dataValues.push(values)
 				}
 

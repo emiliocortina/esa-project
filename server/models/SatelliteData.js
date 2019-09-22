@@ -21,7 +21,13 @@ let SatelliteDataValue = new Schema({
 	dataCategory: {
 		unit: { type: String, required: true },
 		threadCategory: { type: String, required: true }
-	}
+	},
+	keyValuePairs: [
+		{
+			x: { type: Number, required: true },
+			y: { type: Number, required: true }
+		}
+	]
 });
 module.exports = module.exports = {
 	SatelliteData: mongoose.model('satelliteData', SatelliteDataSchema),
