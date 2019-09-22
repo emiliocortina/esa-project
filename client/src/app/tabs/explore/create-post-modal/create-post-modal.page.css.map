@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAAA,AAAA,WAAW,CAAC,SAAS,CAAC;EAClB,KAAK,EAAE,KAAK;CACf",
+    "sources": [
+        "create-post-modal.page.scss"
+    ],
+    "names": [],
+    "file": "create-post-modal.page.css"
+}

@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AAMA,AAAA,eAAe,CAAC;EACd,cAAc,EAAE,CAAC;CAClB;;AAED,AAAA,gBAAgB,CAAC;EACf,WAAW,EAAE,MAAM;CACpB;;AAED,AAAA,YAAY,CAAC;EACX,UAAU,EAAE,wBAAwB;CACrC;;AAED,AACE,YADU,CACV,eAAe,CAAC,iBAAiB,CAAC;EAChC,cAAc,EAAE,SAAS;CAC1B;;AAGH,AAAA,GAAG,CAAC,iBAAiB,CAAC;EACpB,UAAU,EAAE,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,GAAG,CAAC,kBAAkB;CAC/C;;AAED,AAAA,SAAS,CAAC;EACR,UAAU,EAAE,MAAM;CACnB",
+    "sources": [
+        "thread-page.page.scss"
+    ],
+    "names": [],
+    "file": "thread-page.page.css"
+}

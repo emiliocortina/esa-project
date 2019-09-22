@@ -1,0 +1,42 @@
+ion-header {
+  padding-bottom: 0;
+}
+
+.md ion-card {
+  max-width: 25rem;
+}
+
+ion-card-content {
+  padding-top: 0;
+}
+
+ion-card img {
+  max-height: 4rem;
+  margin-top: 2rem;
+}
+
+ion-grid {
+  margin-top: 20%;
+}
+
+ion-label {
+  padding-left: 0.8rem;
+}
+
+ion-input {
+  background: #f8f8f8;
+  border-radius: 10px;
+  --padding-start: 1rem;
+  margin-bottom: 1.4rem;
+  margin-top: 0.7rem;
+}
+
+ion-button {
+  margin-top: 1rem;
+}
+
+#logoImage {
+  max-height: 4.5rem;
+  margin: 1rem 0;
+}
+/*# sourceMappingURL=login.page.css.map */
