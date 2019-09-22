@@ -135,6 +135,15 @@ export class ApiService {
 		);
 	}
 
+	public getOpticMapImage(latitude: number, longitude: number): Observable<Blob> {
+		const headers = new HttpHeaders({
+			'Content-Type': 'application/json',
+			Accept: 'application/json'
+		});
+		return this.httpClient.get<Blob>(this.urlLit + `api/satellite/createMap?latitude=${latitude}&longitude=${longitude}`,
+			{ headers, responseType: 'blob' as 'json' });
+	}
+
 	private direct<R>(method: string, url: string, params: {}, body: {}, options: RequestOptions): Observable<R> {
 		const aux = this.getHeaders();
 		return this.httpClient
