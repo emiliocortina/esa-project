@@ -1,0 +1,46 @@
+.vertical-align-content {
+  display: -webkit-box !important;
+  display: -ms-flexbox !important;
+  display: flex !important;
+  -ms-flex-line-pack: center !important;
+      align-content: center !important;
+  -webkit-box-align: center !important;
+      -ms-flex-align: center !important;
+          align-items: center !important;
+}
+
+ion-grid {
+  height: 100%;
+}
+
+ion-row {
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.cardRow {
+  height: 85%;
+  width: 100%;
+}
+
+.buttonsRow {
+  height: 15%;
+  width: 100%;
+}
+
+ion-card {
+  width: 90%;
+}
+
+ion-buttons ion-button ion-icon {
+  color: #333333;
+}
+/*# sourceMappingURL=stats.page.css.map */

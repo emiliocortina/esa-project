@@ -1,0 +1,159 @@
+html body {
+  font-family: "Lato";
+  font-weight: 300;
+  font-size: 18px;
+}
+
+nav {
+  -webkit-box-shadow: -1px -3px 8px grey !important;
+          box-shadow: -1px -3px 8px grey !important;
+}
+
+h1 {
+  margin-top: 100px !important;
+  border-bottom: #e06075 2px solid;
+  text-align: center;
+  font-weight: 500;
+  font-family: "Raleway";
+  background-color: white !important;
+  color: #e06075 !important;
+  margin-bottom: 40px;
+  padding: 10px 0;
+}
+
+h2 {
+  text-align: center;
+  font-family: "Raleway";
+}
+
+#navbar-logo {
+  height: 50px !important;
+}
+
+.card {
+  color: black !important;
+  width: 200px !important;
+  margin: 20px;
+  border: transparent !important;
+  -webkit-box-shadow: 0px 3px 11px 0px rgba(0, 0, 0, 0.4);
+          box-shadow: 0px 3px 11px 0px rgba(0, 0, 0, 0.4);
+}
+
+#cards-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+}
+
+.card-img-top {
+  width: 80% !important;
+  -ms-flex-item-align: center !important;
+      -ms-grid-row-align: center !important;
+      align-self: center !important;
+  margin: 10px auto;
+}
+
+.button-center-container {
+  text-align: center;
+}
+
+section {
+  margin: 40px auto;
+  padding: 20px 0 !important;
+}
+
+section:nth-child(odd) {
+  background-color: #e06075;
+  color: white;
+}
+
+hr {
+  width: 15%;
+}
+
+.donate-button {
+  padding: 0 40px !important;
+  height: 40px;
+  border-radius: 37px !important;
+  background-color: #e06075 !important;
+  color: white !important;
+}
+
+.donate-button:hover {
+  background-color: #d83550 !important;
+  -webkit-box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.32);
+          box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.32);
+}
+
+.btn:focus {
+  outline: none !important;
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.cooper-video {
+  margin-top: 100px !important;
+  display: block;
+  margin: auto;
+  width: 60%;
+}
+
+.section-image {
+  margin-bottom: 20px;
+  /* top: 0px; */
+  position: relative;
+  width: 100%;
+}
+
+#make-change {
+  padding-top: 0px !important;
+}
+
+.card {
+  background-color: transparent !important;
+  -webkit-box-shadow: none;
+          box-shadow: none;
+  color: white !important;
+}
+
+.card .card-header {
+  background-color: transparent;
+  border: transparent;
+  font-weight: 700;
+  font-size: 1.4rem;
+  border-bottom: 1px white solid;
+  padding-bottom: 8px;
+}
+
+.card .card-img-top {
+  border-radius: 50%;
+  -webkit-box-shadow: 0px 0px 9px 0px #00000047;
+          box-shadow: 0px 0px 9px 0px #00000047;
+}
+
+footer {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.nav-item .nav-link {
+  color: #685555 !important;
+  -webkit-transition: all 0.1s;
+  transition: all 0.1s;
+}
+
+.nav-item .nav-link:hover {
+  color: black !important;
+  -webkit-transform: translateY(-1px);
+          transform: translateY(-1px);
+}
+
+.nav-item:hover {
+  color: black !important;
+}
+/*# sourceMappingURL=main.css.map */

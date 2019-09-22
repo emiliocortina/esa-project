@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "AACA,AAAA,wBAAwB,CAAC;EACrB,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,IAAI;CACd;;AAED,AAAA,mBAAmB,CAAC;EAChB,MAAM,EAAE,IAAI;EACZ,KAAK,EAAE,IAAI;CACd",
+    "sources": [
+        "satellite-data-display.component.scss"
+    ],
+    "names": [],
+    "file": "satellite-data-display.component.css"
+}

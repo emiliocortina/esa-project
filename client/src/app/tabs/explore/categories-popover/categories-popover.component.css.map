@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "categories-popover.component.scss"
+    ],
+    "names": [],
+    "file": "categories-popover.component.css"
+}
