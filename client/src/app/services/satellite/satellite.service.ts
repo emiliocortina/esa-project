@@ -10,6 +10,7 @@ import { MarkersService } from '../markers.service';
 import {EsaInfoService} from '../esa-info.service';
 import { SatelliteDataValuesObject } from './SatelliteDataValuesObject';
 import { SatelliteDataObject } from './SatelliteDataObject';
+import { Subscription, Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -20,12 +21,12 @@ export class SatelliteService {
 	}
 
 
-	createSatelliteDataValues(values: SatelliteDataValuesObject) {
+	createSatelliteDataValues(values: SatelliteDataValuesObject) : Observable<any> {
 		return this.apiService
 			.request('api/private/satelliteDataValue', 'post', null, values);
 	}
 
-	createSatelliteData(data: SatelliteDataObject) {
+	createSatelliteData(data: SatelliteDataObject) : Observable<any> {
 		return this.apiService
 			.request('api/private/satelliteData', 'post', null, data);
 	}
@@ -89,7 +90,7 @@ export class SatelliteService {
 			var markers: DataMarker[] = this.markersService.getInRange(start, end);
 
 			// TODO !!!!!! SQUARE REGRESSION!!!!!
-			var func = (x) => Math.random() * Math.pow(x, 2) + Math.random() * x + Math.random();
+			var func: string = "0";
 			var values = new SatelliteDataValues(start, end, func, cat, markers, res[i].dataPack);
 			valuesArray.push(values);
 		}

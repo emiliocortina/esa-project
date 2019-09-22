@@ -10,7 +10,7 @@ export class SatelliteDataValues
     start: Date;
     end: Date;
 
-    func: any; // The function that will evaluate an X value of the plot
+    func: string; // The function that will evaluate an X value of the plot
     dataCategory: DataCategory;
 
     markers: DataMarker[];
@@ -19,7 +19,7 @@ export class SatelliteDataValues
     keyValuePairs;
 
 
-    constructor(start: Date, end: Date, func: any, dataCategory: DataCategory,
+    constructor(start: Date, end: Date, func: string, dataCategory: DataCategory,
             markers: DataMarker[], keyValuePairs) {
 
         this.start = start;

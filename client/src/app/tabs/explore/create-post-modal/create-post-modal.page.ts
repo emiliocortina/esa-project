@@ -84,12 +84,13 @@ export class CreatePostModalPage implements OnInit {
     });
     loading.present();
 
-    var ids = [];
+    var ids : string[] = [];
     for (var i = 0; i < this.data.values.length; i ++)
     {
       var valDto = new SatelliteDataValuesObject(this.data.values[i]);
       try {
-        var id = await this.satelliteService.createSatelliteDataValues(valDto).toPromise();
+        var res = await this.satelliteService.createSatelliteDataValues(valDto).toPromise();
+        var id = res.id;
       }
       catch (err)
       {
@@ -98,14 +99,14 @@ export class CreatePostModalPage implements OnInit {
         return;
       }
       console.log("Satellite data values id = " + id);
-      ids.push(id);
+      ids.push("" + id);
     }
 
     var dto = new SatelliteDataObject(this.data, ids);
     this.satelliteService.createSatelliteData(dto)
       .subscribe(dataId => {
 
-        this.postsService.createCoop(new CoopObject({text: this.postBody }, [dataId]))
+        this.postsService.createCoop(new CoopObject({text: this.postBody }, [dataId.id]))
           .subscribe(async (res: any) => {
             let id = res.id;
             this.threadsService.createThread(new ThreadObject({

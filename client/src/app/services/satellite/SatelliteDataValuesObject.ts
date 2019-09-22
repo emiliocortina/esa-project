@@ -3,10 +3,19 @@ import { DataCategory } from '../models/satellite-data/data-category.model';
 export class SatelliteDataValuesObject {
 
     public dataCategory;
-    public function: string;
+    public leastSquares: string;
+
+    /*
+    function: { type: String, required: true },
+	dataCategory: {
+		unit: { type: String, required: true },
+		threadCategory: { type: String, required: true }
+    }
+    */
+    
 
     constructor(object: any) {
-        this.function = (object.func) ? object.func : "";
+        this.leastSquares = (object.func) ? object.func : "";
         
         if (object.dataCategory)
         {
@@ -16,6 +25,13 @@ export class SatelliteDataValuesObject {
             }
         }
         else this.dataCategory = null;
+
+        console.log("ME CAGO EN DIOS");
+        var obj = { 
+            leastSquares: this.leastSquares, 
+            dataCategory: this.dataCategory
+        };
+        console.log(obj)
     }
 
 
