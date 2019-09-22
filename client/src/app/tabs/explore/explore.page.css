@@ -1,0 +1,68 @@
+.welcome-card img {
+  max-height: 12rem;
+  overflow: hidden;
+}
+
+ion-content {
+  padding-top: 0;
+}
+
+ion-header::after {
+  background-image: none;
+}
+
+ion-card-content {
+  padding-top: 0;
+  margin-top: 0;
+}
+
+.md ion-card {
+  max-width: 23rem;
+  cursor: pointer;
+}
+
+.md ion-list .threads {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  justify-items: center;
+}
+
+ion-buttons ion-button ion-icon {
+  color: #333333;
+}
+
+@media (prefers-color-scheme: dark) {
+  html {
+    background: #000000;
+    color: #ffffff;
+  }
+}
+
+.unselectableText {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+#userAvatar {
+  -webkit-box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+          box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.2);
+  border-radius: 999px;
+}
+
+#patreonBtn ion-label {
+  color: white;
+}
+/*# sourceMappingURL=explore.page.css.map */

@@ -1,0 +1,49 @@
+.headerContent {
+  margin: 2rem 1.6rem;
+}
+
+ion-list p {
+  margin-left: 1.6rem;
+  margin-right: 1.6rem;
+  padding-bottom: 1rem;
+}
+
+ion-card-content {
+  padding-top: 0;
+}
+
+ion-card-content ion-label {
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color);
+}
+
+#headerImage {
+  width: 102vw;
+}
+
+#missionIcon {
+  width: 4rem;
+  margin-right: 1rem;
+}
+
+.titleAndIcon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  justify-items: flex-start;
+}
+
+ion-card-subtitle.contentSubtitle {
+  margin-top: 2rem;
+}
+/*# sourceMappingURL=mission-details.page.css.map */

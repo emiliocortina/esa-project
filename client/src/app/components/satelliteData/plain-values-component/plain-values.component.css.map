@@ -1,0 +1,9 @@
+{
+    "version": 3,
+    "mappings": "",
+    "sources": [
+        "plain-values.component.scss"
+    ],
+    "names": [],
+    "file": "plain-values.component.css"
+}

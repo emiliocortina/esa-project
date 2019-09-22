@@ -1,0 +1,125 @@
+ion-title b {
+  font-size: 0.6em;
+  color: var(--ion-color-secondary);
+  font-style: italic;
+}
+
+ion-card-header {
+  padding-bottom: 0;
+}
+
+ion-card-content {
+  padding-top: 0.5rem;
+}
+
+ion-card {
+  -webkit-transition: 0.5s;
+  transition: 0.5s;
+}
+
+ion-button.createPost {
+  border-radius: 9999px;
+}
+
+ion-grid {
+  height: 100%;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+}
+
+app-satellite-data-display {
+  width: 100%;
+  height: 100%;
+}
+
+/* * * * * * * * DATE SELECTION * * * * * * * */
+.dateSelectionRow {
+  height: 18%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  width: 100%;
+}
+
+.datePickersDiv {
+  width: 60%;
+}
+
+.dateButtonDiv {
+  width: 40%;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  justify-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.datePicker {
+  height: 50%;
+  width: 100%;
+}
+
+.datePicker ion-label {
+  color: gray;
+  font-size: 0.7em;
+  margin-right: 4px;
+}
+
+.datePicker ion-input {
+  background-color: #ebebeb;
+  -ms-flex-line-pack: center;
+      align-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-radius: 3px;
+}
+
+/* * * * * * * * DATA DISPLAY * * * * * * * */
+.displayRow {
+  width: 100%;
+}
+
+ion-list {
+  margin-bottom: 0;
+}
+
+/* * * * * * * * SENTINEL STUFF * * * * * * * */
+#missionIcon {
+  width: 4rem;
+  margin-right: 1rem;
+}
+
+.titleAndIcon {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-pack: start;
+      -ms-flex-pack: start;
+          justify-content: flex-start;
+  justify-items: flex-start;
+}
+
+ion-card.satelliteMission {
+  margin-bottom: 4rem;
+}
+/*# sourceMappingURL=stats-details.page.css.map */
