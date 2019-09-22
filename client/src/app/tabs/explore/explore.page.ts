@@ -71,6 +71,7 @@ export class ExplorePage implements OnInit {
 			let modal = await this.modalController.create({ component: CreatePostModalPage });
 
 			modal.onDidDismiss().then(() => {
+				this.threads = [];
 				this.loadThreads();
 			});
 
