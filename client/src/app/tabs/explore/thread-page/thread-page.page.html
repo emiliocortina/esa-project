@@ -56,18 +56,6 @@
                     <p style="white-space: pre-wrap;" class="postText">{{post.textContent}}</p>
                     <p class="postDate">{{post.created.toLocaleString()}}</p>
                 </ion-card-content>
-
-                <div class="comments">
-                    <ion-card class="commentPost" *ngFor="let post of this.thread.initialPost.comments">
-                        <ion-card-header>
-                            <ion-card-subtitle>@{{post.user.nickName}}</ion-card-subtitle>
-                        </ion-card-header>
-                        <ion-card-content>
-                            <p class="postText">{{post.textContent}}</p>
-                            <p class="postDate">{{post.created.toLocaleString()}}</p>
-                        </ion-card-content>
-                    </ion-card>
-                </div>
             </ion-card>
         </div>
     </div>
