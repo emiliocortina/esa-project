@@ -19,7 +19,7 @@
             </ion-card-header>
             <ion-card-content>
 
-                <ion-item *ngIf="data.values.length != 0" (click)="toggleDataDisplayExpand()">
+                <ion-item *ngIf="data" (click)="toggleDataDisplayExpand()">
                     <ion-icon *ngIf="!isDataDisplayExpanded" slot="end" name="arrow-dropdown"></ion-icon>
                     <ion-icon *ngIf="isDataDisplayExpanded" slot="end" name="arrow-dropup"></ion-icon>
                     <ion-label>Attached Stats</ion-label>

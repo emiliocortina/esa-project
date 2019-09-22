@@ -23,9 +23,9 @@ export class ThreadsService {
 			.subscribe((t: any) => {
 
 				try {
-					this.loadThreadObject(t, thread => {
+					this.loadPopulatedThreadObject(t, thread => {
 						res(thread);
-						console.log("TREAD LOADED SUCCESSFULLY!")
+						console.log("THREAD LOADED SUCCESSFULLY!");
 					});
 				}
 				catch (error) {
@@ -77,6 +77,32 @@ export class ThreadsService {
 		this.apiService.request('auth/user/' + threadObj.author, 'get', null, null)
 			.subscribe((user: any) => {
 				let u = new User(user.nickName, user.name, user.email);
+
+				console.log("ME VOY A CAGAR EN TODO LO QUE SE MENEA")
+				console.log(threadObj.head);
+
+				this.coopsService.loadCoop(threadObj.head, u, threadObj.category, coop => {
+
+					let thread = new Thread(threadObj._id, threadObj.title,
+						this.categoriesService.getCategory(threadObj.category),
+						coop, u);
+
+					callback(thread);
+				});
+			}
+			);
+	}
+
+
+	private loadPopulatedThreadObject(threadObj, callback) {
+		console.log("Loading thread object:");
+		console.log(threadObj);
+		this.apiService.request('auth/user/' + threadObj.author, 'get', null, null)
+			.subscribe((user: any) => {
+				let u = new User(user.nickName, user.name, user.email);
+
+				console.log("ME VOY A CAGAR EN TODO LO QUE SE MENEA")
+				console.log(threadObj.head._id);
 
 				this.coopsService.loadCoopFromObject(threadObj.head, u, threadObj.category, coop => {
 
