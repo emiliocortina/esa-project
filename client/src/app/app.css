@@ -38,13 +38,13 @@
 .md ion-tab-bar,
 .md .footer-md {
   -webkit-box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px 0px;
-          box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px 0px;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 4px 12px 0px;
   border: none !important;
 }
 
 .md .sc-ion-card-md-h {
   -webkit-box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
-          box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
+  box-shadow: 0px 10px 30px 0px rgba(0, 0, 0, 0.1);
 }
 
 ion-tab-button {
@@ -72,11 +72,11 @@ ion-header img {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   background: var(--ion-color-primary);
 }
 
@@ -97,13 +97,13 @@ ion-header img {
   position: absolute;
   top: 0;
   left: 0;
-  -webkit-animation: sk-bounce 2.0s infinite ease-in-out;
-  animation: sk-bounce 2.0s infinite ease-in-out;
+  -webkit-animation: sk-bounce 2s infinite ease-in-out;
+  animation: sk-bounce 2s infinite ease-in-out;
 }
 
 .double-bounce2 {
-  -webkit-animation-delay: -1.0s;
-  animation-delay: -1.0s;
+  -webkit-animation-delay: -1s;
+  animation-delay: -1s;
 }
 
 @-webkit-keyframes sk-bounce {

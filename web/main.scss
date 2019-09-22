@@ -1,93 +1,132 @@
 $cooper-main-color: #e06075;
 html body {
-	font-family: "Lato";
+  font-family: "Lato";
 
-	font-weight: 300;
-	font-size: 18px;
+  font-weight: 300;
+  font-size: 18px;
 }
 nav {
-	box-shadow: -1px -3px 8px grey !important;
+  box-shadow: -1px -3px 8px grey !important;
 }
 h1 {
-	margin-top: 100px !important;
-	text-align: center;
-	font-weight: 500;
-	font-family: "Raleway";
-	background-color: $cooper-main-color;
-	color: white;
-	margin-bottom: 40px;
-	padding: 10px 0;
+  margin-top: 100px !important;
+  border-bottom: $cooper-main-color 2px solid;
+  text-align: center;
+  font-weight: 500;
+  font-family: "Raleway";
+  background-color: white !important;
+  color: $cooper-main-color !important;
+  margin-bottom: 40px;
+  padding: 10px 0;
 }
 h2 {
-	text-align: center;
-	font-family: "Raleway";
+  text-align: center;
+  font-family: "Raleway";
 }
 #navbar-logo {
-	height: 50px !important;
+  height: 50px !important;
 }
 .card {
-	color: black !important;
-	width: 200px !important;
-	margin: 20px;
-	border: transparent !important;
-	box-shadow: 0px 3px 11px 0px transparentize($color: black, $amount: 0.6);
+  color: black !important;
+  width: 200px !important;
+  margin: 20px;
+  border: transparent !important;
+  box-shadow: 0px 3px 11px 0px transparentize($color: black, $amount: 0.6);
 }
 #cards-container {
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 .card-img-top {
-	width: 80% !important;
-	align-self: center !important;
-	margin: 10px auto;
+  width: 80% !important;
+  align-self: center !important;
+  margin: 10px auto;
 }
 .button-center-container {
-	text-align: center;
+  text-align: center;
 }
 
 section {
-	margin: 40px auto;
-	padding: 20px 0 !important;
-	&:nth-child(odd) {
-		background-color: $cooper-main-color;
-		color: white;
-	}
+  margin: 40px auto;
+  padding: 20px 0 !important;
+  &:nth-child(odd) {
+    background-color: $cooper-main-color;
+    color: white;
+  }
 }
 hr {
-	width: 15%;
+  width: 15%;
 }
 .donate-button {
-	padding: 0 40px !important;
+  padding: 0 40px !important;
 
-	height: 40px;
-	border-radius: 37px !important;
-	background-color: $cooper-main-color !important;
-	color: white !important;
-	&:hover {
-		background-color: darken($color: $cooper-main-color, $amount: 10) !important;
-	}
+  height: 40px;
+  border-radius: 37px !important;
+  background-color: $cooper-main-color !important;
+  color: white !important;
+  &:hover {
+    background-color: darken(
+      $color: $cooper-main-color,
+      $amount: 10
+    ) !important;
+    box-shadow: 0px 0px 10px 1px rgba(0, 0, 0, 0.32);
+  }
 }
 .btn:focus {
-	outline: none !important;
-	box-shadow: none !important;
+  outline: none !important;
+  box-shadow: none !important;
 }
 .cooper-video {
-	margin-top: 100px !important;
-	display: block;
-	margin: auto;
-	width: 60%;
+  margin-top: 100px !important;
+  display: block;
+  margin: auto;
+  width: 60%;
 }
 .section-image {
-	width: 400px;
-	float: left;
-
-	margin-right: 25px;
-	margin-bottom: 40px;
-	border-radius: 5px;
+  margin-bottom: 20px;
+  /* top: 0px; */
+  position: relative;
+  width: 100%;
 }
-@media only screen and (max-width: 776px) {
-	.section-image {
-		float: none;
-	}
+
+#make-change {
+  // background-image: url("./assets/images/satellite-1030779_1280.jpg");
+  // object-fit: cover;
+  padding-top: 0px !important;
+}
+.card {
+  background-color: transparent !important;
+  box-shadow: none;
+  color: white !important;
+  .card-header {
+    background-color: transparent;
+    border: transparent;
+    font-weight: 700;
+    font-size: 1.4rem;
+    border-bottom: 1px white solid;
+    padding-bottom: 8px;
+  }
+  .card-img-top {
+    border-radius: 50%;
+    box-shadow: 0px 0px 9px 0px #00000047;
+  }
+}
+
+footer {
+  text-align: center;
+  padding-bottom: 10px;
+}
+.nav-item {
+  .nav-link {
+    color: rgb(104, 85, 85) !important;
+    transition: all 0.1s;
+    &:hover {
+      color: black !important;
+      transform: translateY(-1px);
+    }
+  }
+  &:hover {
+    color: black !important;
+  }
 }

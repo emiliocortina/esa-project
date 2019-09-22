@@ -9,9 +9,7 @@
     <link rel="stylesheet" href="main.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
-        crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
         integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
         crossorigin="anonymous"></script>
@@ -19,6 +17,7 @@
         integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
         crossorigin="anonymous"></script>
     <link href="https://fonts.googleapis.com/css?family=Lato:300|Raleway&display=swap" rel="stylesheet">
+
 </head>
 
 <body>
@@ -32,27 +31,30 @@
 
         <div class="collapse navbar-collapse" id="navbarToggler">
             <ul class="navbar-nav mr-auto mt-2 mt-lg-0 float-lg-right">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+                <li class="nav-item ">
+                    <a class="nav-link" href="#description">What's cooper </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
+                    <a class="nav-link" href="#make-change">Make a change</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link " href="#" tabindex="-1" aria-disabled="true">Disabled</a>
+                    <a class="nav-link" href="#now-what">Now what</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#about">About</a>
                 </li>
 
             </ul>
             <button class="donate-button  btn ">
-                Please donate!
+                Become a patreon
             </button>
 
         </div>
     </nav>
-  <!--   <h1>Cooper</h1> -->
+    <h1>Reliable , shared, empowering</h1>
     <img src="./assets/images/undraw_video_influencer_9oyy.svg" alt="" class="cooper-video">
     <!-- Incluir un link a la aplicacion -->
-    <section>
+    <section id="description">
         <div class="container">
             <h2>What's Cooper?</h2>
             <hr>
@@ -82,30 +84,41 @@
             </article>
         </div>
     </section>
-    <section>
-        <div class="container">
+    <section id="make-change">
+
+        <img src="./assets/images/satellite-1030779_1280.jpg" alt="ISS" class="section-image">
+        <div class="text-container container">
+
 
             <h2>Make the change</h2>
             <hr>
-            <img src="./assets/images/satellite-1030779_1280.jpg" alt="ISS" class="section-image">
+
+
+
             <p>
-                Cooper is not a common "Climate change" platform. Our aim is not force you to make the first move, we
+                Cooper is not a common "Climate change" platform. Our aim is not force you to make the first
+                move, we
                 don't
-                have the right to do that. It's is the moment that you realise what's right and what's not, and you have
+                have the right to do that. It's is the moment that you realise what's right and what's not, and
+                you have
                 the
-                power to enforce the goverments to make a change. Cooper is just a source of reliable information,
+                power to enforce the goverments to make a change. Cooper is just a source of reliable
+                information,
                 directly provided by the ESA satellites observations.
             </p>
             <p>
 
                 A law
                 in
-                your city forbide the trafic in the center? Visit Cooper and see if it had a real impact. Factories have
+                your city forbide the trafic in the center? Visit Cooper and see if it had a real impact.
+                Factories have
                 increased over the years, have a look at the historial of air pollution meassures.
             </p>
+
+
         </div>
     </section>
-    <section>
+    <section id="now-what">
         <div class="container">
 
             <h2>Now what?</h2>
@@ -121,7 +134,7 @@
             </p>
         </div>
     </section>
-    <section>
+    <section id="about">
         <div class="container">
 
             <h2>About us</h2>
@@ -168,5 +181,6 @@
     </footer>
 
 </body>
+<script src="scripts/main.js"></script>
 
 </html>
