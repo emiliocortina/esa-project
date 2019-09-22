@@ -70,6 +70,11 @@
                                 [values]="values"
                                 [isExtended]="false">
                         </app-satellite-data-display>
+                        <div style="width: 100%; display: flex; justify-content: right;">
+                            <a style="width: 100%; text-align: right;">
+                                See more... [TODO]
+                            </a>
+                        </div>
                     </ion-card-content>
                 </ion-card>
 
@@ -77,23 +82,39 @@
 
         </ion-row>
 
-
-        <ion-list-header>Data Sources</ion-list-header>
-        <div class="satelliteMission" *ngIf="data.values[0]">
-            <ion-card (click)="dismissModal()" routerLink="{{'/tabs/agencies/esa/mission/' + data.values[0].dataCategory.esaMission.id}}">
-                <ion-card-header>
-                    <div class="titleAndIcon">
-                        <ion-img id="missionIcon" src="{{data.values[0].dataCategory.esaMission.getIconURL()}}"></ion-img>
-                        <div class="titleAndSubtitle">
-                            <ion-card-title>{{data.values[0].dataCategory.esaMission.name}}</ion-card-title>
-                            <ion-card-subtitle>Copernicus Program</ion-card-subtitle>
-                        </div>
-                    </div>
-                </ion-card-header>
-                <ion-card-content>
-                    <p *ngFor="let paragraph of data.values[0].dataCategory.esaMission.previewLabels">{{paragraph}}</p>
-                </ion-card-content>
-            </ion-card>
+        <div class="postButtonDiv">
+            <ion-button color="secondary"(click)="createCooper()">
+                <ion-icon src="assets/icon/newPost.svg" slot="end"></ion-icon>
+                <ion-label style="margin-right: 12px; color: white;">Create Post</ion-label>
+            </ion-button>
         </div>
+
+
+        <ion-item (click)="toggleMissionDetailsExpand()">
+            <ion-icon *ngIf="!isMissionDetailsExpanded" slot="end" name="arrow-dropdown"></ion-icon>
+            <ion-icon *ngIf="isMissionDetailsExpanded" slot="end" name="arrow-dropup"></ion-icon>
+            <ion-label>Data Sources</ion-label>
+        </ion-item>
+
+        <app-expandable expandHeight="400px" [expanded]="isMissionDetailsExpanded">
+
+            <div class="satelliteMission" *ngIf="data.values[0]">
+                <ion-card (click)="dismissModal()" routerLink="{{'/tabs/agencies/esa/mission/' + data.values[0].dataCategory.esaMission.id}}">
+                    <ion-card-header>
+                        <div class="titleAndIcon">
+                            <ion-img id="missionIcon" src="{{data.values[0].dataCategory.esaMission.getIconURL()}}"></ion-img>
+                            <div class="titleAndSubtitle">
+                                <ion-card-title>{{data.values[0].dataCategory.esaMission.name}}</ion-card-title>
+                                <ion-card-subtitle>Copernicus Program</ion-card-subtitle>
+                            </div>
+                        </div>
+                    </ion-card-header>
+                    <ion-card-content>
+                        <p *ngFor="let paragraph of data.values[0].dataCategory.esaMission.previewLabels">{{paragraph}}</p>
+                    </ion-card-content>
+                </ion-card>
+            </div>
+        </app-expandable>
+        
 
 </ion-content>

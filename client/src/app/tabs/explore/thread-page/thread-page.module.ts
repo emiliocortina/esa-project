@@ -6,6 +6,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { ThreadPage } from './thread-page.page';
+import { ExpandableComponentModule } from 'src/app/components/expandable/expandable.module';
+import { SatelliteDataDisplayModule } from 'src/app/components/satelliteData/satellite-data-display/satellite-data-display.module';
 
 const routes: Routes = [
   {
@@ -19,6 +21,8 @@ const routes: Routes = [
     CommonModule,
     FormsModule,
     IonicModule,
+    SatelliteDataDisplayModule,
+    ExpandableComponentModule,
     RouterModule.forChild(routes)
   ],
   declarations: [ThreadPage]

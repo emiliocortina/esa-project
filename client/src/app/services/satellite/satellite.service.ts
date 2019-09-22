@@ -1,13 +1,16 @@
 import { Injectable } from '@angular/core';
-import { SatelliteData } from './models/satellite-data/satellite-data.model';
-import { DataCategory } from './models/satellite-data/data-category.model';
-import { SatelliteDataValues } from './models/satellite-data/satellite-data-values.model';
-import { Category } from './models/category.model';
-import { ApiService } from './api.service';
+import { SatelliteData } from '../models/satellite-data/satellite-data.model';
+import { DataCategory } from '../models/satellite-data/data-category.model';
+import { SatelliteDataValues } from '../models/satellite-data/satellite-data-values.model';
+import { Category } from '../models/category.model';
+import { ApiService } from '../api.service';
 import { HttpParams } from '@angular/common/http';
-import { DataMarker } from './models/satellite-data/data-marker.model';
-import { MarkersService } from './markers.service';
-import {EsaInfoService} from './esa-info.service';
+import { DataMarker } from '../models/satellite-data/data-marker.model';
+import { MarkersService } from '../markers.service';
+import {EsaInfoService} from '../esa-info.service';
+import { SatelliteDataValuesObject } from './SatelliteDataValuesObject';
+import { SatelliteDataObject } from './SatelliteDataObject';
+import { Subscription, Observable } from 'rxjs';
 
 @Injectable({
 	providedIn: 'root'
@@ -15,6 +18,17 @@ import {EsaInfoService} from './esa-info.service';
 export class SatelliteService {
 
 	constructor(private apiService: ApiService, private markersService: MarkersService, private esaService: EsaInfoService) {
+	}
+
+
+	createSatelliteDataValues(values: SatelliteDataValuesObject) : Observable<any> {
+		return this.apiService
+			.request('api/private/satelliteDataValue', 'post', null, values);
+	}
+
+	createSatelliteData(data: SatelliteDataObject) : Observable<any> {
+		return this.apiService
+			.request('api/private/satelliteData', 'post', null, data);
 	}
 
 
@@ -76,7 +90,7 @@ export class SatelliteService {
 			var markers: DataMarker[] = this.markersService.getInRange(start, end);
 
 			// TODO !!!!!! SQUARE REGRESSION!!!!!
-			var func = (x) => Math.random() * Math.pow(x, 2) + Math.random() * x + Math.random();
+			var func: string = "0";
 			var values = new SatelliteDataValues(start, end, func, cat, markers, res[i].dataPack);
 			valuesArray.push(values);
 		}

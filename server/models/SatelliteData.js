@@ -15,7 +15,7 @@ let SatelliteDataSchema = new Schema({
 });
 
 let SatelliteDataValue = new Schema({
-	function: { type: String, required: true },
+	leastSquares: { type: String, required: true },
 	dataCategory: {
 		unit: { type: String, required: true },
 		threadCategory: { type: String, required: true }
