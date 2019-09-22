@@ -19,23 +19,20 @@
             </ion-card-header>
             <ion-card-content>
 
-                <ion-item (click)="toggleDataDisplayExpand()">
+                <ion-item *ngIf="data.values.length != 0" (click)="toggleDataDisplayExpand()">
                     <ion-icon *ngIf="!isDataDisplayExpanded" slot="end" name="arrow-dropdown"></ion-icon>
                     <ion-icon *ngIf="isDataDisplayExpanded" slot="end" name="arrow-dropup"></ion-icon>
                     <ion-label>Attached Stats</ion-label>
                 </ion-item>
-        
+
                 <app-expandable *ngIf="data" expandHeight="400px" [expanded]="isDataDisplayExpanded">
 
                     <div *ngFor="let values of data.values; let i = index">
-                        <app-satellite-data-display
-                            id="{{'display' + i}}"
-                            [displayType]="'chart'"
-                            [values]="values"
+                        <app-satellite-data-display id="{{'display' + i}}" [displayType]="'chart'" [values]="values"
                             [isExtended]="false">
                         </app-satellite-data-display>
                     </div>
-                    
+
                 </app-expandable>
 
                 <p style="white-space: pre-wrap;">{{thread.getPreview()}}</p>

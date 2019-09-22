@@ -73,10 +73,9 @@ export class CreatePostModalPage implements OnInit {
 	createImageFromBlob(image: Blob) {
 		const reader = new FileReader();
 		reader.addEventListener('load', () => {
-			console.log(this.imageBlobUrl);
+			//console.log(this.imageBlobUrl);
 			this.imageBlobUrl = reader.result;
-
-			console.log(this.imageBlobUrl);
+			//console.log(this.imageBlobUrl);
 		}, false);
 		if (image) {
 			reader.readAsDataURL(image);
@@ -115,27 +114,38 @@ export class CreatePostModalPage implements OnInit {
 	}
 
 	private async submitThread() {
+
 		// Create loading dialog
 		const loading = await this.loadingController.create({
 			message: 'Getting data near your location...'
 		});
 		loading.present();
 
+		if (this.data) {
+			console.log("Submitting thread with data...");
+			this.submitThreadWithData();
+		}
+		else {
+			console.log("Submitting thread without data...");
+			this.submitThreadWithoutData();
+		}
+	}
+
+	private async submitThreadWithData() {
 		const ids: string[] = [];
-		for (let i = 0; i < this.data.values.length; i++) {
+
+		for (var i = 0; i < this.data.values.length; i++) {
 			const valDto = new SatelliteDataValuesObject(this.data.values[i]);
 			try {
 				const res = await this.satelliteService.createSatelliteDataValues(valDto).toPromise();
 				const id = res.id;
-				ids.push('' + id);
-				console.log('Satellite data values id = ' + id);
-			} catch (err) {
+				ids.push("" + id);
+			}
+			catch (err) {
 				console.log(err);
 				this.loadingController.dismiss();
 				return;
 			}
-
-
 		}
 
 		const dto = new SatelliteDataObject(this.data, ids);
@@ -158,6 +168,27 @@ export class CreatePostModalPage implements OnInit {
 				});
 		});
 	}
+
+	private async submitThreadWithoutData() {
+		this.postsService
+			.createCoop(new CoopObject({ text: this.postBody }, []))
+			.subscribe(async (res: any) => {
+				const id = res.id;
+				this.threadsService.createThread(
+					new ThreadObject({
+						title: this.postTitle,
+						category: this.selectedCategory,
+						head: id
+					})
+				);
+
+				this.loadingController.dismiss();
+				this.generateToast('Thread successfully created!', 'success');
+				this.modalController.dismiss();
+			});
+	}
+
+
 
 	async generateToast(msg: string, col: string) {
 		const toast = await this.toastController.create({

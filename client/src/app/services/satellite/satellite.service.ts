@@ -7,7 +7,7 @@ import { ApiService } from '../api.service';
 import { HttpParams } from '@angular/common/http';
 import { DataMarker } from '../models/satellite-data/data-marker.model';
 import { MarkersService } from '../markers.service';
-import {EsaInfoService} from '../esa-info.service';
+import { EsaInfoService } from '../esa-info.service';
 import { SatelliteDataValuesObject } from './SatelliteDataValuesObject';
 import { SatelliteDataObject } from './SatelliteDataObject';
 import { Subscription, Observable } from 'rxjs';
@@ -17,30 +17,34 @@ import { CategoriesService } from '../categories.service';
 	providedIn: 'root'
 })
 export class SatelliteService {
-    
+
 
 	constructor(
-		private apiService: ApiService, 
-		private markersService: MarkersService, 
+		private apiService: ApiService,
+		private markersService: MarkersService,
 		private esaService: EsaInfoService,
 		private categoriesService: CategoriesService) {
 	}
 
 
-	createSatelliteDataValues(values: SatelliteDataValuesObject) : Observable<any> {
+	createSatelliteDataValues(values: SatelliteDataValuesObject): Observable<any> {
+		console.log("CREATING SATELLITE DATA VALUES");
+		console.log(values);
 		return this.apiService
 			.request('api/private/satelliteDataValue', 'post', null, values);
 	}
 
-	createSatelliteData(data: SatelliteDataObject) : Observable<any> {
+	createSatelliteData(data: SatelliteDataObject): Observable<any> {
+		console.log("CREATING SATELLITE DATA");
+		console.log(data);
 		return this.apiService
 			.request('api/private/satelliteData', 'post', null, data);
 	}
 
-	loadSatelliteData(id: string, callback) : void {
+	loadSatelliteData(id: string, threadCategory: string, callback): void {
 		this.apiService
 			.request('api/private/satelliteData/' + id, 'get', null, null)
-			.subscribe(async (res : any) => {		
+			.subscribe(async (res: any) => {
 
 				var start = new Date(res.start);
 				var end = new Date(res.end);
@@ -49,33 +53,33 @@ export class SatelliteService {
 				var markers: DataMarker[] = this.markersService.getInRange(start, end);
 
 				var dataValues: SatelliteDataValues[] = [];
-				for (var i = 0; i < res.satelliteDataValues.length; i ++)
-				{
+				for (var i = 0; i < res.satelliteDataValues.length; i++) {
 					var dv = res.satelliteDataValues[i];
 					var category = this.categoriesService.getCategory(dv.dataCategory.threadCategory);
+
 					var dataCat = new DataCategory(dv.dataCategory.unit, category, this.esaService);
-		
+
 					var values = new SatelliteDataValues(
 						start,
-						end, 
-						dv.leastSquares, 
-						dataCat, 
-						markers, 
+						end,
+						dv.leastSquares,
+						dataCat,
+						markers,
 						dv.keyValuePairs);
 					dataValues.push(values)
 				}
 
-
+				var threadCat = this.categoriesService.getCategory(threadCategory);
 				var result = new SatelliteData(
-					category.name, 
-					res.latitude, 
-					res.longitude, 
+					threadCat.name,
+					res.latitude,
+					res.longitude,
 					res.start,
-					res.end, 
+					res.end,
 					dataValues);
 				callback(result);
 			});
-    }
+	}
 
 
 
@@ -132,8 +136,9 @@ export class SatelliteService {
 	private processSatelliteData(res, latitude: number, longitude: number,
 		start: Date, end: Date, category: Category) {
 		var valuesArray: SatelliteDataValues[] = [];
+		let title = "";
 
-		for (let i = 0; i < res.length; i ++) {
+		for (let i = 0; i < res.length; i++) {
 			var cat = new DataCategory(res[i].unit, category, this.esaService);
 			var markers: DataMarker[] = this.markersService.getInRange(start, end);
 

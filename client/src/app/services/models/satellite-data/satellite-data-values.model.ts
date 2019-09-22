@@ -4,8 +4,7 @@ import { DataMarker } from './data-marker.model';
 /**
  * Represents the Y axis of a plot.
  */
-export class SatelliteDataValues
-{
+export class SatelliteDataValues {
 
     start: Date;
     end: Date;
@@ -14,13 +13,14 @@ export class SatelliteDataValues
     dataCategory: DataCategory;
 
     markers: DataMarker[];
+    valueName: string;
 
     // TODO remove this after we achieve quatratic approximation
     keyValuePairs;
 
 
     constructor(start: Date, end: Date, func: string, dataCategory: DataCategory,
-            markers: DataMarker[], keyValuePairs) {
+        markers: DataMarker[], keyValuePairs) {
 
         this.start = start;
         this.end = end;

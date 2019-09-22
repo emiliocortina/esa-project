@@ -10,111 +10,98 @@
 </ion-header>
 
 <ion-content>
-        <ion-row class="dateSelectionRow">
+    <ion-row class="dateSelectionRow">
 
-            <ion-item-group class="datePickersDiv">
+        <ion-item-group class="datePickersDiv">
 
-                <ion-item class="datePicker">
-                    <ion-icon slot="end" name="calendar" (click)="pickStartDate()" style="margin-left: 8px;"></ion-icon>
-                    <ion-label>Start date:</ion-label>
-                    <ion-input
-                            placeholder="dd-mm-yyyy"
-                            debounce="500"
-                            inputmode="text"
-                            maxlength="10"
-                            minlength="10"
-                            [(ngModel)]="startDateText"
-                            (ionChange)="onStartDateChange()">
-                    </ion-input>
-                </ion-item>
+            <ion-item class="datePicker">
+                <ion-icon slot="end" name="calendar" (click)="pickStartDate()" style="margin-left: 8px;"></ion-icon>
+                <ion-label>Start date:</ion-label>
+                <ion-input placeholder="dd-mm-yyyy" debounce="500" inputmode="text" maxlength="10" minlength="10"
+                    [(ngModel)]="startDateText" (ionChange)="onStartDateChange()">
+                </ion-input>
+            </ion-item>
 
-                <ion-item class="datePicker">
-                    <ion-icon slot="end" name="calendar" (click)="pickEndDate()" style="margin-left: 8px;"></ion-icon>
-                    <ion-label>End date:</ion-label>
-                    <ion-input
-                            placeholder="dd-mm-yyyy"
-                            debounce="500"
-                            inputmode="text"
-                            maxlength="10"
-                            minlength="10"
-                            [(ngModel)]="endDateText"
-                            (ionChange)="onEndDateChange()">
-                    </ion-input>
-                </ion-item>
+            <ion-item class="datePicker">
+                <ion-icon slot="end" name="calendar" (click)="pickEndDate()" style="margin-left: 8px;"></ion-icon>
+                <ion-label>End date:</ion-label>
+                <ion-input placeholder="dd-mm-yyyy" debounce="500" inputmode="text" maxlength="10" minlength="10"
+                    [(ngModel)]="endDateText" (ionChange)="onEndDateChange()">
+                </ion-input>
+            </ion-item>
 
-            </ion-item-group>
+        </ion-item-group>
 
-            <div class="dateButtonDiv">
-                <ion-button color="secondary" fill="outline" (click)="updateData()">
-                    <ion-icon name="sync" slot="end"></ion-icon>
-                    <ion-label>Update</ion-label>
-                </ion-button>
-            </div>
-
-        </ion-row>
-
-        <ion-row class="displayRow">
-
-            <ion-list style="width: 100%;">
-
-                <ion-card *ngFor="let values of data.values; let i = index">
-                    <ion-card-header>
-                        <ion-card-title>{{ values.dataCategory.name }}</ion-card-title>
-                        <ion-card-subtitle>Subtitle goes here</ion-card-subtitle>
-                    </ion-card-header>
-
-                    <ion-card-content>
-                        <app-satellite-data-display
-                                id="{{'display' + i}}"
-                                [displayType]="'chart'"
-                                [values]="values"
-                                [isExtended]="false">
-                        </app-satellite-data-display>
-                        <div style="width: 100%; display: flex; justify-content: right;">
-                            <a style="width: 100%; text-align: right;">
-                                See more... [TODO]
-                            </a>
-                        </div>
-                    </ion-card-content>
-                </ion-card>
-
-            </ion-list>
-
-        </ion-row>
-
-        <div class="postButtonDiv">
-            <ion-button color="secondary"(click)="createCooper()">
-                <ion-icon src="assets/icon/newPost.svg" slot="end"></ion-icon>
-                <ion-label style="margin-right: 12px; color: white;">Create Post</ion-label>
+        <div class="dateButtonDiv">
+            <ion-button color="secondary" fill="outline" (click)="updateData()">
+                <ion-icon name="sync" slot="end"></ion-icon>
+                <ion-label>Update</ion-label>
             </ion-button>
         </div>
 
+    </ion-row>
 
-        <ion-item (click)="toggleMissionDetailsExpand()">
-            <ion-icon *ngIf="!isMissionDetailsExpanded" slot="end" name="arrow-dropdown"></ion-icon>
-            <ion-icon *ngIf="isMissionDetailsExpanded" slot="end" name="arrow-dropup"></ion-icon>
-            <ion-label>Data Sources</ion-label>
-        </ion-item>
+    <ion-row class="displayRow">
 
-        <app-expandable expandHeight="400px" [expanded]="isMissionDetailsExpanded">
+        <ion-list style="width: 100%;">
 
-            <div class="satelliteMission" *ngIf="data.values[0]">
-                <ion-card (click)="dismissModal()" routerLink="{{'/tabs/agencies/esa/mission/' + data.values[0].dataCategory.esaMission.id}}">
-                    <ion-card-header>
-                        <div class="titleAndIcon">
-                            <ion-img id="missionIcon" src="{{data.values[0].dataCategory.esaMission.getIconURL()}}"></ion-img>
-                            <div class="titleAndSubtitle">
-                                <ion-card-title>{{data.values[0].dataCategory.esaMission.name}}</ion-card-title>
-                                <ion-card-subtitle>Copernicus Program</ion-card-subtitle>
-                            </div>
+            <ion-card *ngFor="let values of data.values; let i = index">
+                <ion-card-header>
+                    <ion-card-title>{{ values.dataCategory.title }}</ion-card-title>
+                    <ion-card-subtitle>{{ values.dataCategory.name }}</ion-card-subtitle>
+                </ion-card-header>
+
+                <ion-card-content>
+                    <app-satellite-data-display id="{{'display' + i}}" [displayType]="'chart'" [values]="values"
+                        [isExtended]="false">
+                    </app-satellite-data-display>
+                    <div style="width: 100%; display: flex; justify-content: right;">
+                        <!-- <a style="width: 100%; text-align: right;">
+                                See more... [TODO]
+                            </a> -->
+                    </div>
+                </ion-card-content>
+            </ion-card>
+
+        </ion-list>
+
+    </ion-row>
+
+    <div class="postButtonDiv">
+        <ion-button color="secondary" (click)="createCooper()">
+            <ion-icon src="assets/icon/newPost.svg" slot="end"></ion-icon>
+            <ion-label style="margin-right: 12px; color: white;">Create Post</ion-label>
+        </ion-button>
+    </div>
+
+
+    <ion-item (click)="toggleMissionDetailsExpand()">
+        <ion-icon *ngIf="!isMissionDetailsExpanded" slot="end" name="arrow-dropdown"></ion-icon>
+        <ion-icon *ngIf="isMissionDetailsExpanded" slot="end" name="arrow-dropup"></ion-icon>
+        <ion-label>Data Sources</ion-label>
+    </ion-item>
+
+    <app-expandable expandHeight="400px" [expanded]="isMissionDetailsExpanded">
+
+        <div class="satelliteMission" *ngIf="data.values[0]">
+            <ion-card (click)="dismissModal()"
+                routerLink="{{'/tabs/agencies/esa/mission/' + data.values[0].dataCategory.esaMission.id}}">
+                <ion-card-header>
+                    <div class="titleAndIcon">
+                        <ion-img id="missionIcon" src="{{data.values[0].dataCategory.esaMission.getIconURL()}}">
+                        </ion-img>
+                        <div class="titleAndSubtitle">
+                            <ion-card-title>{{data.values[0].dataCategory.esaMission.name}}</ion-card-title>
+                            <ion-card-subtitle>Copernicus Program</ion-card-subtitle>
                         </div>
-                    </ion-card-header>
-                    <ion-card-content>
-                        <p *ngFor="let paragraph of data.values[0].dataCategory.esaMission.previewLabels">{{paragraph}}</p>
-                    </ion-card-content>
-                </ion-card>
-            </div>
-        </app-expandable>
-        
+                    </div>
+                </ion-card-header>
+                <ion-card-content>
+                    <p *ngFor="let paragraph of data.values[0].dataCategory.esaMission.previewLabels">{{paragraph}}</p>
+                </ion-card-content>
+            </ion-card>
+        </div>
+    </app-expandable>
+
 
 </ion-content>

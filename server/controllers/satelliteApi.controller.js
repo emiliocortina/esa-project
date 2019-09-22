@@ -24,7 +24,7 @@ exports.handleDatasetCall = async (req, res, next) => {
       info_format: "text/json",
       time: `${start.toISOString()}/${end.toISOString()}`
     },
-    function(err, ret) {
+    function (err, ret) {
       if (err) {
         //error handling
 
@@ -183,7 +183,7 @@ exports.handleLayerCall = async (req, res, next) => {
 
   //results
 
-  ramani.getPointProfile(layerobj, function(err, ret) {
+  ramani.getPointProfile(layerobj, function (err, ret) {
     if (err) {
       //error handling
 
@@ -197,7 +197,7 @@ exports.handleLayerCall = async (req, res, next) => {
       );
       return;
     }
-    ret.data.forEach(function(obj) {
+    ret.data.forEach(function (obj) {
       //process results
       if (!obj.value) {
         next(
@@ -244,8 +244,8 @@ exports.generateMap = async (req, res, next) => {
 
   const id = randomId(len, pattern);
 
-  var download = function(uri, filename, callback) {
-    request.head(uri, function(err, res, body) {
+  var download = function (uri, filename, callback) {
+    request.head(uri, function (err, res, body) {
       request(uri)
         .pipe(fs.createWriteStream(filename))
         .on("close", callback);
@@ -263,7 +263,7 @@ exports.generateMap = async (req, res, next) => {
     download(
       `https://ramani.ujuizi.com/cloud/getimage?token=bun99q5ti8js3m7aptmnckcrg4&user=emiliocortina2&WIDTH=540&HEIGHT=304&BBOX=${bboxString}&FILENAME=image.tiff&TIME=${startDate.toISOString()}/${endDate.toISOString()}/P1D&cloudinnes=80&FORMAT=image/png`,
       `./images/satellite/optic/${id}.png`,
-      function() {
+      function () {
         let pathResolved = path.resolve(
           __dirname,
           `../images/satellite/optic/${id}.png`
@@ -272,7 +272,7 @@ exports.generateMap = async (req, res, next) => {
         res.sendFile(pathResolved);
         res.on("finish", () => {
           try {
-            fs.unlink(pathResolved, () => {});
+            fs.unlink(pathResolved, () => { });
           } catch (e) {
             console.log("error removing ", pathResolved);
           }
@@ -295,7 +295,7 @@ exports.generateMap = async (req, res, next) => {
 exports.getMap = async (req, res, next) => {
   let id = req.params.image;
   let pathResolved = path.resolve(__dirname, `../images/satellite/optic/${id}`);
-  res.sendFile(pathResolved, null, function(err) {
+  res.sendFile(pathResolved, null, function (err) {
     next(
       errorServ.buildError(
         req.url,
