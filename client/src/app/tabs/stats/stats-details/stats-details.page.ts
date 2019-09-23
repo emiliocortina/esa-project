@@ -16,7 +16,7 @@ import { Router } from '@angular/router';
 export class StatsDetailsPage implements OnInit {
 
     showCard = false;
-    isMissionDetailsExpanded = false;
+    isMissionDetailsExpanded = true;
 
     @Input() locationName: string;
     @Input() data: SatelliteData;

@@ -75,13 +75,7 @@
     </div>
 
 
-    <ion-item (click)="toggleMissionDetailsExpand()">
-        <ion-icon *ngIf="!isMissionDetailsExpanded" slot="end" name="arrow-dropdown"></ion-icon>
-        <ion-icon *ngIf="isMissionDetailsExpanded" slot="end" name="arrow-dropup"></ion-icon>
-        <ion-label>Data Sources</ion-label>
-    </ion-item>
-
-    <app-expandable expandHeight="400px" [expanded]="isMissionDetailsExpanded">
+    <ion-list-header>Data Sources</ion-list-header>
 
         <div class="satelliteMission" *ngIf="data.values[0]">
             <ion-card (click)="dismissModal()"
@@ -101,7 +95,6 @@
                 </ion-card-content>
             </ion-card>
         </div>
-    </app-expandable>
 
 
 </ion-content>
